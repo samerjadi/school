@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>نظام رصد درجات - مدرسة الشحانية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{
+  --bg:#070b14;--card:#111827;--card2:#0f172a;--txt:#e5e7eb;--muted:#94a3b8;
+  --blue:#38bdf8;--cyan:#22d3ee;--green:#10b981;--gold:#fbbf24;--red:#f43f5e;--purple:#a78bfa;--maroon:#7f1d1d;
+  --border:rgba(255,255,255,.10);--soft:rgba(255,255,255,.055)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',system-ui,sans-serif;background:
+ radial-gradient(circle at top right,rgba(127,29,29,.42),transparent 34%),
+ radial-gradient(circle at top left,rgba(56,189,248,.20),transparent 31%),
+ linear-gradient(135deg,#050816,#0b1020 55%,#090b10);color:var(--txt);min-height:100vh;padding:18px}
+button,input,textarea,select{font-family:'Tajawal',system-ui,sans-serif;outline:none}
+button{cursor:pointer}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shine{0%{background-position:200%}100%{background-position:-200%}}
+.app{max-width:1320px;margin:0 auto;animation:fade .45s ease}
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:28px;padding:22px 20px 20px;background:linear-gradient(135deg,rgba(127,29,29,.34),rgba(17,24,39,.92) 50%,rgba(15,23,42,.96));box-shadow:0 24px 80px rgba(0,0,0,.42);margin-bottom:16px}
+.hero:before{content:"";position:absolute;inset:-60%;background:radial-gradient(circle,rgba(251,191,36,.13),transparent 28%);animation:shine 7s linear infinite;opacity:.9}
+.hero-inner{position:relative;display:grid;grid-template-columns:130px 1fr auto;gap:18px;align-items:center}
+.logo-box{width:126px;height:126px;border-radius:28px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);border:1px solid rgba(251,191,36,.36);box-shadow:inset 0 0 30px rgba(251,191,36,.08),0 12px 35px rgba(0,0,0,.25);overflow:hidden}
+.logo-box img{width:100%;height:100%;object-fit:contain;padding:8px}
+.logo-placeholder{text-align:center;color:#fbbf24;font-weight:900;font-size:16px;line-height:1.5}
+.kicker{display:inline-flex;gap:8px;align-items:center;color:#fbbf24;background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.22);border-radius:999px;padding:6px 15px;font-size:13px;font-weight:800;margin-bottom:10px}
+h1{font-size:clamp(26px,4vw,45px);font-weight:900;letter-spacing:-.6px;line-height:1.25;background:linear-gradient(90deg,#fff,#fbbf24,#38bdf8,#fff);background-size:220%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shine 6s linear infinite}
+.subtitle{color:#cbd5e1;font-size:14px;margin-top:8px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.file-label,.btn{border:none;border-radius:14px;padding:10px 15px;font-weight:800;font-size:13px;color:#fff;background:linear-gradient(135deg,#2563eb,#06b6d4);box-shadow:0 10px 25px rgba(37,99,235,.25);display:inline-flex;align-items:center;gap:8px}.file-label input{display:none}.btn.ghost{background:rgba(255,255,255,.07);border:1px solid var(--border);box-shadow:none;color:#e5e7eb}.btn.gold{background:linear-gradient(135deg,#b45309,#fbbf24);box-shadow:0 10px 25px rgba(251,191,36,.16)}.btn.red{background:rgba(244,63,94,.10);border:1px solid rgba(244,63,94,.3);box-shadow:none;color:#fecdd3}.btn.green{background:linear-gradient(135deg,#059669,#22d3ee)}
+.info-grid{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:10px;margin:16px 0}.field{background:rgba(255,255,255,.045);border:1px solid var(--border);border-radius:18px;padding:11px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.field input,.field select{width:100%;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);color:var(--txt);border-radius:12px;padding:10px 12px;font-size:14px}.field select option{background:#0f172a;color:#fff}
+.stage-switch{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 13px}.stage-btn{border:1px solid var(--border);background:rgba(255,255,255,.055);color:var(--muted);padding:11px 20px;border-radius:16px;font-weight:900;font-size:14px;transition:.2s}.stage-btn.active{color:#fff;background:linear-gradient(135deg,rgba(127,29,29,.8),rgba(251,191,36,.28));border-color:rgba(251,191,36,.45);box-shadow:0 12px 35px rgba(127,29,29,.25)}
+.layout{display:grid;grid-template-columns:300px 1fr;gap:14px}.side{background:rgba(17,24,39,.74);border:1px solid var(--border);border-radius:24px;padding:14px;height:max-content;position:sticky;top:12px}.side-title{font-weight:900;color:#fbbf24;margin:2px 5px 12px}.grade-group{margin-bottom:11px}.grade-head{display:flex;justify-content:space-between;align-items:center;border-radius:15px;padding:10px 12px;background:rgba(255,255,255,.055);border:1px solid var(--border);font-weight:900}.grade-head small{color:var(--muted);font-weight:700}.section-list{display:grid;gap:7px;margin-top:7px}.section-btn{width:100%;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.16);color:#cbd5e1;border-radius:13px;padding:9px 11px;font-size:13px;font-weight:800;transition:.2s}.section-btn:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.25)}.section-btn.active{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.52);color:#7dd3fc}.pill{font-size:11px;color:#10b981;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.24);border-radius:999px;padding:2px 7px}
+.main{min-width:0}.topbar{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;background:rgba(17,24,39,.72);border:1px solid var(--border);border-radius:22px;padding:13px;margin-bottom:12px}.active-title{font-size:20px;font-weight:900}.active-meta{color:var(--muted);font-size:12px;margin-top:3px}.toolset{display:flex;gap:8px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:10px;margin-bottom:12px}.stat{background:rgba(17,24,39,.74);border:1px solid var(--border);border-radius:19px;padding:13px}.stat b{display:block;font-size:22px}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.stat.blue{border-color:rgba(56,189,248,.22)}.stat.green{border-color:rgba(16,185,129,.22)}.stat.gold{border-color:rgba(251,191,36,.22)}.stat.red{border-color:rgba(244,63,94,.22)}.stat.purple{border-color:rgba(167,139,250,.22)}
+.import-panel{display:none;background:rgba(14,165,233,.08);border:1px solid rgba(56,189,248,.24);border-radius:22px;padding:14px;margin-bottom:12px}.import-panel.show{display:block;animation:fade .2s ease}.import-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.import-panel h3{font-size:15px;color:#7dd3fc;margin-bottom:8px}.import-panel p{color:#cbd5e1;font-size:12px;line-height:1.8;margin-bottom:8px}.import-panel textarea{width:100%;min-height:130px;border-radius:16px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.12);color:#e5e7eb;padding:12px;resize:vertical;line-height:1.7}.small-note{font-size:11px;color:#94a3b8;margin-top:8px}.import-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.file-mini{border:1px dashed rgba(56,189,248,.45);background:rgba(56,189,248,.07);border-radius:18px;padding:18px;text-align:center;min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.file-mini input{max-width:100%;color:#cbd5e1}
+.table-wrap{background:rgba(17,24,39,.74);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.32)}.table-head,.row,.table-foot{display:grid;grid-template-columns:52px minmax(230px,1fr) 110px 110px 110px 100px 105px;align-items:center}.table-head{background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(251,191,36,.07));border-bottom:1px solid var(--border);padding:0 8px}.th{font-size:12px;color:#cbd5e1;font-weight:900;text-align:center;padding:13px 6px}.body{max-height:58vh;overflow:auto}.body::-webkit-scrollbar{width:7px}.body::-webkit-scrollbar-thumb{background:rgba(56,189,248,.35);border-radius:10px}.row{border-bottom:1px solid rgba(255,255,255,.055);padding:0 8px;transition:.15s}.row:hover{background:rgba(56,189,248,.045)}.row.fail-mark{background:rgba(244,63,94,.07)}.cell{padding:8px 5px;display:flex;align-items:center;justify-content:center}.num{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:#cbd5e1;font-weight:900;font-size:12px}.name-input{width:100%;border:none;border-bottom:1px solid rgba(255,255,255,.12);background:transparent;color:#fff;padding:9px 4px;font-size:14px}.score{width:66px;height:40px;border-radius:13px;text-align:center;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.20);color:#fff;font-weight:900;font-size:16px;direction:ltr;unicode-bidi:plaintext}.score:focus,.name-input:focus{border-color:rgba(56,189,248,.70)}.total{min-width:62px;padding:8px 10px;border-radius:13px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.30);color:#c4b5fd;font-weight:900}.chip{display:inline-flex;align-items:center;justify-content:center;min-width:75px;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900}.table-foot{background:rgba(56,189,248,.07);border-top:1px solid rgba(56,189,248,.20);padding:0 8px}.foot-cell{padding:12px 6px;text-align:center;font-weight:900;color:#cbd5e1}.legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:13px 0;color:var(--muted);font-size:12px}.legend .chip{min-width:auto}.footer-note{text-align:center;color:rgba(203,213,225,.45);font-size:12px;margin:14px 0}.print-title{display:none}.toast{position:fixed;bottom:18px;left:18px;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.34);color:#86efac;border-radius:14px;padding:10px 16px;font-size:13px;opacity:0;transform:translateY(10px);transition:.25s;z-index:20}.toast.show{opacity:1;transform:translateY(0)}.save-status{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(16,185,129,.24);background:rgba(16,185,129,.10);color:#86efac;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}.save-dot{width:8px;height:8px;border-radius:50%;background:#10b981;box-shadow:0 0 12px rgba(16,185,129,.7)}.save-status.saving{border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.10);color:#fde68a}.save-status.saving .save-dot{background:#fbbf24;box-shadow:0 0 12px rgba(251,191,36,.7)}
+@media(max-width:980px){.hero-inner{grid-template-columns:1fr;text-align:center}.logo-box{margin:auto}.hero-actions{justify-content:center}.info-grid,.import-grid{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.side{position:relative;top:auto}.stats{grid-template-columns:repeat(2,1fr)}.table-head,.row,.table-foot{grid-template-columns:42px minmax(180px,1fr) 82px 82px 82px 82px 88px}.th{font-size:10px}.score{width:58px}.body{max-height:none}}
+@media(max-width:680px){body{padding:10px}.hero{border-radius:20px;padding:16px}.stats{grid-template-columns:1fr}.table-wrap{overflow-x:auto}.table-head,.row,.table-foot{min-width:760px}.topbar{align-items:flex-start}.active-title{font-size:17px}}
+@media print{body{background:#fff;color:#000;padding:8px}.np,.hero-actions,.info-grid,.stage-switch,.side,.topbar .toolset,.import-panel,.legend,.toast{display:none!important}.app{max-width:none}.hero,.topbar,.table-wrap,.stat{box-shadow:none;background:#fff;border-color:#bbb;color:#000}.hero{padding:8px;margin-bottom:8px}.hero-inner{display:block;text-align:center}.logo-box{margin:0 auto 6px;border-color:#999;width:88px;height:88px}.kicker{color:#000;border-color:#999;background:#fff}h1{-webkit-text-fill-color:#000;background:none;font-size:24px}.subtitle{color:#000}.layout{display:block}.stats{grid-template-columns:repeat(5,1fr);gap:5px}.stat{padding:8px;border-color:#bbb}.stat b{font-size:15px;color:#000!important}.stat span{font-size:9px;color:#000}.topbar{padding:8px;margin-bottom:8px}.print-title{display:block;text-align:center;font-weight:900;margin:7px 0}.body{max-height:none;overflow:visible}.row{break-inside:avoid}.table-head,.row,.table-foot{grid-template-columns:40px 1fr 80px 80px 80px 75px 80px}.score,.name-input{border:none;background:transparent;color:#000}.total,.chip{border:1px solid #999!important;background:#fff!important;color:#000!important}.footer-note{color:#000}.th,.foot-cell{color:#000}.table-wrap{border-radius:0}.row,.table-head,.table-foot{border-color:#bbb}.logo-placeholder{color:#000}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="logo-box" id="logoBox"><div class="logo-placeholder">شعار<br>المدرسة</div></div>
+      <div>
+        <div class="kicker">💻 الحوسبة وتكنولوجيا المعلومات</div>
+        <div class="kicker" style="background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.26);color:#67e8f9">✅ نسخة محدثة: الحادي عشر تكنولوجي بمادتين</div>
+        <h1>نموذج رصد درجات الطلاب</h1>
+        <p class="subtitle">مرحلتان: الإعدادية والثانوية • من الصف السابع حتى الحادي عشر • الحادي عشر تكنولوجي بمادتين: تكنولوجيا المعلومات وعلم الحاسوب • العملي 40 + النظري 10 = 50</p>
+      </div>
+      <div class="hero-actions np">
+        <label class="file-label">🏫 رفع شعار المدرسة<input type="file" id="logoInput" accept="image/*"></label>
+        <button class="btn green" onclick="manualSave()">💾 حفظ الآن</button>
+        <button class="btn ghost" onclick="exportBackup()">⬇️ حفظ نسخة</button>
+        <label class="file-label" style="background:rgba(255,255,255,.07);border:1px solid var(--border);box-shadow:none;color:#e5e7eb">⬆️ استعادة نسخة<input type="file" id="backupInput" accept=".json,application/json"></label>
+        <button class="btn ghost" onclick="resetAll()">🔄 تهيئة كاملة</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="info-grid np">
+    <div class="field"><label>اسم المدرسة</label><input id="school" value="مدرسة الشحانية الإعدادية الثانوية للبنين"></div>
+    <div class="field"><label>اسم المعلم</label><input id="teacher" placeholder="اكتب اسم المعلم"></div>
+    <div class="field"><label>العام الدراسي</label><input id="year" value="2025 / 2026"></div>
+    <div class="field"><label>عدد الصفوف والشعب</label><input value="السابع - الحادي عشر" readonly></div>
+  </div>
+
+  <div class="stage-switch np" id="stageSwitch"></div>
+
+  <div class="layout">
+    <aside class="side np">
+      <div class="side-title">📚 الصفوف والشُعب</div>
+      <div id="gradeNav"></div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <div class="active-title" id="activeTitle">—</div>
+          <div class="active-meta" id="activeMeta">اختر المرحلة والصف والشعبة</div>
+          <div class="save-status np" id="saveStatus"><span class="save-dot"></span><span id="saveText">الحفظ التلقائي مفعّل</span></div>
+        </div>
+        <div class="toolset np">
+          <button class="btn green" onclick="toggleImport()">📥 استيراد / لصق أسماء</button>
+          <button class="btn green" onclick="manualSave()">💾 حفظ الآن</button>
+          <button class="btn ghost" onclick="exportBackup()">⬇️ نسخة احتياطية</button>
+          <button class="btn ghost" onclick="addStudent()">➕ إضافة طالب</button>
+          <button class="btn ghost" onclick="toggleFail()" id="failBtn">🔴 تمييز الراسبين</button>
+          <button class="btn red" onclick="clearActive()">🗑️ مسح الشعبة</button>
+          <button class="btn gold" onclick="window.print()">🖨️ طباعة / PDF</button>
+        </div>
+      </div>
+
+      <div class="import-panel np" id="importPanel">
+        <div class="import-grid">
+          <div>
+            <h3>📋 لصق أسماء من Excel</h3>
+            <p>انسخ عمود الأسماء من Excel ثم الصقه هنا. يمكن أيضاً لصق جدول كامل، وسيتم اعتماد أول خلية نصية في كل صف كاسم طالب.</p>
+            <textarea id="pasteArea" placeholder="مثال:&#10;أحمد محمد علي&#10;خالد عبدالله سالم&#10;... "></textarea>
+            <div class="import-actions">
+              <button class="btn green" onclick="importFromPaste(false)">استيراد واستبدال القائمة</button>
+              <button class="btn ghost" onclick="importFromPaste(true)">إضافة إلى القائمة الحالية</button>
+            </div>
+            <div class="small-note">يتم الحفظ تلقائياً على الجهاز بعد الاستيراد.</div>
+          </div>
+          <div>
+            <h3>📄 استيراد ملف Excel / CSV</h3>
+            <div class="file-mini">
+              <strong>اختر ملفاً يحتوي على أسماء الطلاب</strong>
+              <input type="file" id="excelFile" accept=".xlsx,.xls,.csv">
+              <div class="import-actions">
+                <button class="btn green" onclick="importExcel(false)">استيراد واستبدال</button>
+                <button class="btn ghost" onclick="importExcel(true)">إضافة للقائمة</button>
+              </div>
+              <div class="small-note">الأفضل أن يكون عمود الأسماء هو العمود الأول. في حال لم تعمل قراءة Excel بسبب الاتصال، استخدم خيار اللصق.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats" id="stats"></div>
+      <div class="print-title" id="printTitle"></div>
+
+      <div class="table-wrap">
+        <div class="table-head">
+          <div class="th">#</div><div class="th" style="text-align:right">اسم الطالب</div><div class="th" style="color:#86efac">العملي / 40</div><div class="th" style="color:#7dd3fc">النظري / 10</div><div class="th" style="color:#c4b5fd">المجموع / 50</div><div class="th" style="color:#fbbf24">النتيجة</div><div class="th">التقدير</div>
+        </div>
+        <div class="body" id="tbody"></div>
+        <div class="table-foot" id="tfoot"></div>
+      </div>
+
+      <div class="legend np">
+        <b>التقديرات:</b>
+        <span class="chip" style="color:#10b981;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25)">ممتاز ≥ 90%</span>
+        <span class="chip" style="color:#38bdf8;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25)">جيد جداً ≥ 80%</span>
+        <span class="chip" style="color:#a78bfa;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.25)">جيد ≥ 70%</span>
+        <span class="chip" style="color:#fbbf24;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25)">مقبول ≥ 60%</span>
+        <span class="chip" style="color:#fb923c;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.25)">ضعيف ≥ 50%</span>
+        <span class="chip" style="color:#f43f5e;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25)">راسب &lt; 50%</span>
+      </div>
+      <div class="footer-note" id="footerNote"></div>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast">تم الحفظ</div>
+
+<script>
+const MAX_P=40, MAX_T=10, MAX_TOTAL=50, PASS=25;
+const STRUCTURE={
+  prep:{name:'المرحلة الإعدادية',icon:'🏫',grades:[
+    {id:'g7',name:'السابع',sections:['1','2','3','4','5']},
+    {id:'g8',name:'الثامن',sections:['1','2','3','4']},
+    {id:'g9',name:'التاسع',sections:['1','2','3','4']}
+  ]},
+  sec:{name:'المرحلة الثانوية',icon:'🎓',grades:[
+    {id:'g10',name:'العاشر',sections:['1','2','3','4']},
+    {id:'g11s',name:'الحادي عشر العلمي',sections:['1']},
+    {id:'g11l',name:'الحادي عشر الأدبي',sections:['1','2']},
+    {id:'g11t_it',name:'الحادي عشر تكنولوجي — مادة تكنولوجيا المعلومات',sections:['1']},
+    {id:'g11t_cs',name:'الحادي عشر تكنولوجي — مادة علم الحاسوب',sections:['1']}
+  ]}
+};
+let currentStage='prep';
+let currentKey='g7-1';
+let markFail=false;
+let db={};
+const SAVE_KEY='shahania_grades_two_stages_v2';
+const INFO_KEY='shahania_grades_info_v1';
+const LOGO_KEY='shahania_logo_v1';
+function allClasses(){let arr=[];Object.entries(STRUCTURE).forEach(([sid,st])=>st.grades.forEach(g=>g.sections.forEach(sec=>arr.push({stageId:sid,stage:st.name,gradeId:g.id,grade:g.name,section:sec,key:`${g.id}-${sec}`}))));return arr}
+function classInfo(key=currentKey){return allClasses().find(x=>x.key===key) || allClasses()[0]}
+function makeRows(n=30){return Array.from({length:n},(_,i)=>({id:Date.now()+i+Math.random(),name:'',practical:'',theory:''}))}
+function ensureDb(){allClasses().forEach(c=>{if(!db[c.key])db[c.key]=makeRows(30)})}
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function toast(msg='تم الحفظ تلقائياً'){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('show'),1800)}
+function setSaveStatus(text='تم الحفظ تلقائياً',saving=false){
+  const box=document.getElementById('saveStatus'),label=document.getElementById('saveText');
+  if(!box||!label)return;
+  label.textContent=text;
+  box.classList.toggle('saving',!!saving);
+}
+function save(showToast=true){
+  setSaveStatus('جارٍ الحفظ...',true);
+  localStorage.setItem(SAVE_KEY,JSON.stringify(db));
+  localStorage.setItem(INFO_KEY,JSON.stringify({school:school.value,teacher:teacher.value,year:year.value,currentStage,currentKey,lastSaved:new Date().toLocaleString('ar-QA')}));
+  setTimeout(()=>setSaveStatus('تم الحفظ تلقائياً',false),120);
+  if(showToast)toast('✓ تم الحفظ تلقائياً');
+}
+function manualSave(){save(false);toast('💾 تم الحفظ بنجاح على هذا الجهاز');setSaveStatus('تم الحفظ يدوياً',false)}
+function exportBackup(){
+  save(false);
+  const payload={version:4,createdAt:new Date().toISOString(),school:school.value,teacher:teacher.value,year:year.value,currentStage,currentKey,logo:localStorage.getItem(LOGO_KEY)||'',data:db};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'});
+  const a=document.createElement('a');
+  const safeSchool=(school.value||'school').replace(/[\/:*?"<>|]+/g,'-').trim();
+  a.href=URL.createObjectURL(blob);
+  a.download=`${safeSchool}-نسخة-درجات-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);
+  toast('⬇️ تم تنزيل نسخة احتياطية');
+  setSaveStatus('تم حفظ نسخة احتياطية',false);
+}
+function importBackupFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const payload=JSON.parse(e.target.result);
+      if(!payload.data)throw new Error('bad file');
+      db=payload.data||{};
+      if(payload.school)school.value=payload.school;
+      if(payload.teacher)teacher.value=payload.teacher;
+      if(payload.year)year.value=payload.year;
+      if(payload.currentStage)currentStage=payload.currentStage;
+      if(payload.currentKey)currentKey=payload.currentKey;
+      if(payload.logo)setLogo(payload.logo,false),localStorage.setItem(LOGO_KEY,payload.logo);
+      ensureDb();renderAll();save(false);toast('⬆️ تم استعادة النسخة بنجاح');
+    }catch(err){alert('تعذر استعادة النسخة. تأكد أن الملف بصيغة JSON صادر من هذه الصفحة.');}
+  };
+  reader.readAsText(file,'UTF-8');
+}
+function load(){try{
+  const d=localStorage.getItem(SAVE_KEY) || localStorage.getItem('shahania_grades_two_stages_v1');
+  if(d)db=JSON.parse(d)||{};
+  // ترحيل بيانات الحادي عشر التكنولوجي القديمة - إن وجدت - إلى مادة تكنولوجيا المعلومات فقط.
+  if(db['g11t-1'] && !db['g11t_it-1']) db['g11t_it-1']=db['g11t-1'];
+  const info=JSON.parse(localStorage.getItem(INFO_KEY)||'{}');
+  if(info.school)school.value=info.school;if(info.teacher)teacher.value=info.teacher;if(info.year)year.value=info.year;if(info.currentStage)currentStage=info.currentStage;if(info.currentKey)currentKey=info.currentKey;
+  if(currentKey==='g11t-1')currentKey='g11t_it-1';
+  const lg=localStorage.getItem(LOGO_KEY);if(lg)setLogo(lg,false)
+}catch(e){}ensureDb()}
+function setLogo(src,saveIt=true){document.getElementById('logoBox').innerHTML=`<img src="${src}" alt="شعار المدرسة">`;if(saveIt)localStorage.setItem(LOGO_KEY,src)}
+document.getElementById('logoInput').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{setLogo(ev.target.result);save(false);toast('تم إضافة الشعار وحفظه')};r.readAsDataURL(f)});
+document.getElementById('backupInput').addEventListener('change',e=>importBackupFile(e.target.files[0]));
+['school','teacher','year'].forEach(id=>document.getElementById(id).addEventListener('input',save));
+function renderStageSwitch(){stageSwitch.innerHTML=Object.entries(STRUCTURE).map(([id,st])=>`<button class="stage-btn ${id===currentStage?'active':''}" onclick="setStage('${id}')">${st.icon} ${st.name}</button>`).join('')}
+function setStage(id){currentStage=id;const first=STRUCTURE[id].grades[0];currentKey=`${first.id}-${first.sections[0]}`;renderAll();save()}
+function renderNav(){const st=STRUCTURE[currentStage];gradeNav.innerHTML=st.grades.map(g=>{const buttons=g.sections.map(sec=>{const key=`${g.id}-${sec}`;const filled=(db[key]||[]).filter(r=>r.name.trim()||r.practical!==''||r.theory!=='').length;return `<button class="section-btn ${key===currentKey?'active':''}" onclick="selectClass('${key}')"><span>شعبة ${sec}</span><span class="pill">${filled}</span></button>`}).join('');return `<div class="grade-group"><div class="grade-head"><span>${g.name}</span><small>${g.sections.length} شُعب</small></div><div class="section-list">${buttons}</div></div>`}).join('')}
+function selectClass(key){currentKey=key;renderAll();save()}
+function rowCalc(r){const p=r.practical===''?null:parseFloat(r.practical);const t=r.theory===''?null:parseFloat(r.theory);const total=(p!==null&&t!==null)?p+t:null;const pct=total!==null?total/MAX_TOTAL*100:null;return {...r,p,t,total,pct,pass:total!==null?total>=PASS:null}}
+function gradeLabel(pct){if(pct===null)return ['—','#94a3b8','rgba(148,163,184,.12)'];if(pct>=90)return ['ممتاز','#10b981','rgba(16,185,129,.12)'];if(pct>=80)return ['جيد جداً','#38bdf8','rgba(56,189,248,.12)'];if(pct>=70)return ['جيد','#a78bfa','rgba(167,139,250,.12)'];if(pct>=60)return ['مقبول','#fbbf24','rgba(251,191,36,.12)'];if(pct>=50)return ['ضعيف','#fb923c','rgba(249,115,22,.12)'];return ['راسب','#f43f5e','rgba(244,63,94,.12)']}
+function statsRows(rows){const filled=rows.map(rowCalc).filter(r=>r.total!==null);if(!filled.length)return null;const totals=filled.map(r=>r.total);const passed=filled.filter(r=>r.pass).length;const avg=totals.reduce((a,b)=>a+b,0)/filled.length;return {n:filled.length,passed,failed:filled.length-passed,passRate:passed/filled.length*100,avg,ach:avg/MAX_TOTAL*100,hi:Math.max(...totals),lo:Math.min(...totals),avgP:filled.reduce((a,b)=>a+b.p,0)/filled.length,avgT:filled.reduce((a,b)=>a+b.t,0)/filled.length}}
+function renderHeader(){const c=classInfo();activeTitle.textContent=`${c.stage} - الصف ${c.grade} - شعبة ${c.section}`;activeMeta.textContent=`${school.value} • ${year.value}`;printTitle.textContent=activeTitle.textContent;footerNote.textContent=[school.value,activeTitle.textContent,teacher.value&&`المعلم: ${teacher.value}`,year.value].filter(Boolean).join(' • ')}
+function renderStats(){const s=statsRows(db[currentKey]||[]);if(!s){stats.innerHTML='<div class="stat blue"><b>—</b><span>ابدأ بإدخال الدرجات لعرض الإحصاءات</span></div>';return}stats.innerHTML=`
+ <div class="stat blue"><b style="color:#38bdf8">${s.avg.toFixed(1)}</b><span>متوسط الشعبة من 50</span></div>
+ <div class="stat green"><b style="color:#10b981">${s.passRate.toFixed(1)}%</b><span>${s.passed} ناجح / ${s.failed} راسب</span></div>
+ <div class="stat purple"><b style="color:#a78bfa">${s.ach.toFixed(1)}%</b><span>التحصيل الأكاديمي</span></div>
+ <div class="stat gold"><b style="color:#fbbf24">${s.hi}</b><span>أعلى درجة</span></div>
+ <div class="stat red"><b style="color:#f43f5e">${s.lo}</b><span>أدنى درجة</span></div>`}
+function renderTable(){const rows=db[currentKey]||[];tbody.innerHTML=rows.map((r,i)=>{const x=rowCalc(r), [gl,gc,gb]=gradeLabel(x.pct);const total=x.total===null?'—':x.total;const res=x.pass===null?'—':(x.pass?'ناجح ✓':'راسب ✗');const resColor=x.pass===false?'#f43f5e':(x.pass?'#10b981':'#94a3b8');return `<div class="row ${markFail&&x.pass===false?'fail-mark':''}" id="row-${i}">
+ <div class="cell"><span class="num">${i+1}</span></div>
+ <div class="cell"><input class="name-input" value="${esc(r.name)}" placeholder="اسم الطالب ${i+1}" oninput="updateRow(${i},'name',this.value)"></div>
+ <div class="cell"><input class="score" type="text" inputmode="decimal" dir="ltr" autocomplete="off" value="${r.practical}" onfocus="placeCaretEnd(this)" onclick="placeCaretEnd(this)" oninput="updateRow(${i},'practical',this.value,this)" onblur="finalizeScore(${i},'practical',this)" onkeydown="navScore(event,${i},'p')"></div>
+ <div class="cell"><input class="score" type="text" inputmode="decimal" dir="ltr" autocomplete="off" value="${r.theory}" onfocus="placeCaretEnd(this)" onclick="placeCaretEnd(this)" oninput="updateRow(${i},'theory',this.value,this)" onblur="finalizeScore(${i},'theory',this)" onkeydown="navScore(event,${i},'t')"></div>
+ <div class="cell" id="total-${i}"><span class="total">${total}</span></div>
+ <div class="cell" id="result-${i}"><span class="chip" style="color:${resColor};background:${x.pass===false?'rgba(244,63,94,.12)':x.pass?'rgba(16,185,129,.12)':'rgba(148,163,184,.10)'};border:1px solid ${resColor}55">${res}</span></div>
+ <div class="cell" id="grade-${i}"><span class="chip" style="color:${gc};background:${gb};border:1px solid ${gc}55">${gl}</span></div>
+ </div>`}).join('');renderFoot()}
+function renderFoot(){const s=statsRows(db[currentKey]||[]);if(!s){tfoot.innerHTML='';return}tfoot.innerHTML=`<div class="foot-cell"></div><div class="foot-cell" style="text-align:right">📊 المتوسط</div><div class="foot-cell" style="color:#86efac">${s.avgP.toFixed(1)}</div><div class="foot-cell" style="color:#7dd3fc">${s.avgT.toFixed(1)}</div><div class="foot-cell" style="color:#c4b5fd">${s.avg.toFixed(1)}</div><div class="foot-cell" style="color:#10b981">${s.passRate.toFixed(1)}%</div><div class="foot-cell">${s.n} طالب</div>`}
+function normalizeScoreInput(val,max){
+  // تنظيف الإدخال فقط أثناء الكتابة دون تحويل 40 إلى صيغة أخرى أو تحريك المؤشر.
+  let text=String(val)
+    .replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/[٫,]/g,'.')
+    .replace(/[^0-9.]/g,'');
+  const firstDot=text.indexOf('.');
+  if(firstDot!==-1){
+    text=text.slice(0,firstDot+1)+text.slice(firstDot+1).replace(/\./g,'');
+  }
+  return text;
+}
+function clampScoreText(val,max){
+  let text=normalizeScoreInput(val,max);
+  if(text===''||text==='.')return '';
+  let n=parseFloat(text);
+  if(isNaN(n))return '';
+  if(n>max)n=max;
+  if(n<0)n=0;
+  // إزالة الصفر الزائد عند مغادرة الخانة فقط: 04 تصبح 4، أما 40 فتبقى 40.
+  return Number.isInteger(n)?String(n):String(Math.round(n*100)/100);
+}
+function placeCaretEnd(el){
+  setTimeout(()=>{try{const len=el.value.length;el.setSelectionRange(len,len)}catch(e){}},0);
+}
+function finalizeScore(i,field,el){
+  const rows=db[currentKey]; if(!rows||!rows[i])return;
+  const max=field==='practical'?MAX_P:MAX_T;
+  const clean=clampScoreText(el.value,max);
+  rows[i][field]=clean;
+  if(el.value!==clean)el.value=clean;
+  paintCalc(i);renderNav();renderStats();renderFoot();save();
+}
+function paintCalc(i){
+  const rows=db[currentKey]; if(!rows||!rows[i])return;
+  const x=rowCalc(rows[i]), [gl,gc,gb]=gradeLabel(x.pct);
+  const totalEl=document.getElementById('total-'+i), resultEl=document.getElementById('result-'+i), gradeEl=document.getElementById('grade-'+i), rowEl=document.getElementById('row-'+i);
+  const total=x.total===null?'—':x.total;
+  const res=x.pass===null?'—':(x.pass?'ناجح ✓':'راسب ✗');
+  const resColor=x.pass===false?'#f43f5e':(x.pass?'#10b981':'#94a3b8');
+  if(totalEl)totalEl.innerHTML=`<span class="total">${total}</span>`;
+  if(resultEl)resultEl.innerHTML=`<span class="chip" style="color:${resColor};background:${x.pass===false?'rgba(244,63,94,.12)':x.pass?'rgba(16,185,129,.12)':'rgba(148,163,184,.10)'};border:1px solid ${resColor}55">${res}</span>`;
+  if(gradeEl)gradeEl.innerHTML=`<span class="chip" style="color:${gc};background:${gb};border:1px solid ${gc}55">${gl}</span>`;
+  if(rowEl)rowEl.classList.toggle('fail-mark',!!(markFail&&x.pass===false));
+}
+function updateRow(i,field,val,el){
+  const rows=db[currentKey];
+  if(!rows||!rows[i])return;
+  if(field==='practical'||field==='theory'){
+    const max=field==='practical'?MAX_P:MAX_T;
+    const clean=normalizeScoreInput(val,max);
+    rows[i][field]=clean;
+    if(el&&el.value!==clean){
+      const pos=el.selectionStart||clean.length;
+      el.value=clean;
+      try{el.setSelectionRange(Math.min(pos,clean.length),Math.min(pos,clean.length))}catch(e){}
+    }
+    paintCalc(i);
+    renderStats();renderFoot();
+  }else{
+    rows[i][field]=val;
+    renderNav();
+  }
+  save();
+}
+function renderLight(){renderNav();renderHeader();renderStats();renderTable()}
+function navScore(e,i,field){if(e.key!=='Enter'&&e.key!=='Tab')return;e.preventDefault();const row=e.target.closest('.row');const next=field==='p'?row.querySelectorAll('.score')[1]:(tbody.children[i+1]||tbody.children[0]).querySelectorAll('.score')[0];next.focus();next.select()}
+function addStudent(){db[currentKey].push({id:Date.now()+Math.random(),name:'',practical:'',theory:''});renderAll();setTimeout(()=>{tbody.parentElement.scrollTop=9999;const last=tbody.lastElementChild?.querySelector('.name-input');if(last)last.focus()},50);save()}
+function clearActive(){if(!confirm('هل تريد مسح أسماء ودرجات الشعبة الحالية؟'))return;db[currentKey]=makeRows(30);renderAll();save()}
+function toggleFail(){markFail=!markFail;failBtn.textContent=markFail?'⚪ إخفاء التمييز':'🔴 تمييز الراسبين';renderTable()}
+function toggleImport(){importPanel.classList.toggle('show')}
+function parseText(text){return text.split(/\r?\n/).map(line=>line.split(/\t|,|;/).map(x=>x.trim()).find(x=>x&&isNaN(Number(x)))||'').map(x=>x.replace(/^"|"$/g,'').trim()).filter(Boolean)}
+function applyNames(names,append){if(!names.length){alert('لم يتم العثور على أسماء.');return}const existing=append?(db[currentKey]||[]).filter(r=>r.name.trim()||r.practical!==''||r.theory!==''):[];db[currentKey]=[...existing,...names.map(n=>({id:Date.now()+Math.random(),name:n,practical:'',theory:''}))];renderAll();save();toast(`تم استيراد ${names.length} اسم`)}
+function importFromPaste(append){applyNames(parseText(pasteArea.value),append)}
+function importExcel(append){const f=excelFile.files[0];if(!f){alert('يرجى اختيار ملف Excel أو CSV أولاً.');return}const reader=new FileReader();reader.onload=e=>{try{let names=[];if(f.name.toLowerCase().endsWith('.csv')){names=parseText(e.target.result)}else{if(typeof XLSX==='undefined'){alert('تعذرت قراءة Excel حالياً. استخدم نسخ العمود ولصقه في المربع.');return}const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});const ws=wb.Sheets[wb.SheetNames[0]];const rows=XLSX.utils.sheet_to_json(ws,{header:1,blankrows:false});names=rows.map(row=>(row||[]).map(v=>String(v??'').trim()).find(v=>v&&isNaN(Number(v)))||'').filter(Boolean)}applyNames(names,append)}catch(err){alert('تعذر استيراد الملف. جرّب نسخ عمود الأسماء ولصقه مباشرة.')}};if(f.name.toLowerCase().endsWith('.csv'))reader.readAsText(f,'UTF-8');else reader.readAsArrayBuffer(f)}
+function resetAll(){if(!confirm('سيتم مسح جميع البيانات المحفوظة في هذه الصفحة. هل أنت متأكد؟'))return;localStorage.removeItem(SAVE_KEY);localStorage.removeItem(INFO_KEY);db={};ensureDb();renderAll();toast('تمت التهيئة');setSaveStatus('تمت التهيئة - الحفظ التلقائي مفعّل',false)}
+function renderAll(){ensureDb();if(!classInfo(currentKey)||classInfo(currentKey).stageId!==currentStage){const g=STRUCTURE[currentStage].grades[0];currentKey=`${g.id}-${g.sections[0]}`}renderStageSwitch();renderNav();renderHeader();renderStats();renderTable()}
+load();renderAll();
+</script>
+</body>
+</html>
