@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>نظام رصد درجات الطلاب - مدرسة الشحانية</title>
+<style>
+:root{
+  --maroon:#7a1430;--maroon2:#4b081d;--gold:#d8b45c;--navy:#061b33;--ink:#102033;--muted:#667085;--soft:#f7f4ef;--card:#ffffff;--green:#0f8a5f;--red:#b42318;--amber:#b7791f;--blue:#1769aa;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:radial-gradient(circle at top right,rgba(216,180,92,.22),transparent 32%),linear-gradient(135deg,var(--navy),var(--maroon2) 48%,#120713);color:var(--ink);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%),linear-gradient(-45deg,rgba(255,255,255,.035) 25%,transparent 25%);background-size:38px 38px;pointer-events:none}
+.container{width:min(1380px,96vw);margin:auto;padding:24px 0 40px;position:relative}
+.hero{border:1px solid rgba(255,255,255,.2);border-radius:30px;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.94),rgba(255,255,255,.78));box-shadow:0 28px 80px rgba(0,0,0,.28);backdrop-filter:blur(14px);position:relative}
+.hero:after{content:"";position:absolute;pointer-events:none;left:-120px;top:-120px;width:300px;height:300px;background:rgba(216,180,92,.2);border-radius:50%}
+.top{padding:28px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center}
+.logo{width:98px;height:98px;border-radius:26px;display:grid;place-items:center;background:linear-gradient(145deg,var(--maroon),var(--navy));color:#fff;font-weight:900;font-size:26px;border:4px solid rgba(216,180,92,.55);box-shadow:0 14px 28px rgba(0,0,0,.22)}
+h1{margin:0;font-size:clamp(24px,4vw,44px);color:var(--maroon2);letter-spacing:-.8px}
+.subtitle{font-size:18px;color:#475467;margin-top:8px}
+.badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.badge{background:#fff;border:1px solid #eadfc7;color:var(--maroon);padding:11px 15px;border-radius:999px;font-weight:800;box-shadow:0 8px 20px rgba(122,20,48,.08)}
+.metaPanel{padding:0 28px 18px;display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:12px}
+.field{background:rgba(255,255,255,.88);border:1px solid #eadfc7;border-radius:18px;padding:10px 12px;box-shadow:0 8px 20px rgba(122,20,48,.08)}
+.field label{display:block;color:var(--maroon2);font-weight:900;font-size:13px;margin-bottom:7px}
+.metaPanel,.field,.field select{position:relative;z-index:20}
+.field select{width:100%;border:1px solid #ded2bd;border-radius:13px;padding:10px 12px;background:#fff;color:var(--navy);font-size:15px;font-weight:800;outline:none}
+.field select:focus{border-color:var(--gold);box-shadow:0 0 0 4px rgba(216,180,92,.18)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:0 28px 26px}
+button,.fileLabel{border:0;cursor:pointer;border-radius:16px;padding:12px 16px;font-weight:800;font-size:15px;box-shadow:0 8px 18px rgba(0,0,0,.1);transition:.2s transform,.2s box-shadow;background:#fff;color:var(--navy)}
+button:hover,.fileLabel:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(0,0,0,.16)}
+.primary{background:linear-gradient(135deg,var(--maroon),#9e2142);color:#fff}.gold{background:linear-gradient(135deg,#d8b45c,#f2d88c);color:#3d2600}.danger{background:#fff0f0;color:var(--red)}
+.searchBox{flex:1;min-width:260px;position:relative}
+.searchBox input{width:100%;border:1px solid #e4d7bf;border-radius:16px;padding:13px 46px 13px 16px;font-size:16px;outline:none;background:#fff}
+.searchBox span{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px}
+.grid{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+.panel{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.28);border-radius:26px;padding:18px;box-shadow:0 18px 52px rgba(0,0,0,.2);backdrop-filter:blur(10px)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.kpi{background:linear-gradient(180deg,#fff,#fbf7ef);border:1px solid #efe3cb;border-radius:20px;padding:16px;position:relative;overflow:hidden}
+.kpi:after{content:"";position:absolute;left:-26px;bottom:-26px;width:75px;height:75px;border-radius:50%;background:rgba(216,180,92,.18)}
+.kpi .label{color:var(--muted);font-size:13px;font-weight:700}.kpi .value{font-size:30px;font-weight:900;margin-top:5px;color:var(--maroon2)}
+.tableWrap{overflow:auto;max-height:66vh;border-radius:22px;border:1px solid #e9dfcc;background:#fff}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:1120px}
+th{position:sticky;top:0;z-index:5;background:linear-gradient(135deg,var(--maroon),var(--navy));color:#fff;padding:14px 10px;font-size:14px;white-space:nowrap}
+td{padding:10px;border-bottom:1px solid #eee7da;text-align:center;background:#fff}
+tr:hover td{background:#fffaf0}
+td.name{text-align:right;font-weight:700;min-width:320px}
+.numInput{width:92px;border:1px solid #d7ccbb;border-radius:12px;padding:9px;text-align:center;font-size:16px;font-weight:800;direction:ltr !important;unicode-bidi:isolate;background:#fff;caret-color:var(--maroon);ime-mode:disabled}
+.noteInput{width:120px;border:1px solid #d7ccbb;border-radius:12px;padding:9px;text-align:center}
+.pill{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 11px;font-weight:900;min-width:82px}
+.ok{background:#e8f7f0;color:var(--green)}.support{background:#fff0ed;color:var(--red)}.excellent{background:#f6edff;color:#6b21a8}.verygood{background:#eaf4ff;color:#1769aa}.good{background:#fff7e0;color:#a15c00}.pass{background:#f0f4f8;color:#364152}
+.chart{height:240px;border-radius:22px;background:linear-gradient(180deg,#fff,#f8f5f0);border:1px solid #eee1ca;margin-top:14px;padding:14px;display:flex;align-items:end;gap:7px;direction:ltr;overflow:hidden}
+.bar{flex:1;min-width:5px;border-radius:9px 9px 0 0;background:linear-gradient(180deg,var(--gold),var(--maroon));position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.bar:hover:before{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;white-space:nowrap;border-radius:10px;padding:7px 8px;font-size:12px;z-index:10}
+.sectionTitle{margin:0 0 12px;color:var(--maroon2);font-size:20px}
+.help{color:#667085;line-height:1.8;font-size:14px;background:#fffaf0;border:1px dashed #d8b45c;border-radius:18px;padding:12px;margin-top:14px}
+.importArea{width:100%;height:110px;border-radius:16px;border:1px solid #e2d5c0;padding:12px;resize:vertical;font-family:inherit;display:none;margin-top:10px}
+.footer{text-align:center;color:#fff;margin-top:20px;opacity:.9;font-weight:700}
+@media (max-width:1000px){.top{grid-template-columns:1fr;text-align:center}.badges{justify-content:center}.logo{margin:auto}.grid{grid-template-columns:1fr}.tableWrap{max-height:none}.metaPanel{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.metaPanel{grid-template-columns:1fr}}
+@media print{body{background:#fff}.toolbar,.side,.footer{display:none}.container{width:100%;padding:0}.hero,.panel{box-shadow:none;border:0}.grid{display:block}.tableWrap{max-height:none;overflow:visible}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="top">
+      <div class="logo">ش</div>
+      <div>
+        <h1>نظام رصد درجات الطلاب</h1>
+        <div class="subtitle">مدرسة الشحانية الإعدادية الثانوية للبنين</div>
+      </div>
+      <div class="badges">
+        <div class="badge">الصف والشعبة: <span id="classBadge"></span></div>
+        <div class="badge">التخصص: <span id="trackBadge"></span></div>
+        <div class="badge">الفصل: <span id="termBadge"></span></div>
+        <div class="badge">العام: <span id="yearBadge"></span></div>
+      </div>
+    </div>
+    <div class="metaPanel" aria-label="اختيارات بيانات الصف">
+      <div class="field"><label for="gradeSelect">الصف</label><select id="gradeSelect"></select></div>
+      <div class="field"><label for="sectionSelect">رقم الشعبة</label><select id="sectionSelect"></select></div>
+      <div class="field"><label for="trackSelect">المرحلة / التخصص</label><select id="trackSelect"></select></div>
+      <div class="field"><label for="termSelect">الفصل الدراسي</label><select id="termSelect"></select></div>
+      <div class="field"><label for="yearSelect">العام الأكاديمي</label><select id="yearSelect"></select></div>
+    </div>
+    <div class="toolbar">
+      <div class="searchBox"><span>🔎</span><input id="search" placeholder="ابحث باسم الطالب أو الحالة..." /></div>
+      <button class="primary" id="saveBtn">💾 حفظ محلي</button>
+      <button class="gold" id="exportBtn">⬇️ تصدير CSV</button>
+      <button id="printBtn">🖨️ طباعة</button>
+      <button id="toggleImport">📋 لصق أسماء</button>
+      <label class="fileLabel" for="excelFile">📥 استيراد أسماء من Excel/CSV</label><input id="excelFile" type="file" accept=".xlsx,.xls,.csv,.txt" style="display:none" />
+      <button class="danger" id="resetBtn">↩️ استعادة الأصل</button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <main class="panel">
+      <h2 class="sectionTitle">سجل الدرجات التفاعلي</h2>
+      <div class="tableWrap">
+        <table id="gradesTable">
+          <thead><tr><th>م</th><th>اسم الطالب</th><th>العملي /40</th><th>النظري /10</th><th>المجموع /50</th><th>النسبة %</th><th>التقدير</th><th>الحالة</th><th>المجموع /40</th><th>ملاحظات</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <textarea id="importArea" class="importArea" placeholder="الصق أسماء الطلاب هنا، كل اسم في سطر مستقل، ثم اضغط: تطبيق الأسماء"></textarea>
+      <div id="importActions" style="display:none;margin-top:10px;gap:10px;flex-wrap:wrap"><button class="primary" id="applyNames">تطبيق الأسماء</button><button id="hideImport">إغلاق</button></div>
+    </main>
+    <aside class="panel side">
+      <h2 class="sectionTitle">لوحة الإحصائيات</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="label">عدد الطلاب</div><div class="value" id="kStudents">0</div></div>
+        <div class="kpi"><div class="label">متوسط التحصيل</div><div class="value" id="kAvg">0%</div></div>
+        <div class="kpi"><div class="label">أعلى درجة /40</div><div class="value" id="kMax">0</div></div>
+        <div class="kpi"><div class="label">عدد الناجحين</div><div class="value" id="kPass">0</div></div>
+      </div>
+      <div class="chart" id="chart"></div>
+      <div class="help"><b>ملاحظة مهمة:</b> تم ضبط خانات الدرجات باتجاه أرقام يسار-إلى-يمين حتى لا تتحول الدرجة 40 إلى 04. يمكن تعديل درجات العملي والنظري مباشرة، وستُحدّث الإحصائيات والتقديرات تلقائياً.</div>
+      <div class="help">التقدير تلقائي: 90 فأعلى ممتاز، 80 فأعلى جيد جداً، 70 فأعلى جيد، 50 فأعلى مقبول، وأقل من 50 يحتاج دعم.</div>
+    </aside>
+  </div>
+  <div class="footer">صفحة HTML تفاعلية جاهزة للمشاركة والرفع على GitHub Pages أو Netlify</div>
+</div>
+<script>
+'use strict';
+const originalData = [{"seq": 1, "name": "االطالب احمد بوب", "practical": 34, "theory": "", "note": ""}, {"seq": 2, "name": "ابراهيم سلمان فرحان الغضورى العنزى", "practical": 38, "theory": "", "note": ""}, {"seq": 3, "name": "بندر ناصر عبدالهادى مطر العنزى", "practical": 40, "theory": "", "note": ""}, {"seq": 4, "name": "تميم خليفه صالح احمد الجابري", "practical": 37, "theory": "", "note": ""}, {"seq": 5, "name": "تميم سالم جمعه الراجحي", "practical": 40, "theory": "", "note": ""}, {"seq": 6, "name": "جابر محمد مبارك فاران المرى", "practical": 40, "theory": "", "note": ""}, {"seq": 7, "name": "حسن خالد شيرولى", "practical": 28, "theory": "", "note": ""}, {"seq": 8, "name": "حمد سالم محمد الزيوح المرى", "practical": 30, "theory": "", "note": ""}, {"seq": 9, "name": "حمد طلال خلف الفريجى الرويلى", "practical": 29, "theory": "", "note": ""}, {"seq": 10, "name": "حمد فايز عفات الشمرى", "practical": 30, "theory": "", "note": ""}, {"seq": 11, "name": "حمد محمد فرحان الغضورى العنزى", "practical": 40, "theory": "", "note": ""}, {"seq": 12, "name": "راشد سلوم مهاوش الوبيرى الشمرى", "practical": 40, "theory": "", "note": ""}, {"seq": 13, "name": "راكان عمر عقلا مسبط الشمرى", "practical": 32, "theory": "", "note": ""}, {"seq": 14, "name": "زايد سعد منصور سعد الدوسرى", "practical": 40, "theory": "", "note": ""}, {"seq": 15, "name": "سعودرحمان سبيل الرحمن عبدالمجيد", "practical": 38, "theory": "", "note": ""}, {"seq": 16, "name": "سيف حمد جريد القعيقعى الرويلى", "practical": 30, "theory": "", "note": ""}, {"seq": 17, "name": "عبدالاله الاسمر محمد الفريجى الرويلى", "practical": 38, "theory": "", "note": ""}, {"seq": 18, "name": "عبدالرحمن جمال عتاب جفال فراج", "practical": 30, "theory": "", "note": ""}, {"seq": 19, "name": "عبدالعزيز شجاع منوخ الشلاقى الشمرى", "practical": 0, "theory": "", "note": "محروم"}, {"seq": 20, "name": "عبدالعزيز فهد سعيد صالح الضبيع", "practical": 39, "theory": "", "note": ""}, {"seq": 21, "name": "عبدالعزيز محمد ناجي أحمد الجعل", "practical": 38, "theory": "", "note": ""}, {"seq": 22, "name": "عبدالهادى عواد مخلف الفريجى الرويلى", "practical": 40, "theory": "", "note": ""}, {"seq": 23, "name": "على عبدالله حمد عمر الغياثين", "practical": 40, "theory": "", "note": ""}, {"seq": 24, "name": "عوضه سعيد على البريص المرى", "practical": 26, "theory": "", "note": ""}, {"seq": 25, "name": "غيث رضيمان حسين الشلاقى الشمرى", "practical": 40, "theory": "", "note": ""}, {"seq": 26, "name": "فهد على معيض ال غازى الاحبابى", "practical": 36, "theory": "", "note": ""}, {"seq": 27, "name": "فيصل على جاسم محمد شيبو", "practical": 24, "theory": "", "note": ""}, {"seq": 28, "name": "مبخوت على جابر النجم المرى", "practical": 32, "theory": "", "note": ""}, {"seq": 29, "name": "محمد ابراهيم موسى يوسف", "practical": 33, "theory": "", "note": ""}, {"seq": 30, "name": "محمد عامر محمد طفله المرى", "practical": 26, "theory": "", "note": ""}, {"seq": 31, "name": "محمد عويضه بخيت عويضه العذبه", "practical": 40, "theory": "", "note": ""}, {"seq": 32, "name": "محمد معيض حمد عمر الغياثين", "practical": "", "theory": "", "note": ""}, {"seq": 33, "name": "ناصر حمدان الشمري", "practical": 38, "theory": "", "note": ""}];
+const originalMeta = { grade: '9', section: '2', track: 'إعدادي', term: 'الثاني', year: '2025 - 2026' };
+const metaOptions = {
+  grades: ['7', '8', '9', '10', '11'],
+  sections: ['1', '2', '3', '4', '5'],
+  tracks: ['إعدادي', 'ثانوي', 'علمي', 'أدبي', 'تكنولوجي'],
+  terms: ['الأول', 'الثاني'],
+  years: Array.from({ length: 12 }, (_, i) => `${2024 + i} - ${2025 + i}`)
+};
+const key = 'shahaniya-gradebook-v5';
+let data = JSON.parse(JSON.stringify(originalData));
+let meta = JSON.parse(JSON.stringify(originalMeta));
+
+const $ = (id) => document.getElementById(id);
+const els = {
+  gradeSelect: $('gradeSelect'), sectionSelect: $('sectionSelect'), trackSelect: $('trackSelect'), termSelect: $('termSelect'), yearSelect: $('yearSelect'),
+  classBadge: $('classBadge'), trackBadge: $('trackBadge'), termBadge: $('termBadge'), yearBadge: $('yearBadge'),
+  search: $('search'), saveBtn: $('saveBtn'), exportBtn: $('exportBtn'), printBtn: $('printBtn'), resetBtn: $('resetBtn'),
+  toggleImport: $('toggleImport'), excelFile: $('excelFile'), importArea: $('importArea'), importActions: $('importActions'), applyNames: $('applyNames'), hideImport: $('hideImport'),
+  kStudents: $('kStudents'), kAvg: $('kAvg'), kMax: $('kMax'), kPass: $('kPass'), chart: $('chart')
+};
+
+function toEnglishDigits(v) {
+  return String(v ?? '')
+    .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/[^0-9.]/g, '');
+}
+function clamp(n, min, max) { n = parseFloat(toEnglishDigits(n)); if (Number.isNaN(n)) return ''; return Math.max(min, Math.min(max, n)); }
+function fmt(n, d = 1) { return Number.isInteger(n) ? String(n) : Number(n || 0).toFixed(d).replace(/\.0$/, ''); }
+function escapeHtml(s) { return String(s ?? '').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function escapeAttr(s) { return escapeHtml(s).replace(/"/g, '&quot;'); }
+
+function normalizeMeta() {
+  if (meta.classSection && (!meta.grade || !meta.section)) {
+    const parts = String(meta.classSection).split(/[.\-\/]/);
+    meta.grade = parts[0] || meta.grade;
+    meta.section = parts[1] || meta.section;
+  }
+  meta.grade = metaOptions.grades.includes(String(meta.grade)) ? String(meta.grade) : originalMeta.grade;
+  meta.section = metaOptions.sections.includes(String(meta.section)) ? String(meta.section) : originalMeta.section;
+  meta.track = metaOptions.tracks.includes(String(meta.track)) ? String(meta.track) : originalMeta.track;
+  meta.term = metaOptions.terms.includes(String(meta.term)) ? String(meta.term) : originalMeta.term;
+  meta.year = metaOptions.years.includes(String(meta.year)) ? String(meta.year) : originalMeta.year;
+}
+function fillSelect(select, values, selected) {
+  select.innerHTML = values.map(v => `<option value="${escapeAttr(v)}" ${String(v) === String(selected) ? 'selected' : ''}>${escapeHtml(v)}</option>`).join('');
+}
+function updateMetaFromSelects() {
+  meta = {
+    grade: els.gradeSelect.value,
+    section: els.sectionSelect.value,
+    track: els.trackSelect.value,
+    term: els.termSelect.value,
+    year: els.yearSelect.value
+  };
+  updateMetaBadges();
+  autoSave();
+}
+function updateMetaBadges() {
+  els.classBadge.textContent = `${meta.grade} / ${meta.section}`;
+  els.trackBadge.textContent = meta.track;
+  els.termBadge.textContent = meta.term;
+  els.yearBadge.textContent = meta.year;
+}
+function bindMeta() {
+  normalizeMeta();
+  fillSelect(els.gradeSelect, metaOptions.grades, meta.grade);
+  fillSelect(els.sectionSelect, metaOptions.sections, meta.section);
+  fillSelect(els.trackSelect, metaOptions.tracks, meta.track);
+  fillSelect(els.termSelect, metaOptions.terms, meta.term);
+  fillSelect(els.yearSelect, metaOptions.years, meta.year);
+  [els.gradeSelect, els.sectionSelect, els.trackSelect, els.termSelect, els.yearSelect].forEach(el => {
+    el.addEventListener('change', updateMetaFromSelects);
+    el.addEventListener('input', updateMetaFromSelects);
+  });
+  updateMetaBadges();
+}
+function calc(row) {
+  const p = row.practical === '' ? 0 : Number(row.practical);
+  const t = row.theory === '' ? 0 : Number(row.theory);
+  const total = p + t;
+  const percent = total / 50 * 100;
+  const converted = total * 0.8;
+  let grade = percent >= 90 ? 'ممتاز' : percent >= 80 ? 'جيد جداً' : percent >= 70 ? 'جيد' : percent >= 50 ? 'مقبول' : 'يحتاج دعم';
+  let status = percent >= 50 ? 'ناجح' : 'يحتاج دعم';
+  if (String(row.note || '').includes('محروم')) status = 'محروم';
+  return { total, percent, converted, grade, status };
+}
+function gradeClass(g) { return g === 'ممتاز' ? 'excellent' : g === 'جيد جداً' ? 'verygood' : g === 'جيد' ? 'good' : g === 'مقبول' ? 'pass' : 'support'; }
+function statusClass(s) { return s === 'ناجح' ? 'ok' : 'support'; }
+function loadSaved() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || localStorage.getItem('shahaniya-gradebook-9-2-v1') || 'null');
+    if (saved) { data = saved.data || data; meta = saved.meta || meta; }
+  } catch (e) { console.warn('تعذر تحميل البيانات المحفوظة', e); }
+}
+function autoSave() { localStorage.setItem(key, JSON.stringify({ data, meta })); }
+function save() { autoSave(); alert('تم حفظ البيانات والاختيارات على هذا الجهاز بنجاح.'); }
+function reset() {
+  if (confirm('هل تريد استعادة البيانات الأصلية من ملف Excel؟')) {
+    localStorage.removeItem(key);
+    data = JSON.parse(JSON.stringify(originalData));
+    meta = JSON.parse(JSON.stringify(originalMeta));
+    bindMeta();
+    render();
+  }
+}
+function render() {
+  const q = els.search.value.trim().toLowerCase();
+  const tbody = document.querySelector('#gradesTable tbody');
+  tbody.innerHTML = '';
+  data.forEach((row, idx) => {
+    const c = calc(row);
+    const searchable = (row.name + ' ' + c.grade + ' ' + c.status + ' ' + (row.note || '')).toLowerCase();
+    if (q && !searchable.includes(q)) return;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${row.seq}</td><td class="name" contenteditable="true" data-field="name" data-idx="${idx}">${escapeHtml(row.name)}</td>
+      <td><input class="numInput" inputmode="decimal" dir="ltr" data-field="practical" data-idx="${idx}" value="${escapeAttr(row.practical)}" /></td>
+      <td><input class="numInput" inputmode="decimal" dir="ltr" data-field="theory" data-idx="${idx}" value="${escapeAttr(row.theory)}" /></td>
+      <td data-calc="total"><b>${fmt(c.total)}</b></td><td data-calc="percent">${fmt(c.percent)}%</td><td data-calc="grade"><span class="pill ${gradeClass(c.grade)}">${c.grade}</span></td><td data-calc="status"><span class="pill ${statusClass(c.status)}">${c.status}</span></td><td data-calc="converted">${fmt(c.converted)}</td>
+      <td><input class="noteInput" data-field="note" data-idx="${idx}" value="${escapeAttr(row.note || '')}" /></td>`;
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll('input[data-field]').forEach(inp => {
+    inp.addEventListener('input', handleInput);
+    if (inp.classList.contains('numInput')) {
+      inp.addEventListener('blur', e => {
+        const field = e.target.dataset.field;
+        const max = field === 'practical' ? 40 : 10;
+        const cleaned = cleanGradeValue(e.target.value, max);
+        e.target.value = cleaned === '' ? '' : fmt(Number(cleaned));
+      });
+    }
+  });
+  document.querySelectorAll('[contenteditable][data-field="name"]').forEach(cell => cell.addEventListener('input', e => { data[+e.target.dataset.idx].name = e.target.textContent.trim(); updateStats(); autoSave(); }));
+  updateStats();
+}
+function cleanGradeValue(value, max) {
+  let clean = toEnglishDigits(value);
+  const parts = clean.split('.');
+  clean = parts.length > 1 ? parts[0] + '.' + parts.slice(1).join('') : clean;
+  if (clean === '.') clean = '';
+  if (clean !== '' && Number(clean) > max) clean = String(max);
+  return clean;
+}
+function refreshRow(tr, row) {
+  const c = calc(row);
+  tr.querySelector('[data-calc="total"]').innerHTML = `<b>${fmt(c.total)}</b>`;
+  tr.querySelector('[data-calc="percent"]').textContent = `${fmt(c.percent)}%`;
+  tr.querySelector('[data-calc="grade"]').innerHTML = `<span class="pill ${gradeClass(c.grade)}">${c.grade}</span>`;
+  tr.querySelector('[data-calc="status"]').innerHTML = `<span class="pill ${statusClass(c.status)}">${c.status}</span>`;
+  tr.querySelector('[data-calc="converted"]').textContent = fmt(c.converted);
+}
+function handleInput(e) {
+  const idx = +e.target.dataset.idx;
+  const field = e.target.dataset.field;
+  if (field === 'practical' || field === 'theory') {
+    const max = field === 'practical' ? 40 : 10;
+    const cleaned = cleanGradeValue(e.target.value, max);
+    e.target.value = cleaned;
+    data[idx][field] = cleaned === '' ? '' : Number(cleaned);
+    refreshRow(e.target.closest('tr'), data[idx]);
+  } else {
+    data[idx][field] = e.target.value;
+    if (field === 'note') refreshRow(e.target.closest('tr'), data[idx]);
+  }
+  updateStats();
+  autoSave();
+}
+function updateStats() {
+  const calcs = data.map(calc);
+  const n = data.length;
+  const avg = calcs.reduce((a, c) => a + c.percent, 0) / (n || 1);
+  const max = n ? Math.max(...calcs.map(c => c.converted)) : 0;
+  const pass = calcs.filter(c => c.status === 'ناجح').length;
+  els.kStudents.textContent = n;
+  els.kAvg.textContent = fmt(avg) + '%';
+  els.kMax.textContent = fmt(max);
+  els.kPass.textContent = pass;
+  els.chart.innerHTML = '';
+  data.forEach(r => {
+    const c = calc(r);
+    const b = document.createElement('div');
+    b.className = 'bar';
+    b.style.height = Math.max(4, c.percent) + '%';
+    b.dataset.tip = `${r.seq} - ${r.name}: ${fmt(c.percent)}%`;
+    els.chart.appendChild(b);
+  });
+}
+function exportCSV() {
+  const rows = [
+    ['الصف', meta.grade], ['الشعبة', meta.section], ['التخصص', meta.track], ['الفصل', meta.term], ['العام الأكاديمي', meta.year], [],
+    ['التسلسل','اسم الطالب','العملي /40','النظري /10','المجموع /50','النسبة %','التقدير','الحالة','المجموع /40','ملاحظات']
+  ];
+  data.forEach(r => { const c = calc(r); rows.push([r.seq, r.name, r.practical, r.theory, fmt(c.total), fmt(c.percent), c.grade, c.status, fmt(c.converted), r.note || '']); });
+  const csv = '\ufeff' + rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+  a.download = `نظام_رصد_درجات_الطلاب_صف_${meta.grade}_شعبة_${meta.section}_${meta.term}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+}
+function splitNamesText(text) {
+  return String(text || '')
+    .replace(/\r/g, '\n')
+    .split(/\n+/)
+    .map(x => x.replace(/^\s*\d+[\).\-\s]*/,'').trim())
+    .filter(Boolean);
+}
+function applyNamesList(names) {
+  if (!names.length) { alert('لم يتم العثور على أسماء طلاب.'); return; }
+  data = names.map((name, i) => ({ seq: i + 1, name, practical: '', theory: '', note: '' }));
+  autoSave();
+  render();
+  alert(`تم استيراد ${names.length} اسمًا بنجاح.`);
+}
+function parseCSVLine(line) {
+  const out = []; let cur = ''; let quoted = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (quoted && line[i+1] === '"') { cur += '"'; i++; }
+      else quoted = !quoted;
+    } else if ((ch === ',' || ch === ';' || ch === '\t') && !quoted) { out.push(cur.trim()); cur = ''; }
+    else cur += ch;
+  }
+  out.push(cur.trim()); return out;
+}
+function namesFromRows(rows) {
+  if (!rows.length) return [];
+  const header = rows[0].map(x => String(x || '').trim());
+  let nameCol = header.findIndex(h => /اسم|الطالب|student|name/i.test(h));
+  if (nameCol < 0) {
+    let best = 0, bestScore = -1;
+    for (let c = 0; c < Math.max(...rows.map(r => r.length)); c++) {
+      const values = rows.slice(0, 30).map(r => String(r[c] || '').trim()).filter(Boolean);
+      const score = values.filter(v => /[ء-يA-Za-z]{3}/.test(v) && !/^\d+$/.test(v)).length;
+      if (score > bestScore) { bestScore = score; best = c; }
+    }
+    nameCol = best;
+  }
+  const start = header.some(h => /اسم|الطالب|student|name/i.test(h)) ? 1 : 0;
+  return rows.slice(start).map(r => String(r[nameCol] || '').trim()).filter(v => v && !/^\d+$/.test(v));
+}
+async function ensureSheetJS() {
+  if (window.XLSX) return true;
+  await new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  return !!window.XLSX;
+}
+async function importFile(file) {
+  if (!file) return;
+  const name = file.name.toLowerCase();
+  try {
+    if (name.endsWith('.csv') || name.endsWith('.txt')) {
+      const text = await file.text();
+      const rows = text.replace(/\r/g,'\n').split(/\n+/).map(parseCSVLine).filter(r => r.some(Boolean));
+      applyNamesList(namesFromRows(rows));
+      return;
+    }
+    const ok = await ensureSheetJS();
+    if (!ok) throw new Error('تعذر تحميل مكتبة قراءة Excel.');
+    const buffer = await file.arrayBuffer();
+    const workbook = XLSX.read(buffer, { type: 'array' });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+    applyNamesList(namesFromRows(rows));
+  } catch (err) {
+    console.error(err);
+    alert('تعذر استيراد ملف Excel الآن. تأكد من اتصال الإنترنت عند استخدام ملف xlsx، أو احفظ الملف بصيغة CSV، أو انسخ الأسماء والصقها في مربع لصق الأسماء.');
+  } finally {
+    els.excelFile.value = '';
+  }
+}
+
+els.search.addEventListener('input', render);
+els.saveBtn.addEventListener('click', save);
+els.resetBtn.addEventListener('click', reset);
+els.exportBtn.addEventListener('click', exportCSV);
+els.printBtn.addEventListener('click', () => window.print());
+els.toggleImport.addEventListener('click', () => { els.importArea.style.display = 'block'; els.importActions.style.display = 'flex'; els.importArea.focus(); });
+els.hideImport.addEventListener('click', () => { els.importArea.style.display = 'none'; els.importActions.style.display = 'none'; });
+els.applyNames.addEventListener('click', () => applyNamesList(splitNamesText(els.importArea.value)));
+els.excelFile.addEventListener('change', e => importFile(e.target.files[0]));
+
+loadSaved();
+bindMeta();
+render();
+</script>
+</body>
+</html>
