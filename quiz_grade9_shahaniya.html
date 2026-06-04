@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأسئلة الإثرائية - الصف التاسع</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --maroon: #7a1e2e;
+    --maroon-dark: #5a1220;
+    --maroon-light: #a02840;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #9e7c32;
+    --cream: #faf6ef;
+    --cream-dark: #f0e8d8;
+    --text-dark: #2a1a1f;
+    --text-mid: #5a3a42;
+    --white: #ffffff;
+    --success: #2e7d52;
+    --error: #b91c2c;
+    --shadow: 0 8px 40px rgba(122,30,46,0.18);
+    --shadow-lg: 0 20px 60px rgba(122,30,46,0.22);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 85%, rgba(122,30,46,0.07) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(201,168,76,0.07) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%237a1e2e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--maroon-dark) 0%, var(--maroon) 50%, var(--maroon-light) 100%);
+    padding: 40px 20px 30px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -10%;
+    width: 120%; height: 200%;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(201,168,76,0.04) 20px, rgba(201,168,76,0.04) 40px);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .school-logo {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: var(--white);
+    padding: 8px;
+    box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px rgba(201,168,76,0.3), var(--shadow);
+    object-fit: contain;
+    animation: logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}
+  }
+  .school-name {
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--gold-light); text-align: center;
+  }
+  .exam-title {
+    font-size: 2rem; font-weight: 900;
+    color: var(--white); text-align: center;
+    line-height: 1.3;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .exam-subtitle { font-size: 1rem; color: rgba(255,255,255,0.75); text-align: center; }
+  .header-badges { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .badge {
+    background: rgba(201,168,76,0.2); border: 1px solid var(--gold);
+    color: var(--gold-light); padding: 5px 16px; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 600;
+  }
+
+  /* SCORE PANEL */
+  .score-panel {
+    position: sticky; top: 0; z-index: 100;
+    background: linear-gradient(90deg, var(--maroon-dark), var(--maroon));
+    border-bottom: 2px solid var(--gold);
+    padding: 10px 20px;
+  }
+  .score-inner {
+    max-width: 900px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .score-item { color: var(--white); font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .score-num {
+    background: var(--gold); color: var(--maroon-dark);
+    padding: 2px 10px; border-radius: 12px;
+    font-weight: 900; font-size: 1rem; min-width: 32px; text-align: center;
+  }
+  .progress-bar-wrap {
+    flex: 1; min-width: 160px; max-width: 300px;
+    background: rgba(255,255,255,0.15); border-radius: 10px; height: 8px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 10px; transition: width 0.6s cubic-bezier(.4,0,.2,1); width: 0%;
+  }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 30px 16px 60px; position: relative; z-index: 1; }
+
+  /* UNIT SECTIONS */
+  .unit-section { margin-bottom: 40px; }
+  .unit-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px; padding: 16px 24px;
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    border-radius: 16px; box-shadow: var(--shadow);
+    position: relative; overflow: hidden;
+  }
+  .unit-header::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 5px;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold-dark));
+    border-radius: 0 4px 4px 0;
+  }
+  .unit-icon { font-size: 2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+  .unit-title { color: var(--white); font-size: 1.35rem; font-weight: 800; flex: 1; }
+  .unit-subtitle { color: var(--gold-light); font-size: 0.82rem; font-weight: 500; margin-top: 2px; }
+  .unit-count {
+    background: rgba(201,168,76,0.25); border: 1px solid var(--gold);
+    color: var(--gold-light); padding: 4px 12px; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 700; white-space: nowrap;
+  }
+
+  /* QUESTION CARD */
+  .q-card {
+    background: var(--white); border-radius: 16px; padding: 24px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 20px rgba(122,30,46,0.10);
+    border: 1.5px solid transparent;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+    animation: cardIn 0.5s ease both;
+  }
+  .q-card::before {
+    content: ''; position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(201,168,76,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  @keyframes cardIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .q-card:hover { box-shadow: 0 8px 32px rgba(122,30,46,0.16); }
+  .q-card.answered-correct { border-color: var(--success); background: linear-gradient(135deg, #f0faf5 0%, var(--white) 100%); }
+  .q-card.answered-wrong { border-color: var(--error); background: linear-gradient(135deg, #fdf2f2 0%, var(--white) 100%); }
+
+  .q-num-badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+    color: var(--white); width: 32px; height: 32px; border-radius: 50%;
+    font-size: 0.85rem; font-weight: 800; margin-left: 10px; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(122,30,46,0.3);
+  }
+  .q-type-tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    padding: 2px 10px; border-radius: 10px; margin-right: 8px; vertical-align: middle;
+  }
+  .tag-mcq { background: rgba(122,30,46,0.1); color: var(--maroon); }
+  .tag-fill { background: rgba(201,168,76,0.18); color: var(--gold-dark); }
+  .tag-list { background: rgba(46,125,82,0.12); color: var(--success); }
+  .tag-compare { background: rgba(30,80,160,0.1); color: #1e50a0; }
+
+  .q-header { display: flex; align-items: flex-start; margin-bottom: 18px; gap: 4px; }
+  .q-text { font-size: 1.05rem; font-weight: 700; color: var(--text-dark); line-height: 1.7; flex: 1; }
+
+  /* MCQ OPTIONS */
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:600px){.options-grid{grid-template-columns:1fr}}
+  .option-btn {
+    background: var(--cream); border: 2px solid var(--cream-dark);
+    border-radius: 12px; padding: 12px 16px;
+    font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 600;
+    color: var(--text-dark); cursor: pointer; text-align: right;
+    transition: all 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--maroon); color: var(--maroon);
+    transform: translateY(-2px); box-shadow: 0 4px 16px rgba(122,30,46,0.15);
+  }
+  .option-btn .opt-letter {
+    background: var(--maroon); color: var(--white);
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.82rem; font-weight: 800; flex-shrink: 0; transition: background 0.2s;
+  }
+  .option-btn:hover:not(:disabled) .opt-letter { background: var(--maroon-dark); }
+  .option-btn.correct { border-color: var(--success); background: #f0faf5; color: var(--success); font-weight: 800; }
+  .option-btn.correct .opt-letter { background: var(--success); }
+  .option-btn.wrong { border-color: var(--error); background: #fdf2f2; color: var(--error); }
+  .option-btn.wrong .opt-letter { background: var(--error); }
+  .option-btn:disabled { cursor: default; }
+
+  /* FILL IN BLANK */
+  .fill-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+  .fill-label { font-size: 0.9rem; font-weight: 700; color: var(--text-mid); white-space: nowrap; flex-shrink: 0; }
+  .fill-input {
+    flex: 1; min-width: 160px; border: 2px solid var(--cream-dark);
+    border-radius: 10px; padding: 10px 14px;
+    font-family: 'Cairo', sans-serif; font-size: 0.95rem; color: var(--text-dark);
+    background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+  }
+  .fill-input:focus { border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(122,30,46,0.1); }
+  .fill-input.correct { border-color: var(--success); background: #f0faf5; }
+  .fill-input.wrong { border-color: var(--error); background: #fdf2f2; }
+
+  /* LIST */
+  .list-items { display: flex; flex-direction: column; gap: 8px; }
+  .list-item-wrap { display: flex; align-items: center; gap: 10px; }
+  .list-bullet {
+    width: 28px; height: 28px;
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+    color: var(--white); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 800; flex-shrink: 0;
+  }
+  .list-input {
+    flex: 1; border: 2px solid var(--cream-dark); border-radius: 10px;
+    padding: 10px 14px; font-family: 'Cairo', sans-serif; font-size: 0.95rem;
+    background: var(--cream); transition: border-color 0.2s; outline: none;
+  }
+  .list-input:focus { border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(122,30,46,0.1); }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(122,30,46,0.1); margin-top: 4px;
+  }
+  .compare-table th {
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+    color: var(--white); padding: 12px 16px; font-size: 0.95rem; font-weight: 800; text-align: center;
+  }
+  .compare-table td {
+    padding: 10px 14px; text-align: center;
+    border-bottom: 1px solid var(--cream-dark); background: var(--white);
+  }
+  .compare-table tr:nth-child(even) td { background: var(--cream); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-td-label { font-weight: 700; color: var(--maroon); background: rgba(122,30,46,0.05) !important; }
+  .compare-input {
+    width: 100%; border: 1.5px solid var(--cream-dark); border-radius: 8px;
+    padding: 8px 12px; font-family: 'Cairo', sans-serif; font-size: 0.88rem;
+    background: transparent; outline: none; transition: border-color 0.2s; text-align: center;
+  }
+  .compare-input:focus { border-color: var(--maroon); }
+
+  /* BUTTONS */
+  .check-btn {
+    margin-top: 16px;
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+    color: var(--white); border: none; border-radius: 12px; padding: 12px 28px;
+    font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(122,30,46,0.25);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .check-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(122,30,46,0.3); background: var(--maroon-dark); }
+  .check-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+  .reveal-btn {
+    margin-top: 12px; background: transparent; border: 2px solid var(--gold);
+    color: var(--gold-dark); border-radius: 10px; padding: 8px 20px;
+    font-family: 'Cairo', sans-serif; font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; margin-right: 10px;
+  }
+  .reveal-btn:hover { background: var(--gold); color: var(--white); }
+
+  /* FEEDBACK */
+  .feedback-msg {
+    margin-top: 14px; padding: 12px 18px; border-radius: 12px;
+    font-size: 0.92rem; font-weight: 700;
+    display: none; align-items: center; gap: 8px;
+    animation: msgIn 0.3s ease;
+  }
+  @keyframes msgIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+  .feedback-msg.show { display: flex; }
+  .feedback-msg.correct-msg { background: #e8f7ef; color: var(--success); border: 1.5px solid #a8e0c0; }
+  .feedback-msg.wrong-msg { background: #fdeaea; color: var(--error); border: 1.5px solid #f0a0a0; }
+  .feedback-msg .msg-icon { font-size: 1.3rem; }
+
+  /* ANSWER REVEAL */
+  .answer-reveal {
+    margin-top: 12px; padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.05));
+    border: 1.5px solid var(--gold); border-radius: 12px;
+    display: none; animation: msgIn 0.3s ease;
+  }
+  .answer-reveal.show { display: block; }
+  .answer-reveal-title { font-size: 0.82rem; font-weight: 800; color: var(--gold-dark); margin-bottom: 6px; }
+  .answer-reveal-text { font-size: 0.92rem; font-weight: 600; color: var(--text-dark); line-height: 1.8; }
+  .answer-reveal-text li { margin-right: 16px; margin-bottom: 4px; }
+  .answer-reveal-text b { color: var(--maroon); }
+
+  /* RESULT PANEL */
+  .result-panel {
+    display: none;
+    background: linear-gradient(135deg, var(--maroon-dark) 0%, var(--maroon) 100%);
+    border-radius: 20px; padding: 40px 30px; margin-top: 40px;
+    text-align: center; box-shadow: var(--shadow-lg);
+    position: relative; overflow: hidden;
+    animation: cardIn 0.5s ease;
+  }
+  .result-panel.show { display: block; }
+  .result-panel::before { content:'🏆'; position:absolute; top:-20px; right:-20px; font-size:8rem; opacity:0.07; }
+  .result-score-big { font-size: 5rem; font-weight: 900; color: var(--gold-light); line-height: 1; text-shadow: 0 4px 20px rgba(201,168,76,0.4); }
+  .result-label { color: rgba(255,255,255,0.7); font-size: 1rem; margin: 8px 0 20px; }
+  .result-stars { font-size: 2.5rem; letter-spacing: 6px; margin-bottom: 16px; }
+  .result-msg { color: var(--white); font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+  .result-breakdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+  .rb-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(201,168,76,0.4); border-radius: 12px; padding: 12px 20px; color: var(--white); font-size: 0.9rem; }
+  .rb-num { font-size: 1.6rem; font-weight: 900; color: var(--gold-light); display: block; }
+  .restart-btn {
+    background: var(--gold); color: var(--maroon-dark); border: none; border-radius: 14px;
+    padding: 14px 40px; font-family: 'Cairo', sans-serif; font-size: 1.05rem; font-weight: 800;
+    cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+  }
+  .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+
+  .submit-all-btn {
+    width: 100%; padding: 18px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+    color: var(--maroon-dark); border: none; border-radius: 16px;
+    font-family: 'Cairo', sans-serif; font-size: 1.1rem; font-weight: 900;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 6px 24px rgba(201,168,76,0.3);
+    margin-top: 30px; letter-spacing: 1px;
+  }
+  .submit-all-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,168,76,0.4); }
+
+  /* DIVIDER */
+  .fancy-divider { display: flex; align-items: center; gap: 14px; margin: 30px 0; }
+  .fancy-divider span { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.5; }
+  .fancy-divider-icon { font-size: 1.4rem; color: var(--gold-dark); }
+
+  /* CONFETTI */
+  .confetti-piece {
+    position: fixed; border-radius: 2px;
+    animation: confettiFall linear forwards;
+    z-index: 999; pointer-events: none;
+  }
+  @keyframes confettiFall {
+    0%{transform:translateY(-20px) rotate(0deg);opacity:1}
+    100%{transform:translateY(100vh) rotate(720deg);opacity:0}
+  }
+
+  /* ANSWER BOX inside reveal */
+  .ans-box {
+    background: rgba(122,30,46,0.06); border-radius: 8px;
+    padding: 10px 14px; margin: 4px 0;
+    border-right: 3px solid var(--maroon);
+    font-size: 0.92rem; font-weight: 600;
+  }
+
+  /* INLINE COMPARE in reveal */
+  .mini-compare { width:100%; border-collapse:collapse; margin-top:8px; font-size:0.85rem; }
+  .mini-compare th { background:var(--maroon); color:#fff; padding:8px 12px; }
+  .mini-compare td { padding:8px 12px; border:1px solid var(--cream-dark); }
+  .mini-compare tr:nth-child(even) td { background:var(--cream); }
+  .mini-compare .td-lbl { font-weight:800; color:var(--maroon); background:rgba(122,30,46,0.06)!important; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <img src="/mnt/user-data/uploads/1000168860.webp" alt="شعار المدرسة" class="school-logo" onerror="this.style.display='none'">
+    <div class="school-name">مدرسة الشحانية الإعدادية والثانوية للبنين</div>
+    <div class="exam-title">اختبار النصف الثاني – نهاية الفصل الثاني<br>2025/2026</div>
+    <div class="exam-subtitle">الأسئلة الإثرائية التفاعلية – الصف التاسع</div>
+    <div class="header-badges">
+      <span class="badge">📊 الوحدة الثانية: قواعد البيانات</span>
+      <span class="badge">🎮 الوحدة الثالثة: تصميم وبرمجة الألعاب</span>
+    </div>
+  </div>
+</header>
+
+<div class="score-panel">
+  <div class="score-inner">
+    <span class="score-item">✅ صحيح: <span class="score-num" id="scoreCorrect">0</span></span>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <span class="score-item">❌ خطأ: <span class="score-num" id="scoreWrong">0</span></span>
+    <span class="score-item">📝 المجاب: <span class="score-num" id="scoreAnswered">0</span> / <span id="scoreTotal">19</span></span>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══════════════════════════════ -->
+<!--    UNIT 2: DATABASE            -->
+<!-- ═══════════════════════════════ -->
+<div class="unit-section">
+  <div class="unit-header">
+    <div class="unit-icon">🗄️</div>
+    <div>
+      <div class="unit-title">الوحدة الثانية: قواعد البيانات</div>
+      <div class="unit-subtitle">الاستعلام (ص133-134) | التقرير (ص144) | تصدير واستيراد البيانات (ص161-162)</div>
+    </div>
+    <span class="unit-count">السؤال الأول والثاني</span>
+  </div>
+
+  <!-- MCQ 1 -->
+  <div class="q-card" id="qcard-1">
+    <div class="q-header">
+      <span class="q-num-badge">1</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>هو سؤال محدد نقوم بتطبيقه على قاعدة البيانات لاسترجاع بيانات محددة:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(1,this,'wrong')"><span class="opt-letter">أ</span>المفتاح الأساسي</button>
+      <button class="option-btn" onclick="checkMCQ(1,this,'correct')"><span class="opt-letter">ب</span>الاستعلام</button>
+      <button class="option-btn" onclick="checkMCQ(1,this,'wrong')"><span class="opt-letter">ج</span>النموذج</button>
+      <button class="option-btn" onclick="checkMCQ(1,this,'wrong')"><span class="opt-letter">د</span>التقرير</button>
+    </div>
+    <div class="feedback-msg" id="fb-1"></div>
+  </div>
+
+  <!-- MCQ 2 -->
+  <div class="q-card" id="qcard-2">
+    <div class="q-header">
+      <span class="q-num-badge">2</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>من مزايا استخدام الاستعلام في قاعدة البيانات:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(2,this,'wrong')"><span class="opt-letter">أ</span>إدراج سجلات جديدة في قاعدة البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(2,this,'correct')"><span class="opt-letter">ب</span>العثور على البيانات التي نريدها</button>
+      <button class="option-btn" onclick="checkMCQ(2,this,'wrong')"><span class="opt-letter">ج</span>إنشاء العلاقات بين جداول قاعدة البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(2,this,'wrong')"><span class="opt-letter">د</span>إضافة حقول جديدة في قاعدة البيانات</button>
+    </div>
+    <div class="feedback-msg" id="fb-2"></div>
+  </div>
+
+  <!-- MCQ 3 -->
+  <div class="q-card" id="qcard-3">
+    <div class="q-header">
+      <span class="q-num-badge">3</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>أداة تستخدم لعرض البيانات وطباعتها بأشكال وتنسيقات مختلفة وجاذبة هو:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(3,this,'wrong')"><span class="opt-letter">أ</span>المفتاح الأساسي</button>
+      <button class="option-btn" onclick="checkMCQ(3,this,'wrong')"><span class="opt-letter">ب</span>الاستعلام</button>
+      <button class="option-btn" onclick="checkMCQ(3,this,'wrong')"><span class="opt-letter">ج</span>النموذج</button>
+      <button class="option-btn" onclick="checkMCQ(3,this,'correct')"><span class="opt-letter">د</span>التقرير</button>
+    </div>
+    <div class="feedback-msg" id="fb-3"></div>
+  </div>
+
+  <!-- MCQ 4 -->
+  <div class="q-card" id="qcard-4">
+    <div class="q-header">
+      <span class="q-num-badge">4</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>عملية تحويل ملف من تنسيق إلى تنسيق آخر مختلف تسمى:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(4,this,'wrong')"><span class="opt-letter">أ</span>إصلاح البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(4,this,'wrong')"><span class="opt-letter">ب</span>استيراد البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(4,this,'correct')"><span class="opt-letter">ج</span>تصدير البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(4,this,'wrong')"><span class="opt-letter">د</span>تخزين البيانات</button>
+    </div>
+    <div class="feedback-msg" id="fb-4"></div>
+  </div>
+
+  <!-- MCQ 5 -->
+  <div class="q-card" id="qcard-5">
+    <div class="q-header">
+      <span class="q-num-badge">5</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>عملية فتح ملف بتنسيق مختلف عن تنسيق التطبيق الذي تم إنشاؤه باستخدامه تسمى:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(5,this,'wrong')"><span class="opt-letter">أ</span>إصلاح البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(5,this,'correct')"><span class="opt-letter">ب</span>استيراد البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(5,this,'wrong')"><span class="opt-letter">ج</span>تصدير البيانات</button>
+      <button class="option-btn" onclick="checkMCQ(5,this,'wrong')"><span class="opt-letter">د</span>تخزين البيانات</button>
+    </div>
+    <div class="feedback-msg" id="fb-5"></div>
+  </div>
+
+  <div class="fancy-divider"><span></span><div class="fancy-divider-icon">✦</div><span></span></div>
+
+  <!-- LIST Q6: 3 advantages of queries -->
+  <div class="q-card" id="qcard-6">
+    <div class="q-header">
+      <span class="q-num-badge">6</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر ثلاثاً من مزايا استخدام الاستعلامات في قاعدة البيانات؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الميزة الأولى..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الميزة الثانية..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="الميزة الثالثة..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-6')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-6">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – عرض بيانات الحقول التي تحددها فقط.</div>
+        <div class="ans-box">2 – جمع البيانات من عدة جداول.</div>
+        <div class="ans-box">3 – عرض السجلات التي تستوفي المعايير التي تحددها.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST Q7: 2 advantages of reports -->
+  <div class="q-card" id="qcard-7">
+    <div class="q-header">
+      <span class="q-num-badge">7</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر اثنتين من مزايا استخدام التقارير في قاعدة البيانات؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الميزة الأولى..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الميزة الثانية..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-7')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-7">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – عرض البيانات بشكل مرئي ومطبوع على الورق.</div>
+        <div class="ans-box">2 – تنسيق، تلخيص وتقسيم البيانات إلى فئات يسهل قراءتها واستخلاص المعلومات منها.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST Q8: 4 features import/export -->
+  <div class="q-card" id="qcard-8">
+    <div class="q-header">
+      <span class="q-num-badge">8</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر أربعاً من ميزات استيراد وتصدير ملفات البيانات؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الميزة الأولى..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الميزة الثانية..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="الميزة الثالثة..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">4</span><input class="list-input" type="text" placeholder="الميزة الرابعة..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-8')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-8">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – تحليل السجلات الموجودة في قاعدة البيانات.</div>
+        <div class="ans-box">2 – تبادل المعلومات.</div>
+        <div class="ans-box">3 – عرض البيانات بأشكال وصيغ مختلفة.</div>
+        <div class="ans-box">4 – الوصول إلى ملفات البيانات القديمة واستخدامها.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ -->
+<!--    UNIT 3: ALICE / GAMES       -->
+<!-- ═══════════════════════════════ -->
+<div class="unit-section">
+  <div class="unit-header">
+    <div class="unit-icon">🎮</div>
+    <div>
+      <div class="unit-title">الوحدة الثالثة: تصميم وبرمجة الألعاب</div>
+      <div class="unit-subtitle">إنشاء الدوال (ص209-213) | الكائنات الوهمية والمتغيرات (ص220+225+226)</div>
+    </div>
+    <span class="unit-count">الأسئلة الأول والثاني والثالث</span>
+  </div>
+
+  <!-- MCQ 9 - While elements -->
+  <div class="q-card" id="qcard-9">
+    <div class="q-header">
+      <span class="q-num-badge">9</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>عدد عناصر جملة التكرار While هو:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(9,this,'wrong')"><span class="opt-letter">أ</span>ثلاثة أجزاء</button>
+      <button class="option-btn" onclick="checkMCQ(9,this,'wrong')"><span class="opt-letter">ب</span>خمسة أجزاء</button>
+      <button class="option-btn" onclick="checkMCQ(9,this,'correct')"><span class="opt-letter">ج</span>أربعة أجزاء</button>
+      <button class="option-btn" onclick="checkMCQ(9,this,'wrong')"><span class="opt-letter">د</span>جزئين فقط</button>
+    </div>
+    <div class="feedback-msg" id="fb-9"></div>
+  </div>
+
+  <!-- MCQ 10 - Events -->
+  <div class="q-card" id="qcard-10">
+    <div class="q-header">
+      <span class="q-num-badge">10</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>وسيلة التفاعل بين المستخدم وعالم Alice تسمى:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(10,this,'wrong')"><span class="opt-letter">أ</span>الكائنات</button>
+      <button class="option-btn" onclick="checkMCQ(10,this,'correct')"><span class="opt-letter">ب</span>الأحداث</button>
+      <button class="option-btn" onclick="checkMCQ(10,this,'wrong')"><span class="opt-letter">ج</span>الدوال</button>
+      <button class="option-btn" onclick="checkMCQ(10,this,'wrong')"><span class="opt-letter">د</span>المعاملات</button>
+    </div>
+    <div class="feedback-msg" id="fb-10"></div>
+  </div>
+
+  <!-- MCQ 11 - Functions/Procedures -->
+  <div class="q-card" id="qcard-11">
+    <div class="q-header">
+      <span class="q-num-badge">11</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>مجموعة من الإجراءات التي يتعين القيام بها بواسطة كائنات داخل عالم Alice تسمى:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(11,this,'wrong')"><span class="opt-letter">أ</span>الخصائص</button>
+      <button class="option-btn" onclick="checkMCQ(11,this,'wrong')"><span class="opt-letter">ب</span>الأحداث</button>
+      <button class="option-btn" onclick="checkMCQ(11,this,'correct')"><span class="opt-letter">ج</span>الدوال</button>
+      <button class="option-btn" onclick="checkMCQ(11,this,'wrong')"><span class="opt-letter">د</span>المعاملات</button>
+    </div>
+    <div class="feedback-msg" id="fb-11"></div>
+  </div>
+
+  <!-- MCQ 12 - Ghost object -->
+  <div class="q-card" id="qcard-12">
+    <div class="q-header">
+      <span class="q-num-badge">12</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>هو كائن غير مرئي يستخدم لتحديد مواقع معينة في عالم لعبة Alice وتوجيه الكاميرا:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(12,this,'wrong')"><span class="opt-letter">أ</span>الكائن الحقيقي</button>
+      <button class="option-btn" onclick="checkMCQ(12,this,'wrong')"><span class="opt-letter">ب</span>الكائن الثنائي</button>
+      <button class="option-btn" onclick="checkMCQ(12,this,'wrong')"><span class="opt-letter">ج</span>الكائن الفعلي</button>
+      <button class="option-btn" onclick="checkMCQ(12,this,'correct')"><span class="opt-letter">د</span>الكائن الوهمي</button>
+    </div>
+    <div class="feedback-msg" id="fb-12"></div>
+  </div>
+
+  <!-- MCQ 13 - Sounds/Colors data type -->
+  <div class="q-card" id="qcard-13">
+    <div class="q-header">
+      <span class="q-num-badge">13</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>تُعد الأصوات والألوان المستخدمة في البرنامج من نوع بيانات:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(13,this,'wrong')"><span class="opt-letter">أ</span>عددي</button>
+      <button class="option-btn" onclick="checkMCQ(13,this,'wrong')"><span class="opt-letter">ب</span>نصي</button>
+      <button class="option-btn" onclick="checkMCQ(13,this,'wrong')"><span class="opt-letter">ج</span>منطقي</button>
+      <button class="option-btn" onclick="checkMCQ(13,this,'correct')"><span class="opt-letter">د</span>غير ذلك</button>
+    </div>
+    <div class="feedback-msg" id="fb-13"></div>
+  </div>
+
+  <!-- MCQ 14 - Local variables usage -->
+  <div class="q-card" id="qcard-14">
+    <div class="q-header">
+      <span class="q-num-badge">14</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>تُستخدم المتغيرات المحلية في برنامج Alice في:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(14,this,'wrong')"><span class="opt-letter">أ</span>تحديد خصائص الكائنات</button>
+      <button class="option-btn" onclick="checkMCQ(14,this,'correct')"><span class="opt-letter">ب</span>تخزين بيانات محددة</button>
+      <button class="option-btn" onclick="checkMCQ(14,this,'wrong')"><span class="opt-letter">ج</span>إعطاء نتائج مختلفة</button>
+      <button class="option-btn" onclick="checkMCQ(14,this,'wrong')"><span class="opt-letter">د</span>توجيه الكاميرا</button>
+    </div>
+    <div class="feedback-msg" id="fb-14"></div>
+  </div>
+
+  <!-- MCQ 15 - Object properties examples -->
+  <div class="q-card" id="qcard-15">
+    <div class="q-header">
+      <span class="q-num-badge">15</span>
+      <div class="q-text"><span class="q-type-tag tag-mcq">اختيار من متعدد</span>من أمثلة الخصائص التي تصف الكائنات في Alice:</div>
+    </div>
+    <div class="options-grid">
+      <button class="option-btn" onclick="checkMCQ(15,this,'wrong')"><span class="opt-letter">أ</span>دوران الكائن</button>
+      <button class="option-btn" onclick="checkMCQ(15,this,'wrong')"><span class="opt-letter">ب</span>توجيه الكائن</button>
+      <button class="option-btn" onclick="checkMCQ(15,this,'wrong')"><span class="opt-letter">ج</span>تحدث الكائن</button>
+      <button class="option-btn" onclick="checkMCQ(15,this,'correct')"><span class="opt-letter">د</span>لون الكائن</button>
+    </div>
+    <div class="feedback-msg" id="fb-15"></div>
+  </div>
+
+  <div class="fancy-divider"><span></span><div class="fancy-divider-icon">✦</div><span></span></div>
+
+  <!-- FILL Q16 - While loop (4 blanks, graded as 1 question) -->
+  <div class="q-card" id="qcard-16">
+    <div class="q-header">
+      <span class="q-num-badge">16</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span>التكرار While هو تكرار <b>[1]</b> يعتمد على حالة <b>[2]</b> فإذا كانت الحالة <b>[3]</b> يتم تنفيذ الأوامر داخل التكرار وإلا سيتم <b>[4]</b> الأوامر داخل التكرار.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="fill-row"><span class="fill-label">[1] التكرار While هو تكرار:</span><input class="fill-input" type="text" id="f16a" placeholder="نوع التكرار..."></div>
+      <div class="fill-row"><span class="fill-label">[2] يعتمد على حالة:</span><input class="fill-input" type="text" id="f16b" placeholder="نوع الحالة..."></div>
+      <div class="fill-row"><span class="fill-label">[3] فإذا كانت الحالة:</span><input class="fill-input" type="text" id="f16c" placeholder="قيمة الحالة..."></div>
+      <div class="fill-row"><span class="fill-label">[4] وإلا سيتم:</span><input class="fill-input" type="text" id="f16d" placeholder="الإجراء..."></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkFill16()">🔍 تحقق من الإجابة</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-16')">💡 عرض الإجابة</button>
+    </div>
+    <div class="feedback-msg" id="fb-16"></div>
+    <div class="answer-reveal" id="ans-16">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        التكرار While هو تكرار <b>مشروط</b> يعتمد على حالة <b>منطقية</b>، فإذا كانت الحالة <b>صحيحة</b> يتم تنفيذ الأوامر داخل التكرار وإلا سيتم <b>تخطي</b> الأوامر داخل التكرار.
+      </div>
+    </div>
+  </div>
+
+  <!-- FILL Q17 - Object functions -->
+  <div class="q-card" id="qcard-17">
+    <div class="q-header">
+      <span class="q-num-badge">17</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span>دوال <b>_____</b> هي دوال تنفذ كأحداث خاصة بالكائن ليتصرف بالشكل المطلوب منه.</div>
+    </div>
+    <div class="fill-row">
+      <span class="fill-label">دوال</span>
+      <input class="fill-input" type="text" id="f17" placeholder="اكتب الإجابة...">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkSingleFill('f17',['الكائن','كائن','object'],'fb-17','ans-17')">🔍 تحقق</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-17')">💡 عرض</button>
+    </div>
+    <div class="feedback-msg" id="fb-17"></div>
+    <div class="answer-reveal" id="ans-17">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية:</div>
+      <div class="answer-reveal-text">دوال <b>الكائن</b> هي دوال تنفذ كأحداث خاصة بالكائن ليتصرف بالشكل المطلوب منه.</div>
+    </div>
+  </div>
+
+  <!-- FILL Q18 - Variable definition -->
+  <div class="q-card" id="qcard-18">
+    <div class="q-header">
+      <span class="q-num-badge">18</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span><b>_____</b> هو موقع مسمى في ذاكرة الحاسوب يستخدم لتخزين قيم أو بيانات.</div>
+    </div>
+    <div class="fill-row">
+      <input class="fill-input" type="text" id="f18" placeholder="اكتب المصطلح...">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkSingleFill('f18',['المتغير','متغير','variable'],'fb-18','ans-18')">🔍 تحقق</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-18')">💡 عرض</button>
+    </div>
+    <div class="feedback-msg" id="fb-18"></div>
+    <div class="answer-reveal" id="ans-18">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية:</div>
+      <div class="answer-reveal-text"><b>المتغير</b> هو موقع مسمى في ذاكرة الحاسوب يستخدم لتخزين قيم أو بيانات.</div>
+    </div>
+  </div>
+
+  <!-- FILL Q19 - Parameters -->
+  <div class="q-card" id="qcard-19">
+    <div class="q-header">
+      <span class="q-num-badge">19</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span>تستخدم <b>_____</b> كوسائط في الدوال وتسمح للدوال بالتصرف بشكل مختلف في كل مرة نستخدمها فيها.</div>
+    </div>
+    <div class="fill-row">
+      <input class="fill-input" type="text" id="f19" placeholder="اكتب المصطلح...">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkSingleFill('f19',['المعاملات','معاملات','parameters'],'fb-19','ans-19')">🔍 تحقق</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-19')">💡 عرض</button>
+    </div>
+    <div class="feedback-msg" id="fb-19"></div>
+    <div class="answer-reveal" id="ans-19">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية:</div>
+      <div class="answer-reveal-text">تستخدم <b>المعاملات</b> كوسائط في الدوال وتسمح للدوال بالتصرف بشكل مختلف في كل مرة نستخدمها فيها.</div>
+    </div>
+  </div>
+
+  <!-- FILL Q20 - Properties -->
+  <div class="q-card" id="qcard-20">
+    <div class="q-header">
+      <span class="q-num-badge">20</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span>ترتبط <b>_____</b> بالكائن وتظهر عند إنشائه وتحتفظ بقيمها طالما ظل الكائن موجوداً.</div>
+    </div>
+    <div class="fill-row">
+      <input class="fill-input" type="text" id="f20" placeholder="اكتب المصطلح...">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkSingleFill('f20',['الخصائص','خصائص','properties'],'fb-20','ans-20')">🔍 تحقق</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-20')">💡 عرض</button>
+    </div>
+    <div class="feedback-msg" id="fb-20"></div>
+    <div class="answer-reveal" id="ans-20">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية:</div>
+      <div class="answer-reveal-text">ترتبط <b>الخصائص</b> بالكائن وتظهر عند إنشائه وتحتفظ بقيمها طالما ظل الكائن موجوداً.</div>
+    </div>
+  </div>
+
+  <!-- FILL Q21 - String data type -->
+  <div class="q-card" id="qcard-21">
+    <div class="q-header">
+      <span class="q-num-badge">21</span>
+      <div class="q-text"><span class="q-type-tag tag-fill">أكمل الفراغ</span>تُعتبر عبارة (تعلّم من أجل قطر) من نوع بيانات <b>_____</b> في برنامج Alice.</div>
+    </div>
+    <div class="fill-row">
+      <input class="fill-input" type="text" id="f21" placeholder="نوع البيانات...">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+      <button class="check-btn" onclick="checkSingleFill('f21',['نصي','نص','string'],'fb-21','ans-21')">🔍 تحقق</button>
+      <button class="reveal-btn" onclick="revealAnswer('ans-21')">💡 عرض</button>
+    </div>
+    <div class="feedback-msg" id="fb-21"></div>
+    <div class="answer-reveal" id="ans-21">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية:</div>
+      <div class="answer-reveal-text">تُعتبر عبارة (تعلّم من أجل قطر) من نوع بيانات <b>نصي</b> في برنامج Alice.</div>
+    </div>
+  </div>
+
+  <div class="fancy-divider"><span></span><div class="fancy-divider-icon">✦</div><span></span></div>
+
+  <!-- LIST Q22 - Two function types in Alice -->
+  <div class="q-card" id="qcard-22">
+    <div class="q-header">
+      <span class="q-num-badge">22</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>يتم تصنيف الدوال في عالم Alice إلى صنفين، اذكرهما؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الصنف الأول..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الصنف الثاني..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-22')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-22">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – دوال عالم اللعبة</div>
+        <div class="ans-box">2 – دوال الكائن</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST Q23 - Data types in Alice (5 types) -->
+  <div class="q-card" id="qcard-23">
+    <div class="q-header">
+      <span class="q-num-badge">23</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر أنواع البيانات في برنامج Alice؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="النوع الأول..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="النوع الثاني..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="النوع الثالث..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">4</span><input class="list-input" type="text" placeholder="النوع الرابع..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">5</span><input class="list-input" type="text" placeholder="النوع الخامس..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-23')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-23">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – عددي</div>
+        <div class="ans-box">2 – نصي</div>
+        <div class="ans-box">3 – كائن</div>
+        <div class="ans-box">4 – منطقي</div>
+        <div class="ans-box">5 – غير ذلك</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST Q24 - Variable types in Alice (3 types) -->
+  <div class="q-card" id="qcard-24">
+    <div class="q-header">
+      <span class="q-num-badge">24</span>
+      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر أنواع المتغيرات في برنامج Alice؟</div>
+    </div>
+    <div class="list-items">
+      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="النوع الأول..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="النوع الثاني..."></div>
+      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="النوع الثالث..."></div>
+    </div>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-24')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-24">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <div class="answer-reveal-text">
+        <div class="ans-box">1 – المتغيرات المحلية</div>
+        <div class="ans-box">2 – المعاملات</div>
+        <div class="ans-box">3 – الخصائص</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARE Q25 - Properties vs Local Variables -->
+  <div class="q-card" id="qcard-25">
+    <div class="q-header">
+      <span class="q-num-badge">25</span>
+      <div class="q-text"><span class="q-type-tag tag-compare">مقارنة</span>قارن بين الخصائص والمتغيرات المحلية من حيث: الارتباط | الوصول | الوظيفة</div>
+    </div>
+    <table class="compare-table">
+      <thead>
+        <tr><th style="width:22%">وجه المقارنة</th><th>الخصائص</th><th>المتغيرات المحلية</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="compare-td-label">ارتباط كل منها</td>
+          <td><input class="compare-input" type="text" placeholder="ترتبط الخصائص بـ..."></td>
+          <td><input class="compare-input" type="text" placeholder="ترتبط المتغيرات بـ..."></td>
+        </tr>
+        <tr>
+          <td class="compare-td-label">الوصول إليها</td>
+          <td><input class="compare-input" type="text" placeholder="يمكن الوصول..."></td>
+          <td><input class="compare-input" type="text" placeholder="يمكن الوصول..."></td>
+        </tr>
+        <tr>
+          <td class="compare-td-label">الوظيفة</td>
+          <td><input class="compare-input" type="text" placeholder="تستخدم لـ..."></td>
+          <td><input class="compare-input" type="text" placeholder="تستخدم لـ..."></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px"><button class="reveal-btn" onclick="revealAnswer('ans-25')">💡 عرض الإجابة النموذجية</button></div>
+    <div class="answer-reveal" id="ans-25">
+      <div class="answer-reveal-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
+      <table class="mini-compare">
+        <thead><tr><th>وجه المقارنة</th><th>الخصائص</th><th>المتغيرات المحلية</th></tr></thead>
+        <tbody>
+          <tr><td class="td-lbl">ارتباط كل منها</td><td>ترتبط بكائن.</td><td>ترتبط بدالة أو وظيفة.</td></tr>
+          <tr><td class="td-lbl">الوصول إليها</td><td>عند إنشاء الكائن.</td><td>فقط من الدالة التي تم تعريفها بها فقط.</td></tr>
+          <tr><td class="td-lbl">الوظيفة</td><td>تحديد خصائص الكائنات.</td><td>تحتفظ بالقيم التي يدخلها المستخدم.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<button class="submit-all-btn" onclick="submitAll()">🏆 عرض النتيجة النهائية للأسئلة التفاعلية</button>
+
+<div class="result-panel" id="resultPanel">
+  <div class="result-score-big" id="resultScore">0%</div>
+  <div class="result-label">من إجمالي الأسئلة التفاعلية (اختيار من متعدد + أكمل الفراغ)</div>
+  <div class="result-stars" id="resultStars">⭐⭐⭐⭐⭐</div>
+  <div class="result-msg" id="resultMsg">أحسنت!</div>
+  <div class="result-breakdown">
+    <div class="rb-item"><span class="rb-num" id="rb-correct">0</span>إجابات صحيحة</div>
+    <div class="rb-item"><span class="rb-num" id="rb-wrong">0</span>إجابات خاطئة</div>
+    <div class="rb-item"><span class="rb-num" id="rb-total">0</span>إجمالي الأسئلة</div>
+  </div>
+  <button class="restart-btn" onclick="restartQuiz()">🔄 إعادة المحاولة</button>
+</div>
+
+</main>
+
+<script>
+  // 15 MCQ + 6 fill = 21 scored questions
+  const TOTAL_SCORED = 21;
+  let correctCount = 0, wrongCount = 0, answeredCount = 0;
+
+  function updateScore() {
+    document.getElementById('scoreCorrect').textContent = correctCount;
+    document.getElementById('scoreWrong').textContent = wrongCount;
+    document.getElementById('scoreAnswered').textContent = answeredCount;
+    document.getElementById('scoreTotal').textContent = TOTAL_SCORED;
+    document.getElementById('progressBar').style.width = Math.round((answeredCount/TOTAL_SCORED)*100)+'%';
+  }
+
+  function checkMCQ(qNum, btn, result) {
+    const card = document.getElementById('qcard-'+qNum);
+    if (card.dataset.answered) return;
+    card.dataset.answered = '1';
+    answeredCount++;
+    card.querySelectorAll('.option-btn').forEach(o => o.disabled = true);
+    const fb = document.getElementById('fb-'+qNum);
+    if (result === 'correct') {
+      btn.classList.add('correct');
+      card.classList.add('answered-correct');
+      correctCount++;
+      showFB(fb,'correct','🎉 إجابة صحيحة! أحسنت!');
+      spawnConfetti();
+    } else {
+      btn.classList.add('wrong');
+      card.classList.add('answered-wrong');
+      wrongCount++;
+      card.querySelectorAll('.option-btn').forEach(o => {
+        if (o.getAttribute('onclick') && o.getAttribute('onclick').includes("'correct'")) o.classList.add('correct');
+      });
+      showFB(fb,'wrong','❌ إجابة خاطئة. الإجابة الصحيحة مظللة بالأخضر.');
+    }
+    updateScore();
+  }
+
+  function showFB(el, type, msg) {
+    el.innerHTML = '<span class="msg-icon">'+(type==='correct'?'✅':'❌')+'</span>'+msg;
+    el.className = 'feedback-msg show '+(type==='correct'?'correct-msg':'wrong-msg');
+  }
+
+  function checkFill16() {
+    const fields = [
+      {id:'f16a', keys:['مشروط','conditional','مشروطا']},
+      {id:'f16b', keys:['منطقية','boolean','منطقي']},
+      {id:'f16c', keys:['صحيحة','true','صح','صحيح']},
+      {id:'f16d', keys:['تخطي','تجاهل','skip','تجاوز']}
+    ];
+    let allOk = true;
+    fields.forEach(f => {
+      const inp = document.getElementById(f.id);
+      const val = inp.value.trim().toLowerCase();
+      const ok = f.keys.some(k => val.includes(k.toLowerCase()));
+      inp.classList.toggle('correct', ok);
+      inp.classList.toggle('wrong', !ok);
+      if (!ok) allOk = false;
+    });
+    const card = document.getElementById('qcard-16');
+    const fb = document.getElementById('fb-16');
+    if (!card.dataset.answered) {
+      card.dataset.answered='1'; answeredCount++;
+      if (allOk) { correctCount++; card.classList.add('answered-correct'); spawnConfetti(); }
+      else { wrongCount++; card.classList.add('answered-wrong'); }
+      updateScore();
+    }
+    showFB(fb, allOk?'correct':'wrong', allOk?'🎉 ممتاز! جميع الفراغات صحيحة!':'❌ بعض الفراغات خاطئة، راجعها وأعد المحاولة أو اضغط عرض الإجابة.');
+  }
+
+  function checkSingleFill(inputId, keys, fbId, ansId) {
+    const inp = document.getElementById(inputId);
+    const val = inp.value.trim().toLowerCase();
+    const ok = keys.some(k => val.includes(k.toLowerCase()));
+    inp.classList.toggle('correct', ok);
+    inp.classList.toggle('wrong', !ok);
+    const card = inp.closest('.q-card');
+    const fb = document.getElementById(fbId);
+    if (!card.dataset.answered) {
+      card.dataset.answered='1'; answeredCount++;
+      if (ok) { correctCount++; card.classList.add('answered-correct'); spawnConfetti(); }
+      else { wrongCount++; card.classList.add('answered-wrong'); }
+      updateScore();
+    }
+    showFB(fb, ok?'correct':'wrong', ok?'🎉 إجابة صحيحة!':'❌ غير صحيحة، حاول مرة أخرى أو اضغط عرض للإجابة.');
+    if (ok) document.getElementById(ansId).classList.add('show');
+  }
+
+  function revealAnswer(id) {
+    document.getElementById(id).classList.toggle('show');
+  }
+
+  function submitAll() {
+    const pct = Math.round((correctCount/TOTAL_SCORED)*100);
+    document.getElementById('resultScore').textContent = pct+'%';
+    document.getElementById('rb-correct').textContent = correctCount;
+    document.getElementById('rb-wrong').textContent = wrongCount;
+    document.getElementById('rb-total').textContent = TOTAL_SCORED;
+    let stars, msg;
+    if (pct>=90){stars='⭐⭐⭐⭐⭐';msg='🏆 ممتاز! أداء رائع جداً، استمر!';}
+    else if(pct>=75){stars='⭐⭐⭐⭐';msg='👏 جيد جداً! أنت على المسار الصحيح.';}
+    else if(pct>=60){stars='⭐⭐⭐';msg='👍 جيد! راجع الإجابات الخاطئة وستتحسن.';}
+    else if(pct>=40){stars='⭐⭐';msg='📚 تحتاج إلى مراجعة أكثر للمادة.';}
+    else{stars='⭐';msg='💪 لا تستسلم! راجع الكتاب وأعد المحاولة.';}
+    document.getElementById('resultStars').textContent=stars;
+    document.getElementById('resultMsg').textContent=msg;
+    document.getElementById('resultPanel').classList.add('show');
+    document.getElementById('resultPanel').scrollIntoView({behavior:'smooth',block:'center'});
+    if(pct>=60){for(let i=0;i<40;i++)setTimeout(()=>spawnConfetti(),i*70);}
+  }
+
+  function restartQuiz() {
+    correctCount=0;wrongCount=0;answeredCount=0;
+    updateScore();
+    document.getElementById('resultPanel').classList.remove('show');
+    document.querySelectorAll('.q-card').forEach(card => {
+      delete card.dataset.answered;
+      card.classList.remove('answered-correct','answered-wrong');
+      card.querySelectorAll('.option-btn').forEach(b=>{ b.classList.remove('correct','wrong'); b.disabled=false; });
+      card.querySelectorAll('.feedback-msg').forEach(f=>{ f.className='feedback-msg'; f.innerHTML=''; });
+      card.querySelectorAll('.answer-reveal').forEach(a=>a.classList.remove('show'));
+      card.querySelectorAll('input').forEach(i=>{ i.value=''; i.classList.remove('correct','wrong'); });
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  const confColors=['#7a1e2e','#c9a84c','#e8c96a','#2e7d52','#1e50a0','#a02840','#fff'];
+  function spawnConfetti(){
+    for(let i=0;i<8;i++){
+      const el=document.createElement('div');
+      el.className='confetti-piece';
+      el.style.cssText=`left:${Math.random()*100}vw;background:${confColors[Math.floor(Math.random()*confColors.length)]};width:${7+Math.random()*8}px;height:${7+Math.random()*8}px;animation-duration:${1.2+Math.random()*2}s;animation-delay:${Math.random()*0.4}s;border-radius:${Math.random()>.5?'50%':'3px'};`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend',()=>el.remove());
+    }
+  }
+
+  // Stagger card animations
+  window.addEventListener('DOMContentLoaded',()=>{
+    updateScore();
+    document.querySelectorAll('.q-card').forEach((c,i)=>c.style.animationDelay=(i*0.05)+'s');
+  });
+</script>
+</body>
+</html>
