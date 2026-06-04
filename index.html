@@ -3,81 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بوابة الأسئلة الإثرائية التفاعلية</title>
-
+<title>بوابة الدروس التفاعلية | مدرسة الشحانية</title>
 <style>
+*{box-sizing:border-box}
 body{
-font-family:Tahoma;
-background:#f5f7fa;
 margin:0;
-padding:0;
+font-family:"Tahoma",Arial,sans-serif;
+background:
+radial-gradient(circle at top,#8a1538 0%,#26101f 38%,#07111f 100%);
+color:white;
+min-height:100vh;
+}
+.hero{
+padding:55px 20px 35px;
 text-align:center;
 }
-
-header{
-background:#701a36;
+.badge{
+display:inline-block;
+background:rgba(255,215,120,.15);
+border:1px solid rgba(255,215,120,.45);
+color:#ffd978;
+padding:8px 18px;
+border-radius:999px;
+margin-bottom:18px;
+}
+h1{
+font-size:34px;
+margin:10px 0;
+}
+.hero p{
+font-size:18px;
+color:#f1e8d8;
+}
+.search-box{
+max-width:650px;
+margin:25px auto 0;
+}
+.search-box input{
+width:100%;
+padding:16px 22px;
+border-radius:18px;
+border:1px solid rgba(255,255,255,.25);
+background:rgba(255,255,255,.12);
 color:white;
-padding:30px;
+font-size:17px;
+outline:none;
 }
-
-.cards{
+.search-box input::placeholder{color:#ddd}
+.filters{
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
-gap:20px;
-padding:30px;
+gap:12px;
+flex-wrap:wrap;
+padding:10px 20px 25px;
 }
-
+.filters button{
+border:0;
+padding:10px 18px;
+border-radius:999px;
+background:rgba(255,255,255,.15);
+color:white;
+cursor:pointer;
+}
+.filters button.active,
+.filters button:hover{
+background:#ffd978;
+color:#35101f;
+font-weight:bold;
+}
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+gap:24px;
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
 .card{
-background:white;
-width:300px;
-padding:25px;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
+background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.08));
+border:1px solid rgba(255,255,255,.22);
+border-radius:26px;
+padding:26px;
+box-shadow:0 18px 40px rgba(0,0,0,.28);
+transition:.3s;
+position:relative;
+overflow:hidden;
 }
-
+.card:before{
+content:"";
+position:absolute;
+width:120px;
+height:120px;
+background:rgba(255,217,120,.16);
+border-radius:50%;
+top:-45px;
+left:-45px;
+}
+.card:hover{
+transform:translateY(-8px);
+border-color:#ffd978;
+}
+.level{
+display:inline-block;
+background:#8a1538;
+color:#fff;
+padding:6px 13px;
+border-radius:999px;
+font-size:13px;
+}
 .card h2{
-color:#701a36;
+color:#ffd978;
+font-size:23px;
+margin:18px 0 10px;
 }
-
+.card p{
+line-height:1.8;
+color:#f1f1f1;
+}
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:18px;
+}
 .btn{
 display:inline-block;
-background:#701a36;
-color:white;
+background:#ffd978;
+color:#35101f;
 padding:12px 20px;
-border-radius:10px;
+border-radius:999px;
 text-decoration:none;
-margin-top:15px;
+font-weight:bold;
+}
+.btn.secondary{
+background:rgba(255,255,255,.14);
+color:white;
+border:1px solid rgba(255,255,255,.25);
+}
+footer{
+text-align:center;
+padding:35px 20px;
+color:#d8d8d8;
+}
+@media(max-width:600px){
+h1{font-size:25px}
+.hero{padding-top:35px}
 }
 </style>
 </head>
-
 <body>
 
-<header>
-<h1>مدرسة الشحانية الإعدادية الثانوية للبنين</h1>
-<h2>بوابة الدروس التفاعلية</h2>
-</header>
+<section class="hero">
+<div class="badge">مدرسة الشحانية الإعدادية الثانوية للبنين</div>
+<h1>بوابة الدروس التفاعلية</h1>
+<p>منصة منظمة للوصول إلى الدروس والمراجعات التفاعلية بسهولة</p>
 
-<div class="cards">
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="ابحث عن درس... مثل: الصف التاسع، Alice، قواعد البيانات">
+</div>
+</section>
 
-<div class="card">
-<h2>مراجعة الصف التاسع</h2>
-<p>مراجعة نهاية الفصل الثاني</p>
-<a class="btn" href="grade9-review.html">
-فتح الاختبار
-</a>
+<div class="filters">
+<button class="active" onclick="filterLessons('all', this)">جميع الدروس</button>
+<button onclick="filterLessons('9', this)">الصف التاسع</button>
+<button onclick="filterLessons('10', this)">الصف العاشر</button>
 </div>
 
-<div class="card">
-<h2>مراجعة الصف العاشر</h2>
-<p>مراجعة نهاية الفصل الثاني</p>
-<a class="btn" href="final-review-grade10.html">
-فتح الاختبار
-</a>
+<section class="cards" id="lessons">
+
+<div class="card" data-level="9" data-title="مراجعة الصف التاسع قواعد البيانات alice">
+<span class="level">الصف التاسع</span>
+<h2>📘 مراجعة الصف التاسع</h2>
+<p>مراجعة المفاهيم والمعارف النظرية للفصل الدراسي الثاني، وتشمل قواعد البيانات وAlice.</p>
+<div class="actions">
+<a class="btn" href="grade9-review.html">فتح الدرس</a>
+<a class="btn secondary" href="grade9-review.html" target="_blank">فتح في نافذة جديدة</a>
+</div>
 </div>
 
+<div class="card" data-level="10" data-title="مراجعة الصف العاشر نهاية الفصل الثاني">
+<span class="level">الصف العاشر</span>
+<h2>📗 مراجعة الصف العاشر</h2>
+<p>مراجعة تفاعلية منظمة لطلبة الصف العاشر استعداداً لاختبارات نهاية الفصل الثاني.</p>
+<div class="actions">
+<a class="btn" href="final-review-grade10.html">فتح الدرس</a>
+<a class="btn secondary" href="final-review-grade10.html" target="_blank">فتح في نافذة جديدة</a>
 </div>
+</div>
+
+</section>
+
+<footer>
+© مدرسة الشحانية الإعدادية الثانوية للبنين — بوابة الدروس التفاعلية
+</footer>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const cards = document.querySelectorAll(".card");
+
+searchInput.addEventListener("input", function(){
+  const value = this.value.trim().toLowerCase();
+  cards.forEach(card=>{
+    const title = card.dataset.title.toLowerCase();
+    card.style.display = title.includes(value) ? "block" : "none";
+  });
+});
+
+function filterLessons(level, btn){
+  document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+
+  cards.forEach(card=>{
+    card.style.display = level === "all" || card.dataset.level === level ? "block" : "none";
+  });
+
+  searchInput.value = "";
+}
+</script>
 
 </body>
 </html>
