@@ -3,813 +3,1156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الأسئلة الإثرائية - الصف العاشر - الشبكات المتقدمة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<title>مراجعة تفاعلية - نهاية الفصل الثاني - الصف العاشر</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --maroon:#7a1e2e; --maroon-dark:#5a1220; --maroon-light:#a02840;
-    --gold:#c9a84c; --gold-light:#e8c96a; --gold-dark:#9e7c32;
-    --cream:#faf6ef; --cream-dark:#f0e8d8;
-    --text-dark:#2a1a1f; --text-mid:#5a3a42;
-    --white:#ffffff; --success:#2e7d52; --error:#b91c2c;
-    --blue:#1e50a0; --teal:#0d7a6e;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Cairo','Tajawal',sans-serif;background:var(--cream);color:var(--text-dark);min-height:100vh;overflow-x:hidden}
-  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 10% 90%,rgba(122,30,46,.06) 0%,transparent 50%),radial-gradient(circle at 90% 10%,rgba(201,168,76,.06) 0%,transparent 50%),url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%237a1e2e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:0}
+:root {
+  --maroon: #7a1230;
+  --maroon-dark: #5a0d22;
+  --maroon-light: #a51840;
+  --gold: #c8962a;
+  --gold-light: #e8b84b;
+  --gold-dark: #9a6e18;
+  --navy: #0a1628;
+  --navy-mid: #1a2e50;
+  --blue: #1a3a6b;
+  --white: #ffffff;
+  --light-bg: #fdf8f0;
+  --card-bg: rgba(255,255,255,0.95);
+  --glass: rgba(255,255,255,0.15);
+  --shadow: 0 20px 60px rgba(122,18,48,0.2);
+  --shadow-gold: 0 10px 40px rgba(200,150,42,0.3);
+  --border-radius: 24px;
+  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--maroon-dark) 40%, var(--navy-mid) 100%);
+  min-height: 100vh;
+  color: var(--white);
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: radial-gradient(ellipse at 20% 20%, rgba(200,150,42,0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(122,18,48,0.2) 0%, transparent 50%);
+  pointer-events: none; z-index:0;
+}
 
-  /* HEADER */
-  .header{background:linear-gradient(135deg,var(--maroon-dark) 0%,var(--maroon) 55%,var(--maroon-light) 100%);padding:40px 20px 30px;position:relative;overflow:hidden;z-index:1}
-  .header::before{content:'';position:absolute;top:-50%;left:-10%;width:120%;height:200%;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(201,168,76,.04) 20px,rgba(201,168,76,.04) 40px)}
-  .header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent)}
-  .header-inner{max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:1}
-  .school-logo{width:100px;height:100px;border-radius:50%;background:#fff;padding:8px;box-shadow:0 0 0 3px var(--gold),0 0 0 6px rgba(201,168,76,.3),0 8px 40px rgba(122,30,46,.2);object-fit:contain;animation:logoFloat 3s ease-in-out infinite}
-  @keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  .school-name{font-size:1.25rem;font-weight:700;color:var(--gold-light);text-align:center}
-  .grade-badge{background:rgba(201,168,76,.25);border:2px solid var(--gold);color:var(--gold-light);padding:6px 24px;border-radius:30px;font-size:1.1rem;font-weight:900;letter-spacing:1px}
-  .exam-title{font-size:1.9rem;font-weight:900;color:#fff;text-align:center;line-height:1.3;text-shadow:0 2px 10px rgba(0,0,0,.3)}
-  .exam-sub{font-size:.95rem;color:rgba(255,255,255,.7);text-align:center}
-  .header-badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
-  .hbadge{background:rgba(201,168,76,.15);border:1px solid var(--gold);color:var(--gold-light);padding:4px 14px;border-radius:18px;font-size:.82rem;font-weight:600}
+/* ===== SCREENS ===== */
+.screen { display:none; animation: fadeSlideIn 0.5s ease; }
+.screen.active { display:block; }
+@keyframes fadeSlideIn {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
 
-  /* SCORE PANEL */
-  .score-panel{position:sticky;top:0;z-index:100;background:linear-gradient(90deg,var(--maroon-dark),var(--maroon));border-bottom:2px solid var(--gold);padding:9px 20px}
-  .score-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-  .score-item{color:#fff;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:6px}
-  .score-num{background:var(--gold);color:var(--maroon-dark);padding:2px 10px;border-radius:12px;font-weight:900;font-size:.95rem;min-width:30px;text-align:center}
-  .pbwrap{flex:1;min-width:140px;max-width:280px;background:rgba(255,255,255,.15);border-radius:10px;height:8px;overflow:hidden}
-  .pbfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:10px;transition:width .6s cubic-bezier(.4,0,.2,1);width:0%}
+/* ===== WELCOME SCREEN ===== */
+#welcome {
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding: 20px; text-align:center; position:relative; z-index:1;
+}
+.school-logo {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  padding: 8px;
+  background: white;
+  box-shadow: 0 0 40px rgba(200,150,42,0.5), 0 0 80px rgba(200,150,42,0.2);
+  margin-bottom: 16px;
+  animation: pulse-glow 2s infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 40px rgba(200,150,42,0.5), 0 0 80px rgba(200,150,42,0.2); }
+  50% { box-shadow: 0 0 60px rgba(200,150,42,0.8), 0 0 120px rgba(200,150,42,0.4); }
+}
+.school-name {
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 900;
+  color: var(--gold-light);
+  text-shadow: 0 2px 10px rgba(200,150,42,0.5);
+  margin-bottom: 4px;
+}
+.school-sub { font-size:14px; color:rgba(255,255,255,0.7); margin-bottom: 30px; }
+.welcome-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(200,150,42,0.3);
+  border-radius: var(--border-radius);
+  padding: 40px 30px;
+  max-width: 500px; width:100%;
+  box-shadow: var(--shadow);
+}
+.quiz-title {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold-light), var(--white));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.quiz-subtitle { color: rgba(255,255,255,0.8); font-size:16px; margin-bottom:24px; }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 28px;
+}
+.info-item {
+  background: rgba(200,150,42,0.15);
+  border: 1px solid rgba(200,150,42,0.3);
+  border-radius: 14px;
+  padding: 14px 10px; text-align:center;
+}
+.info-item .num { font-size:28px; font-weight:900; color:var(--gold-light); }
+.info-item .lbl { font-size:12px; color:rgba(255,255,255,0.7); }
+.name-input {
+  width:100%; padding:16px 20px;
+  border: 2px solid rgba(200,150,42,0.5);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.1);
+  color: white; font-family:'Cairo',sans-serif; font-size:16px;
+  text-align:center; outline:none;
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+.name-input::placeholder { color:rgba(255,255,255,0.5); }
+.name-input:focus { border-color:var(--gold); background:rgba(200,150,42,0.15); }
+.btn-start {
+  width:100%; padding:18px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy); font-family:'Cairo',sans-serif;
+  font-size:20px; font-weight:900;
+  border:none; border-radius:16px; cursor:pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-gold);
+  position:relative; overflow:hidden;
+}
+.btn-start::before {
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+.btn-start:hover::before { left:100%; }
+.btn-start:hover { transform:translateY(-3px) scale(1.02); box-shadow: 0 15px 50px rgba(200,150,42,0.5); }
 
-  /* MAIN */
-  .main{max-width:960px;margin:0 auto;padding:28px 16px 60px;position:relative;z-index:1}
+/* ===== QUIZ HEADER ===== */
+#quiz-header {
+  position:sticky; top:0; z-index:100;
+  background: rgba(10,22,40,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(200,150,42,0.3);
+  padding: 12px 20px;
+}
+.header-top {
+  display:flex; justify-content:space-between; align-items:center;
+  max-width:800px; margin:0 auto;
+}
+.progress-section { flex:1; }
+.progress-bar-wrap {
+  background: rgba(255,255,255,0.1);
+  border-radius:999px; height:8px;
+  overflow:hidden; margin-top:6px;
+}
+.progress-bar {
+  height:100%;
+  background: linear-gradient(90deg, var(--gold), var(--maroon-light));
+  border-radius:999px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--gold);
+}
+.stats-row {
+  display:flex; gap:12px; align-items:center;
+}
+.stat-badge {
+  background: rgba(200,150,42,0.2);
+  border: 1px solid rgba(200,150,42,0.4);
+  border-radius:999px; padding:6px 14px;
+  font-size:14px; font-weight:700; white-space:nowrap;
+}
+.xp-badge { background: rgba(122,18,48,0.3); border-color:rgba(200,120,150,0.4); }
+.progress-txt { font-size:13px; color:rgba(255,255,255,0.7); }
 
-  /* UNIT HEADER */
-  .unit-section{margin-bottom:38px}
-  .unit-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding:16px 22px;background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon-dark) 100%);border-radius:16px;box-shadow:0 8px 32px rgba(122,30,46,.2);position:relative;overflow:hidden}
-  .unit-header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--gold-light),var(--gold-dark));border-radius:0 4px 4px 0}
-  .unit-icon{font-size:1.9rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
-  .unit-title{color:#fff;font-size:1.3rem;font-weight:800;flex:1}
-  .unit-sub{color:var(--gold-light);font-size:.8rem;font-weight:500;margin-top:2px}
-  .unit-count{background:rgba(201,168,76,.22);border:1px solid var(--gold);color:var(--gold-light);padding:4px 12px;border-radius:20px;font-size:.78rem;font-weight:700;white-space:nowrap}
+/* ===== QUIZ SCREEN ===== */
+#quiz {
+  max-width:800px; margin:0 auto; padding: 20px;
+  position:relative; z-index:1;
+  min-height:calc(100vh - 80px);
+}
+.question-card {
+  background: var(--card-bg);
+  color: var(--navy);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  animation: cardSlide 0.4s ease;
+}
+@keyframes cardSlide {
+  from { opacity:0; transform:translateX(60px) scale(0.95); }
+  to { opacity:1; transform:translateX(0) scale(1); }
+}
+.q-header {
+  background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
+  color:white; padding:20px 24px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.q-type-badge {
+  background: rgba(200,150,42,0.3);
+  border: 1px solid var(--gold);
+  border-radius:999px; padding:4px 14px;
+  font-size:13px; font-weight:700;
+}
+.q-num { font-size:16px; font-weight:900; color:var(--gold-light); }
+.q-body { padding:24px; }
+.q-text {
+  font-size:clamp(16px,3vw,20px);
+  font-weight:700; color:var(--navy);
+  line-height:1.6; margin-bottom:20px;
+}
+.q-context {
+  background: linear-gradient(135deg, #f8f4e8, #fdf5d5);
+  border-right:4px solid var(--gold);
+  border-radius:12px; padding:14px 18px;
+  margin-bottom:18px; font-size:15px; color:#555;
+}
 
-  /* QUESTION CARD */
-  .q-card{background:#fff;border-radius:16px;padding:22px 26px;margin-bottom:16px;box-shadow:0 4px 18px rgba(122,30,46,.09);border:1.5px solid transparent;transition:border-color .3s,box-shadow .3s;position:relative;overflow:hidden;animation:cardIn .5s ease both}
-  .q-card::before{content:'';position:absolute;top:0;right:0;width:70px;height:70px;background:radial-gradient(circle at top right,rgba(201,168,76,.12),transparent 70%);pointer-events:none}
-  @keyframes cardIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-  .q-card:hover{box-shadow:0 8px 28px rgba(122,30,46,.15)}
-  .q-card.answered-correct{border-color:var(--success);background:linear-gradient(135deg,#f0faf5 0%,#fff 100%)}
-  .q-card.answered-wrong{border-color:var(--error);background:linear-gradient(135deg,#fdf2f2 0%,#fff 100%)}
+/* MCQ Options */
+.options-list { display:flex; flex-direction:column; gap:10px; }
+.option-btn {
+  padding:14px 20px;
+  background:#f8f9fa; border:2px solid #e0e0e0;
+  border-radius:14px; cursor:pointer;
+  font-family:'Cairo',sans-serif; font-size:16px;
+  text-align:right; transition: var(--transition);
+  position:relative; overflow:hidden;
+}
+.option-btn::before {
+  content:''; position:absolute; top:0; right:0; bottom:0;
+  width:0; background:linear-gradient(90deg, transparent, rgba(200,150,42,0.1));
+  transition: width 0.3s;
+}
+.option-btn:hover::before { width:100%; }
+.option-btn:hover { border-color:var(--gold); transform:translateX(-4px); background:#fff; }
+.option-btn.selected-answer { border-color:var(--gold); background:linear-gradient(135deg,#fff9e6,#fff1bf); box-shadow:0 6px 18px rgba(200,150,42,0.25); font-weight:900; }
+.option-btn.correct { background:linear-gradient(135deg,#e8f5e9,#c8e6c9); border-color:#4CAF50; color:#1b5e20; font-weight:700; }
+.option-btn.wrong { background:linear-gradient(135deg,#fce4ec,#f8bbd9); border-color:#e91e63; color:#880e4f; }
+.option-btn.disabled { pointer-events:none; opacity:0.6; }
+.option-btn.disabled.correct { opacity:1; }
 
-  .q-num-badge{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--maroon),var(--maroon-light));color:#fff;width:32px;height:32px;border-radius:50%;font-size:.84rem;font-weight:800;margin-left:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(122,30,46,.3)}
-  .q-type-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 10px;border-radius:10px;margin-right:8px;vertical-align:middle}
-  .tag-def{background:rgba(13,122,110,.12);color:var(--teal)}
-  .tag-match{background:rgba(30,80,160,.1);color:var(--blue)}
-  .tag-list{background:rgba(46,125,82,.12);color:var(--success)}
-  .tag-compare{background:rgba(201,168,76,.2);color:var(--gold-dark)}
-  .tag-fill{background:rgba(122,30,46,.1);color:var(--maroon)}
-  .tag-explain{background:rgba(100,30,160,.1);color:#641ea0}
+/* T/F */
+.tf-wrap { display:flex; gap:14px; }
+.tf-btn {
+  flex:1; padding:20px; border:3px solid transparent;
+  border-radius:16px; cursor:pointer;
+  font-family:'Cairo',sans-serif; font-size:22px; font-weight:900;
+  transition: var(--transition); text-align:center;
+}
+.tf-btn.true-btn { background:linear-gradient(135deg,#e3f2fd,#bbdefb); color:#0d47a1; }
+.tf-btn.false-btn { background:linear-gradient(135deg,#fce4ec,#f8bbd9); color:#880e4f; }
+.tf-btn:hover { transform:scale(1.05); box-shadow:0 8px 25px rgba(0,0,0,0.15); }
+.tf-btn.selected-answer { border-color:var(--gold); box-shadow:0 0 22px rgba(200,150,42,0.55); transform:scale(1.03); }
+.tf-btn.selected-correct { border-color:#4CAF50; box-shadow:0 0 20px rgba(76,175,80,0.5); }
+.tf-btn.selected-wrong { border-color:#e91e63; box-shadow:0 0 20px rgba(233,30,99,0.5); }
 
-  .q-header{display:flex;align-items:flex-start;margin-bottom:16px;gap:4px}
-  .q-text{font-size:1.03rem;font-weight:700;color:var(--text-dark);line-height:1.7;flex:1}
+/* Fill blank */
+.fill-input {
+  width:100%; padding:16px 18px;
+  border:2px solid #ddd; border-radius:14px;
+  font-family:'Cairo',sans-serif; font-size:18px;
+  text-align:right; outline:none;
+  transition: var(--transition); background:#fafafa;
+  color: var(--navy);
+}
+.fill-input:focus { border-color:var(--gold); background:#fffdf5; }
+.fill-input.correct { border-color:#4CAF50; background:#e8f5e9; color:#1b5e20; }
+.fill-input.wrong { border-color:#e91e63; background:#fce4ec; color:#880e4f; }
 
-  /* DEFINITION INPUT */
-  .def-box{width:100%;border:2px solid var(--cream-dark);border-radius:12px;padding:12px 16px;font-family:'Cairo',sans-serif;font-size:.95rem;background:var(--cream);outline:none;transition:border-color .2s,box-shadow .2s;resize:vertical;min-height:80px}
-  .def-box:focus{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(122,30,46,.1)}
+/* Matching */
+.matching-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.match-col-header { font-weight:900; color:var(--maroon); padding:10px; text-align:center; }
+.match-item {
+  padding:12px 16px; border-radius:12px; cursor:pointer;
+  font-size:14px; text-align:center; border:2px solid transparent;
+  transition: var(--transition);
+}
+.match-left { background:linear-gradient(135deg,#fff3e0,#ffe0b2); color:#e65100; font-weight:700; }
+.match-right { background:linear-gradient(135deg,#e8eaf6,#c5cae9); color:#1a237e; }
+.match-item:hover { transform:scale(1.03); border-color:var(--gold); }
+.match-item.selected { border-color:var(--maroon); box-shadow:0 4px 15px rgba(122,18,48,0.3); transform:scale(1.02); }
+.match-item.paired { border-color:var(--gold); box-shadow:0 4px 14px rgba(200,150,42,0.28); }
+.match-item .pair-badge { display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:26px; padding:0 8px; margin-left:8px; border-radius:999px; background:var(--maroon); color:#fff; font-size:12px; font-weight:900; }
+.match-summary { margin-top:12px; padding:12px; border-radius:12px; background:#fff9e6; border:1px solid rgba(200,150,42,.35); color:#5a0d22; font-size:13px; line-height:1.8; }
+.match-summary strong { color:var(--maroon); }
+.match-item.matched-correct { background:linear-gradient(135deg,#e8f5e9,#c8e6c9)!important; border-color:#4CAF50!important; color:#1b5e20!important; pointer-events:none; }
+.match-item.matched-wrong { background:linear-gradient(135deg,#fce4ec,#f8bbd9)!important; border-color:#e91e63!important; color:#880e4f!important; pointer-events:none; }
 
-  /* MATCH TABLE */
-  .match-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(122,30,46,.1);margin-top:4px}
-  .match-table th{background:linear-gradient(135deg,var(--maroon),var(--maroon-light));color:#fff;padding:11px 14px;font-size:.9rem;font-weight:800;text-align:center}
-  .match-table td{padding:9px 13px;border-bottom:1px solid var(--cream-dark);background:#fff;font-size:.9rem;vertical-align:middle}
-  .match-table tr:nth-child(even) td{background:var(--cream)}
-  .match-table tr:last-child td{border-bottom:none}
-  .match-td-num{font-weight:800;color:var(--maroon);text-align:center;width:36px}
-  .match-td-desc{font-weight:600;color:var(--text-dark);line-height:1.5}
-  .match-input{width:100%;border:1.5px solid var(--cream-dark);border-radius:8px;padding:8px 12px;font-family:'Cairo',sans-serif;font-size:.88rem;background:transparent;outline:none;transition:border-color .2s;text-align:center;font-weight:700}
-  .match-input:focus{border-color:var(--maroon)}
-  .match-input.correct{border-color:var(--success);background:#f0faf5;color:var(--success)}
-  .match-input.wrong{border-color:var(--error);background:#fdf2f2;color:var(--error)}
+/* Drag & Drop */
+.drag-zone { margin-bottom:12px; }
+.drag-items { display:flex; flex-wrap:wrap; gap:8px; min-height:50px; padding:10px; background:#f5f5f5; border-radius:12px; border:2px dashed #ccc; }
+.drag-item {
+  background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));
+  color:white; padding:8px 16px; border-radius:999px;
+  cursor:grab; font-size:14px; font-weight:700;
+  transition: var(--transition); user-select:none;
+}
+.drag-item:hover { transform:scale(1.05) rotate(-1deg); box-shadow:0 5px 15px rgba(122,18,48,0.4); }
+.drag-item.dragging { opacity:0.5; cursor:grabbing; }
+.drop-target {
+  min-height:50px; padding:10px 14px;
+  border:2px dashed var(--gold); border-radius:12px;
+  background:rgba(200,150,42,0.05); margin-bottom:8px;
+  transition: var(--transition);
+}
+.drop-target.drag-over { background:rgba(200,150,42,0.2); border-color:var(--maroon); }
+.drop-target .drop-label { font-size:13px; color:#999; margin-bottom:4px; }
+.drop-target.filled-correct { background:rgba(76,175,80,0.1); border-color:#4CAF50; }
+.drop-target.filled-wrong { background:rgba(233,30,99,0.1); border-color:#e91e63; }
 
-  /* LIST */
-  .list-items{display:flex;flex-direction:column;gap:8px}
-  .list-item-wrap{display:flex;align-items:center;gap:10px}
-  .list-bullet{width:28px;height:28px;background:linear-gradient(135deg,var(--maroon),var(--maroon-light));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0}
-  .list-input{flex:1;border:2px solid var(--cream-dark);border-radius:10px;padding:10px 14px;font-family:'Cairo',sans-serif;font-size:.93rem;background:var(--cream);outline:none;transition:border-color .2s}
-  .list-input:focus{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(122,30,46,.1)}
+/* Ordering */
+.order-list { display:flex; flex-direction:column; gap:8px; }
+.order-item {
+  padding:12px 16px; background:linear-gradient(135deg,#f5f5f5,#eeeeee);
+  border:2px solid #ddd; border-radius:12px;
+  cursor:pointer; font-size:15px; display:flex; align-items:center; gap:12px;
+  transition: var(--transition);
+}
+.order-num {
+  background:var(--maroon); color:white;
+  width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:900; flex-shrink:0;
+}
+.order-item.selected { border-color:var(--gold); background:linear-gradient(135deg,#fff9e6,#fff3cc); }
+.order-item.correct-order { border-color:#4CAF50; background:linear-gradient(135deg,#e8f5e9,#c8e6c9); }
+.order-item.wrong-order { border-color:#e91e63; background:linear-gradient(135deg,#fce4ec,#f8bbd9); }
 
-  /* COMPARE TABLE */
-  .compare-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(122,30,46,.1);margin-top:4px}
-  .compare-table th{background:linear-gradient(135deg,var(--maroon),var(--maroon-light));color:#fff;padding:11px 14px;font-size:.9rem;font-weight:800;text-align:center}
-  .compare-table td{padding:9px 13px;text-align:center;border-bottom:1px solid var(--cream-dark);background:#fff;font-size:.88rem}
-  .compare-table tr:nth-child(even) td{background:var(--cream)}
-  .compare-table tr:last-child td{border-bottom:none}
-  .compare-td-lbl{font-weight:800;color:var(--maroon);background:rgba(122,30,46,.05)!important;width:22%}
-  .compare-input{width:100%;border:1.5px solid var(--cream-dark);border-radius:8px;padding:8px 12px;font-family:'Cairo',sans-serif;font-size:.85rem;background:transparent;outline:none;transition:border-color .2s;text-align:center}
-  .compare-input:focus{border-color:var(--maroon)}
+/* Flashcard */
+.flashcard-wrap { perspective:1000px; cursor:pointer; }
+.flashcard {
+  background:transparent; position:relative;
+  height:220px; transform-style:preserve-3d;
+  transition:transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.flashcard.flipped { transform:rotateY(180deg); }
+.card-face {
+  position:absolute; width:100%; height:100%;
+  backface-visibility:hidden; border-radius:var(--border-radius);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:24px; text-align:center;
+}
+.card-front {
+  background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));
+  color:white;
+}
+.card-back {
+  background:linear-gradient(135deg,var(--gold-dark),var(--gold));
+  color:var(--navy); transform:rotateY(180deg);
+}
+.card-face .icon { font-size:40px; margin-bottom:12px; }
+.card-face .term { font-size:20px; font-weight:900; }
+.card-face .def { font-size:15px; line-height:1.6; }
+.flip-hint { text-align:center; color:rgba(150,150,150,0.8); font-size:13px; margin-top:10px; }
 
-  /* BUTTONS */
-  .check-btn{margin-top:14px;background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));color:#fff;border:none;border-radius:12px;padding:11px 26px;font-family:'Cairo',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(122,30,46,.25);display:inline-flex;align-items:center;gap:8px}
-  .check-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(122,30,46,.3);background:var(--maroon-dark)}
-  .reveal-btn{margin-top:10px;background:transparent;border:2px solid var(--gold);color:var(--gold-dark);border-radius:10px;padding:7px 18px;font-family:'Cairo',sans-serif;font-size:.83rem;font-weight:700;cursor:pointer;transition:all .2s;margin-right:8px}
-  .reveal-btn:hover{background:var(--gold);color:#fff}
-  .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+/* Feedback */
+.feedback-box {
+  margin-top:16px; padding:16px 20px;
+  border-radius:14px; font-size:15px; line-height:1.6;
+  display:none; animation: bounceIn 0.4s ease;
+}
+@keyframes bounceIn {
+  0% { transform:scale(0.8); opacity:0; }
+  70% { transform:scale(1.05); }
+  100% { transform:scale(1); opacity:1; }
+}
+.feedback-box.correct { background:linear-gradient(135deg,#e8f5e9,#c8e6c9); color:#1b5e20; border:2px solid #4CAF50; }
+.feedback-box.wrong { background:linear-gradient(135deg,#fce4ec,#f8bbd9); color:#880e4f; border:2px solid #e91e63; }
+.feedback-icon { font-size:24px; margin-left:8px; }
 
-  /* FEEDBACK */
-  .feedback-msg{margin-top:12px;padding:11px 16px;border-radius:12px;font-size:.9rem;font-weight:700;display:none;align-items:center;gap:8px;animation:msgIn .3s ease}
-  @keyframes msgIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-  .feedback-msg.show{display:flex}
-  .feedback-msg.correct-msg{background:#e8f7ef;color:var(--success);border:1.5px solid #a8e0c0}
-  .feedback-msg.wrong-msg{background:#fdeaea;color:var(--error);border:1.5px solid #f0a0a0}
+/* Navigation */
+.q-nav {
+  padding:20px 24px;
+  display:flex; gap:12px;
+  border-top:1px solid #eee;
+}
+.btn-nav {
+  flex:1; padding:14px;
+  border:none; border-radius:14px; cursor:pointer;
+  font-family:'Cairo',sans-serif; font-size:16px; font-weight:700;
+  transition: var(--transition);
+}
+.btn-submit {
+  background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));
+  color:white;
+}
+.btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(122,18,48,0.4); }
+.btn-next {
+  background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+  color:var(--navy);
+}
+.btn-next:hover { transform:translateY(-2px); box-shadow:var(--shadow-gold); }
+.btn-nav:disabled { opacity:0.4; cursor:not-allowed; transform:none!important; }
 
-  /* ANSWER REVEAL */
-  .answer-reveal{margin-top:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.04));border:1.5px solid var(--gold);border-radius:12px;display:none;animation:msgIn .3s ease}
-  .answer-reveal.show{display:block}
-  .ar-title{font-size:.8rem;font-weight:800;color:var(--gold-dark);margin-bottom:8px}
-  .ar-text{font-size:.9rem;font-weight:600;color:var(--text-dark);line-height:1.9}
-  .ar-text b{color:var(--maroon)}
-  .ans-box{background:rgba(122,30,46,.05);border-radius:8px;padding:9px 13px;margin:4px 0;border-right:3px solid var(--maroon);font-size:.9rem;font-weight:600}
-  .ans-box b{color:var(--maroon)}
+/* Speed challenge */
+.speed-timer {
+  display:flex; justify-content:center; margin-bottom:16px;
+}
+.timer-ring {
+  position:relative; width:80px; height:80px;
+}
+.timer-ring svg { transform:rotate(-90deg); }
+.timer-ring circle.bg { fill:none; stroke:#eee; stroke-width:6; }
+.timer-ring circle.progress { fill:none; stroke:var(--gold); stroke-width:6; stroke-linecap:round; transition:stroke-dashoffset 1s linear; }
+.timer-num {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:24px; font-weight:900; color:var(--maroon);
+}
 
-  /* MINI COMPARE in reveal */
-  .mini-compare{width:100%;border-collapse:collapse;margin-top:8px;font-size:.83rem;border-radius:8px;overflow:hidden}
-  .mini-compare th{background:var(--maroon);color:#fff;padding:8px 12px;text-align:center}
-  .mini-compare td{padding:8px 12px;border:1px solid var(--cream-dark);text-align:center;line-height:1.5}
-  .mini-compare tr:nth-child(even) td{background:var(--cream)}
-  .mini-compare .mlbl{font-weight:800;color:var(--maroon);background:rgba(122,30,46,.06)!important}
+/* Compare table */
+.compare-table {
+  width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;
+}
+.compare-table th {
+  background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));
+  color:white; padding:12px; text-align:center;
+}
+.compare-table td {
+  padding:10px 12px; border:1px solid #e0e0e0; text-align:center;
+  background:#fafafa;
+}
+.compare-table tr:nth-child(even) td { background:#f5f5f5; }
+.compare-item { display:flex; flex-wrap:wrap; gap:8px; }
+.compare-chip {
+  padding:6px 14px; border-radius:999px;
+  font-size:13px; cursor:pointer; border:2px solid transparent;
+  transition: var(--transition);
+}
+.chip-open { background:#fff3e0; color:#e65100; }
+.chip-closed { background:#e8eaf6; color:#1a237e; }
+.compare-chip:hover { transform:scale(1.05); }
+.compare-chip.placed-correct { border-color:#4CAF50; box-shadow:0 3px 10px rgba(76,175,80,0.3); }
+.compare-chip.placed-wrong { border-color:#e91e63; box-shadow:0 3px 10px rgba(233,30,99,0.3); }
 
-  /* RESULT */
-  .result-panel{display:none;background:linear-gradient(135deg,var(--maroon-dark) 0%,var(--maroon) 100%);border-radius:20px;padding:40px 30px;margin-top:40px;text-align:center;box-shadow:0 20px 60px rgba(122,30,46,.22);position:relative;overflow:hidden;animation:cardIn .5s ease}
-  .result-panel.show{display:block}
-  .result-panel::before{content:'🏆';position:absolute;top:-20px;right:-20px;font-size:8rem;opacity:.07}
-  .result-score-big{font-size:5rem;font-weight:900;color:var(--gold-light);line-height:1;text-shadow:0 4px 20px rgba(201,168,76,.4)}
-  .result-label{color:rgba(255,255,255,.7);font-size:.95rem;margin:8px 0 18px}
-  .result-stars{font-size:2.4rem;letter-spacing:6px;margin-bottom:14px}
-  .result-msg{color:#fff;font-size:1.15rem;font-weight:700;margin-bottom:22px}
-  .result-breakdown{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:22px}
-  .rb-item{background:rgba(255,255,255,.1);border:1px solid rgba(201,168,76,.4);border-radius:12px;padding:11px 18px;color:#fff;font-size:.88rem}
-  .rb-num{font-size:1.5rem;font-weight:900;color:var(--gold-light);display:block}
-  .restart-btn{background:var(--gold);color:var(--maroon-dark);border:none;border-radius:14px;padding:13px 36px;font-family:'Cairo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(201,168,76,.4)}
-  .restart-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(201,168,76,.5)}
+/* ===== RESULTS SCREEN ===== */
+#results {
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:30px 20px; text-align:center; position:relative; z-index:1;
+}
+.result-card {
+  background:var(--glass);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(200,150,42,0.4);
+  border-radius: 32px;
+  padding:40px 30px; max-width:500px; width:100%;
+  box-shadow: var(--shadow);
+}
+.trophy { font-size:80px; animation:bounce 1s ease infinite alternate; }
+@keyframes bounce { from{transform:scale(1);} to{transform:scale(1.15) rotate(5deg);} }
+.result-name { font-size:24px; font-weight:900; color:var(--gold-light); margin:10px 0; }
+.score-circle {
+  width:140px; height:140px; border-radius:50%;
+  background:conic-gradient(var(--gold) var(--pct), rgba(255,255,255,0.1) 0);
+  display:flex; align-items:center; justify-content:center;
+  margin:20px auto;
+  box-shadow: 0 0 40px rgba(200,150,42,0.5);
+  position:relative;
+}
+.score-circle::after {
+  content:attr(data-score);
+  position:absolute; inset:10px;
+  background:rgba(10,22,40,0.9); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:28px; font-weight:900; color:var(--gold-light);
+}
+.result-stats-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0;
+}
+.rstat {
+  background:rgba(200,150,42,0.15); border:1px solid rgba(200,150,42,0.3);
+  border-radius:14px; padding:14px 8px;
+}
+.rstat .n { font-size:26px; font-weight:900; color:var(--gold-light); }
+.rstat .l { font-size:11px; color:rgba(255,255,255,0.7); }
+.badge-row { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:16px 0; }
+.badge {
+  background:rgba(200,150,42,0.2); border:2px solid var(--gold);
+  border-radius:14px; padding:8px 16px;
+  font-size:13px; font-weight:700; color:var(--gold-light);
+  animation: popIn 0.5s ease;
+}
+@keyframes popIn { from{transform:scale(0)rotate(20deg);}to{transform:scale(1)rotate(0);} }
+.btn-cert, .btn-retry {
+  width:100%; padding:16px;
+  border:none; border-radius:14px; cursor:pointer;
+  font-family:'Cairo',sans-serif; font-size:17px; font-weight:900;
+  margin-top:10px; transition: var(--transition);
+}
+.btn-cert { background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:var(--navy); }
+.btn-retry { background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); color:white; }
+.btn-cert:hover, .btn-retry:hover { transform:translateY(-3px); box-shadow:var(--shadow-gold); }
 
-  .submit-all-btn{width:100%;padding:17px;background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-light));color:var(--maroon-dark);border:none;border-radius:16px;font-family:'Cairo',sans-serif;font-size:1.08rem;font-weight:900;cursor:pointer;transition:all .2s;box-shadow:0 6px 24px rgba(201,168,76,.3);margin-top:28px}
-  .submit-all-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(201,168,76,.4)}
+/* ===== CERTIFICATE ===== */
+#certificate {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:20px; position:relative; z-index:1;
+}
+.cert-paper {
+  background:white; color:#222;
+  max-width:700px; width:100%; border-radius:20px;
+  padding:50px 40px; text-align:center;
+  box-shadow:0 30px 100px rgba(0,0,0,0.5);
+  border: 8px solid var(--gold);
+  position:relative; overflow:hidden;
+}
+.cert-paper::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(200,150,42,0.05) 20%, transparent 60%),
+    radial-gradient(circle at 90% 90%, rgba(122,18,48,0.05) 20%, transparent 60%);
+  pointer-events:none;
+}
+.cert-logo { width:80px; height:80px; border-radius:50%; border:3px solid var(--gold); margin:0 auto 12px; display:block; }
+.cert-school { font-size:18px; font-weight:900; color:var(--maroon); }
+.cert-title { font-size:32px; font-weight:900; color:var(--navy); margin:20px 0 10px; }
+.cert-line { width:200px; height:3px; background:linear-gradient(90deg,var(--gold),var(--maroon)); margin:0 auto 20px; }
+.cert-student { font-size:28px; font-weight:900; color:var(--maroon); margin-bottom:12px; }
+.cert-body { font-size:15px; color:#555; line-height:1.8; }
+.cert-score { font-size:48px; font-weight:900; color:var(--gold-dark); margin:16px 0; }
+.cert-meta { display:flex; justify-content:space-between; margin-top:30px; }
+.cert-meta div { text-align:center; }
+.cert-meta .label { font-size:12px; color:#999; }
+.cert-meta .value { font-size:14px; font-weight:700; color:var(--navy); }
+.btn-print {
+  background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));
+  color:white; border:none; border-radius:12px; padding:14px 30px;
+  font-family:'Cairo',sans-serif; font-size:16px; font-weight:700;
+  cursor:pointer; margin-top:20px; transition:var(--transition);
+}
+.btn-print:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
 
-  /* DIVIDER */
-  .fancy-divider{display:flex;align-items:center;gap:12px;margin:26px 0}
-  .fancy-divider span{flex:1;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.5}
-  .fancy-divider-icon{font-size:1.3rem;color:var(--gold-dark)}
+/* ===== XP FLOAT ===== */
+.xp-float {
+  position:fixed; pointer-events:none; z-index:999;
+  font-size:22px; font-weight:900;
+  animation:floatUp 1.5s ease forwards;
+}
+.xp-float.pos { color:var(--gold-light); text-shadow:0 0 20px var(--gold); }
+.xp-float.neg { color:#ff6b6b; }
+@keyframes floatUp {
+  0% { transform:translateY(0) scale(1); opacity:1; }
+  100% { transform:translateY(-80px) scale(1.5); opacity:0; }
+}
 
-  /* CONFETTI */
-  .confetti-piece{position:fixed;border-radius:2px;animation:confettiFall linear forwards;z-index:999;pointer-events:none}
-  @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+/* ===== CONFETTI ===== */
+.confetti-piece {
+  position:fixed; width:8px; height:8px;
+  border-radius:2px; pointer-events:none; z-index:998;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform:translateY(-20px) rotate(0); opacity:1; }
+  100% { transform:translateY(100vh) rotate(720deg); opacity:0; }
+}
 
-  @media(max-width:600px){
-    .exam-title{font-size:1.5rem}
-    .match-table th,.match-table td{padding:7px 8px;font-size:.8rem}
-    .compare-table th,.compare-table td{padding:7px 8px;font-size:.78rem}
-  }
+/* Speed challenge timer urgent */
+.timer-urgent .timer-ring circle.progress { stroke:#e91e63; }
+.timer-urgent .timer-num { color:#e91e63; }
+
+
+/* Student fields and quiz summary */
+.student-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.quiz-summary{background:rgba(255,255,255,0.10);border:1px solid rgba(200,150,42,0.35);border-radius:16px;padding:14px 16px;margin:16px 0 18px;text-align:right;color:rgba(255,255,255,.9);font-size:14px;line-height:1.8}
+.quiz-summary strong{color:var(--gold-light)}
+.name-input.select-input{appearance:none;background:rgba(255,255,255,0.1);color:white}
+.name-input.select-input option{color:#111}
+.nav-top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.btn-small-action{padding:8px 12px;border:none;border-radius:999px;background:rgba(200,150,42,.18);color:#fff;border:1px solid rgba(200,150,42,.45);font-family:Cairo,sans-serif;font-weight:700;cursor:pointer}
+.btn-small-action:hover{background:rgba(200,150,42,.3)}
+.answer-note{font-size:13px;color:#666;background:#f7f3ea;border-right:4px solid var(--gold);padding:10px 12px;border-radius:10px;margin-top:10px}
+@media(max-width:500px){.student-fields{grid-template-columns:1fr}.q-nav{flex-direction:column}}
+
+/* Responsive */
+@media(max-width:500px){
+  .q-header{flex-direction:column;gap:8px;text-align:center;}
+  .matching-grid{grid-template-columns:1fr;}
+  .result-stats-grid{grid-template-columns:repeat(2,1fr);}
+  .cert-paper{padding:30px 20px;}
+  .cert-score{font-size:36px;}
+}
+@media print {
+  body { background:white!important; }
+  #certificate .btn-print, #certificate .btn-back-cert { display:none!important; }
+  .cert-paper { box-shadow:none!important; }
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-inner">
-    <img src="/mnt/user-data/uploads/1000168860.webp" alt="شعار المدرسة" class="school-logo" onerror="this.style.display='none'">
-    <div class="school-name">مدرسة الشحانية الإعدادية والثانوية للبنين</div>
-    <div class="grade-badge">🎓 الصف العاشر</div>
-    <div class="exam-title">اختبار النصف الثاني – نهاية الفصل الثاني<br>2025/2026</div>
-    <div class="exam-sub">الأسئلة الإثرائية التفاعلية</div>
-    <div class="header-badges">
-      <span class="hbadge">🌐 الوحدة الثانية: الشبكات المتقدمة</span>
-      <span class="hbadge">🖥️ الدرس الأول: شبكات الحاسوب وأنواعها (ص118-128)</span>
-      <span class="hbadge">☁️ الدرس الرابع: الحوسبة السحابية والتقدم التكنولوجي (ص153-164)</span>
+<!-- ===== WELCOME ===== -->
+<div id="welcome" class="screen active">
+  <img class="school-logo" id="logo-welcome" src="" alt="شعار المدرسة">
+  <div class="school-name">مدرسة الشحانية الإعدادية الثانوية للبنين</div>
+  <div class="school-sub">Al Shahaniya Preparatory and Secondary School for Boys • قطر</div>
+  <div class="welcome-card">
+    <div class="quiz-title">🌐 اختبار الشبكات المتقدمة</div>
+    <div class="quiz-subtitle">الصف العاشر • الفصل الثاني 2025/2026</div>
+    <div class="quiz-subtitle" style="font-size:13px;color:rgba(255,255,255,0.6);">يغطي: شبكات الحاسوب وأنواعها • الحوسبة السحابية والتقدم التكنولوجي</div>
+    <div class="info-grid">
+      <div class="info-item"><div class="num">50</div><div class="lbl">سؤالاً</div></div>
+      <div class="info-item"><div class="num">500</div><div class="lbl">نقطة XP</div></div>
+      <div class="info-item"><div class="num">10</div><div class="lbl">أنماط أسئلة</div></div>
+      <div class="info-item"><div class="num">🏆</div><div class="lbl">شهادة إنجاز</div></div>
     </div>
-  </div>
-</header>
-
-<!-- SCORE PANEL -->
-<div class="score-panel">
-  <div class="score-inner">
-    <span class="score-item">✅ صحيح: <span class="score-num" id="scoreCorrect">0</span></span>
-    <div class="pbwrap"><div class="pbfill" id="progressBar"></div></div>
-    <span class="score-item">❌ خطأ: <span class="score-num" id="scoreWrong">0</span></span>
-    <span class="score-item">📝 <span class="score-num" id="scoreAnswered">0</span>/<span id="scoreTotal">12</span></span>
+    <div class="quiz-summary">
+      <strong>موجز الاختبار:</strong> اختبار تفاعلي شامل في الشبكات المتقدمة للصف العاشر، يتضمن أسئلة اختيار من متعدد، صح وخطأ، أكمل، عرّف، مطابقة، ترتيب، وتصنيف. يمكنك التنقل بين الأسئلة، التراجع عن الإجابة، ثم إعادة الاختبار من البداية متى شئت.
+    </div>
+    <div class="student-fields">
+      <input class="name-input" id="student-name" type="text" placeholder="اكتب اسم الطالب...">
+      <select class="name-input select-input" id="student-class">
+        <option value="">اختر الصف / الشعبة</option>
+        <option>العاشر 1</option><option>العاشر 2</option><option>العاشر 3</option><option>العاشر 4</option>
+        <option>صف آخر</option>
+      </select>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">🚀 ابدأ الاختبار</button>
   </div>
 </div>
 
-<main class="main">
-
-<!-- ══════════════════════════════════════════ -->
-<!--   LESSON 1: شبكات الحاسوب وأنواعها       -->
-<!-- ══════════════════════════════════════════ -->
-<div class="unit-section">
-  <div class="unit-header">
-    <div class="unit-icon">🌐</div>
-    <div>
-      <div class="unit-title">الدرس الأول: شبكات الحاسوب وأنواعها</div>
-      <div class="unit-sub">الصفحات 118 – 128</div>
+<!-- ===== QUIZ HEADER ===== -->
+<div id="quiz-header" style="display:none">
+  <div class="header-top">
+    <div class="progress-section">
+      <div class="progress-txt" id="q-progress-txt">السؤال 1 من 50</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar" style="width:2%"></div>
+      </div>
     </div>
-    <span class="unit-count">أسئلة 1 – 9</span>
-  </div>
-
-  <!-- Q1: تعريف شبكة الحاسوب -->
-  <div class="q-card" id="qcard-1">
-    <div class="q-header">
-      <span class="q-num-badge">1</span>
-      <div class="q-text"><span class="q-type-tag tag-def">تعريف</span>عرّف شبكة الحاسوب.</div>
-    </div>
-    <textarea class="def-box" id="def-1" placeholder="اكتب تعريفك هنا..."></textarea>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-1')">💡 عرض الإجابة النموذجية</button>
-    </div>
-    <div class="answer-reveal" id="ans-1">
-      <div class="ar-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
-      <div class="ar-text">هي عبارة عن عدد من الحواسيب <b>(على الأقل اثنان)</b> متصلة ببعضها البعض من أجل مشاركة الموارد <b>(البيانات والأجهزة)</b>.</div>
-    </div>
-  </div>
-
-  <!-- Q2: عاملا تصنيف الشبكات -->
-  <div class="q-card" id="qcard-2">
-    <div class="q-header">
-      <span class="q-num-badge">2</span>
-      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>يتم تصنيف الشبكات بناءً على عاملين، اذكرهما.</div>
-    </div>
-    <div class="list-items">
-      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="العامل الأول..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="العامل الثاني..."></div>
-    </div>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-2')">💡 عرض الإجابة</button>
-    </div>
-    <div class="answer-reveal" id="ans-2">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – حسب الحيز الجغرافي.</div>
-      <div class="ans-box">2 – حسب الوسط الناقل للبيانات.</div>
-    </div>
-  </div>
-
-  <!-- Q3: أنواع الشبكات حسب الحيز الجغرافي - MATCH -->
-  <div class="q-card" id="qcard-3">
-    <div class="q-header">
-      <span class="q-num-badge">3</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب نوع الشبكة حسب الحيز الجغرافي لكل مما يأتي:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>الحيز الجغرافي</th><th>نوع الشبكة</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="match-td-num">1</td>
-          <td class="match-td-desc">تتكون من أجهزة حواسيب متصلة ببعضها البعض موجودة في نطاق ضيق (شركة، مؤسسة، مدرسة).</td>
-          <td><input class="match-input" type="text" id="m3-1" placeholder="نوع الشبكة..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">2</td>
-          <td class="match-td-desc">تقوم بربط مجموعة من الشبكات المحلية (عدة مبانٍ في نفس المدينة مثل الجامعات).</td>
-          <td><input class="match-input" type="text" id="m3-2" placeholder="نوع الشبكة..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">3</td>
-          <td class="match-td-desc">لا تتقيد بموقع جغرافي محدد، يمكن أن تشمل دولة أو قارة أو حتى الكرة الأرضية مثل الإنترنت.</td>
-          <td><input class="match-input" type="text" id="m3-3" placeholder="نوع الشبكة..."></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch3()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-3')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-3"></div>
-    <div class="answer-reveal" id="ans-3">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>LAN</b> (الشبكة المحلية)</div>
-      <div class="ans-box">2 – <b>MAN</b> (الشبكة الحضرية / المدنية)</div>
-      <div class="ans-box">3 – <b>WAN</b> (الشبكة الواسعة)</div>
-    </div>
-  </div>
-
-  <!-- Q4: مخططات توصيل الشبكات - MATCH -->
-  <div class="q-card" id="qcard-4">
-    <div class="q-header">
-      <span class="q-num-badge">4</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب نوع مخطط توصيل الشبكات المناسب لكل مما يأتي:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>طريقة توصيل الأجهزة</th><th>نوع المخطط</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="match-td-num">1</td>
-          <td class="match-td-desc">يتم توصيل جميع الأجهزة معاً بواسطة ناقل رئيس Bus تستقبل وترسل من خلاله جميع البيانات.</td>
-          <td><input class="match-input" type="text" id="m4-1" placeholder="نوع المخطط..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">2</td>
-          <td class="match-td-desc">يتم توصيل جميع الأجهزة معاً من خلال ناقل رئيس على شكل حلقة مغلقة.</td>
-          <td><input class="match-input" type="text" id="m4-2" placeholder="نوع المخطط..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">3</td>
-          <td class="match-td-desc">يعتبر التصميم الشائع حالياً حيث يتم فيه توصيل كل جهاز طرفي بجهاز مركزي (موزع أو محول).</td>
-          <td><input class="match-input" type="text" id="m4-3" placeholder="نوع المخطط..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">4</td>
-          <td class="match-td-desc">يتم فيه دمج أكثر من تصميم هيكلي للشبكات معاً.</td>
-          <td><input class="match-input" type="text" id="m4-4" placeholder="نوع المخطط..."></td>
-        </tr>
-        <tr>
-          <td class="match-td-num">5</td>
-          <td class="match-td-desc">يتم توصيل كل جهاز بآخر بتوصيلات سلكية مما يعني اتصال كل جهاز في الشبكة بكافة الأجهزة الأخرى.</td>
-          <td><input class="match-input" type="text" id="m4-5" placeholder="نوع المخطط..."></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch4()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-4')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-4"></div>
-    <div class="answer-reveal" id="ans-4">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>الخطي (Bus)</b></div>
-      <div class="ans-box">2 – <b>الحلقي (Ring)</b></div>
-      <div class="ans-box">3 – <b>النجمي (Star)</b></div>
-      <div class="ans-box">4 – <b>المختلط (Hybrid)</b></div>
-      <div class="ans-box">5 – <b>المتشابك (Mesh)</b></div>
-    </div>
-  </div>
-
-  <!-- Q5: TCP/IP -->
-  <div class="q-card" id="qcard-5">
-    <div class="q-header">
-      <span class="q-num-badge">5</span>
-      <div class="q-text"><span class="q-type-tag tag-explain">اشرح/وضّح</span>وضّح كيف يساهم بروتوكول TCP/IP في عملية نقل البيانات عبر الشبكة.</div>
-    </div>
-    <div class="list-items">
-      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الخطوة الأولى..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الخطوة الثانية..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="الخطوة الثالثة..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">4</span><input class="list-input" type="text" placeholder="الخطوة الرابعة..."></div>
-    </div>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-5')">💡 عرض الإجابة</button>
-    </div>
-    <div class="answer-reveal" id="ans-5">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – تقسيم الرسائل إلى حزم في جهاز المرسل.</div>
-      <div class="ans-box">2 – تمرير الحزم البرمجية ونقلها عبر الشبكة.</div>
-      <div class="ans-box">3 – إعادة ترتيب الحزم وتجميعها في جهاز المستقبل.</div>
-      <div class="ans-box">4 – فحص البيانات للتثبت من عدم وجود أخطاء أو تلف أي من الحزم المستقبلة.</div>
-    </div>
-  </div>
-
-  <!-- Q6: OSI طبقات نموذج - MATCH -->
-  <div class="q-card" id="qcard-6">
-    <div class="q-header">
-      <span class="q-num-badge">6</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>يتكون نموذج الاتصال المفتوح OSI من سبع طبقات. اكتب اسم الطبقة المسؤولة عن كل مما يأتي:<br><small style="color:var(--text-mid);font-weight:500">(التطبيقات، التقديم، الجلسة، النقل، الشبكة، ربط البيانات، الفيزيائية)</small></div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>المهمة</th><th>اسم الطبقة</th></tr></thead>
-      <tbody>
-        <tr><td class="match-td-num">1</td><td class="match-td-desc">تأمين نقل البيانات من المصدر إلى الوجهة مع تجنب الأخطاء.</td><td><input class="match-input" type="text" id="m6-1" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">2</td><td class="match-td-desc">يتم من خلالها تحديد العنوان والمسار المنطقي اللازم لنقل البيانات باستخدام أجهزة الربط.</td><td><input class="match-input" type="text" id="m6-2" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">3</td><td class="match-td-desc">تحويل حزم البيانات إلى إطارات مع تحديد العنوان الفيزيائي لنقل البيانات مع فحص الأخطاء.</td><td><input class="match-input" type="text" id="m6-3" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">4</td><td class="match-td-desc">تقوم بنقل البيانات من خلال الوسط الملموس كالتوصيلات والكابلات.</td><td><input class="match-input" type="text" id="m6-4" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">5</td><td class="match-td-desc">تقوم بتشفير وفك تشفير البيانات.</td><td><input class="match-input" type="text" id="m6-5" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">6</td><td class="match-td-desc">تؤسس وتدير وتنهي عملية الاتصال بين المصدر والوجهة.</td><td><input class="match-input" type="text" id="m6-6" placeholder="اسم الطبقة..."></td></tr>
-        <tr><td class="match-td-num">7</td><td class="match-td-desc">يتم فيها تشغيل التطبيقات البرمجية.</td><td><input class="match-input" type="text" id="m6-7" placeholder="اسم الطبقة..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch6()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-6')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-6"></div>
-    <div class="answer-reveal" id="ans-6">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>النقل</b></div>
-      <div class="ans-box">2 – <b>الشبكة</b></div>
-      <div class="ans-box">3 – <b>ربط البيانات</b></div>
-      <div class="ans-box">4 – <b>الفيزيائية</b></div>
-      <div class="ans-box">5 – <b>التقديم</b></div>
-      <div class="ans-box">6 – <b>الجلسة</b></div>
-      <div class="ans-box">7 – <b>التطبيقات</b></div>
-    </div>
-  </div>
-
-  <!-- Q7: بروتوكولات الشبكة - MATCH -->
-  <div class="q-card" id="qcard-7">
-    <div class="q-header">
-      <span class="q-num-badge">7</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب بروتوكول الشبكة الذي يقوم بكل مما يأتي:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>الوظيفة</th><th>البروتوكول</th></tr></thead>
-      <tbody>
-        <tr><td class="match-td-num">1</td><td class="match-td-desc">بروتوكول يضمن تبادل البيانات في الشبكة العنكبوتية العالمية (صفحات الويب).</td><td><input class="match-input" type="text" id="m7-1" placeholder="اسم البروتوكول..."></td></tr>
-        <tr><td class="match-td-num">2</td><td class="match-td-desc">بروتوكول يوفر اتصالاً آمناً بين حاسوبين.</td><td><input class="match-input" type="text" id="m7-2" placeholder="اسم البروتوكول..."></td></tr>
-        <tr><td class="match-td-num">3</td><td class="match-td-desc">نظام يحول عناوين الحواسيب في الشبكة إلى ما يقابلها من عناوين IP.</td><td><input class="match-input" type="text" id="m7-3" placeholder="اسم البروتوكول..."></td></tr>
-        <tr><td class="match-td-num">4</td><td class="match-td-desc">بروتوكول يسمح بنقل الملفات بين حواسيب الشبكة.</td><td><input class="match-input" type="text" id="m7-4" placeholder="اسم البروتوكول..."></td></tr>
-        <tr><td class="match-td-num">5</td><td class="match-td-desc">بروتوكول يستخدم لنقل رسائل البريد الإلكتروني.</td><td><input class="match-input" type="text" id="m7-5" placeholder="اسم البروتوكول..."></td></tr>
-        <tr><td class="match-td-num">6</td><td class="match-td-desc">بروتوكول يختص بتجهيز مقاطع البيانات ونقلها عبر الشبكة.</td><td><input class="match-input" type="text" id="m7-6" placeholder="اسم البروتوكول..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch7()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-7')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-7"></div>
-    <div class="answer-reveal" id="ans-7">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>HTTP</b></div>
-      <div class="ans-box">2 – <b>HTTPS</b></div>
-      <div class="ans-box">3 – <b>DNS</b></div>
-      <div class="ans-box">4 – <b>FTP</b></div>
-      <div class="ans-box">5 – <b>SMTP</b></div>
-      <div class="ans-box">6 – <b>TCP/IP</b></div>
-    </div>
-  </div>
-
-  <!-- Q8: تقنيات الشبكة اللاسلكية -->
-  <div class="q-card" id="qcard-8">
-    <div class="q-header">
-      <span class="q-num-badge">8</span>
-      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر ثلاثة أمثلة على تقنيات الشبكة اللاسلكية.</div>
-    </div>
-    <div class="list-items">
-      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="التقنية الأولى..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="التقنية الثانية..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">3</span><input class="list-input" type="text" placeholder="التقنية الثالثة..."></div>
-    </div>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-8')">💡 عرض الإجابة</button>
-    </div>
-    <div class="answer-reveal" id="ans-8">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – البلوتوث</div>
-      <div class="ans-box">2 – تقنية الواي فاي (wi-fi)</div>
-      <div class="ans-box">3 – تقنية الاتصال قريب المدى (NFC)</div>
-    </div>
-  </div>
-
-  <!-- Q9: مقارنة الشبكات السلكية والاسلكية -->
-  <div class="q-card" id="qcard-9">
-    <div class="q-header">
-      <span class="q-num-badge">9</span>
-      <div class="q-text"><span class="q-type-tag tag-compare">مقارنة</span>قارن بين الشبكات السلكية والشبكات اللاسلكية من حيث: السرعة | الأمان | الموثوقية | قابلية التوسع</div>
-    </div>
-    <table class="compare-table">
-      <thead><tr><th style="width:22%">وجه المقارنة</th><th>الشبكات السلكية</th><th>الشبكات اللاسلكية</th></tr></thead>
-      <tbody>
-        <tr><td class="compare-td-lbl">السرعة</td><td><input class="compare-input" type="text" placeholder="السرعة في السلكية..."></td><td><input class="compare-input" type="text" placeholder="السرعة في اللاسلكية..."></td></tr>
-        <tr><td class="compare-td-lbl">الأمان</td><td><input class="compare-input" type="text" placeholder="الأمان في السلكية..."></td><td><input class="compare-input" type="text" placeholder="الأمان في اللاسلكية..."></td></tr>
-        <tr><td class="compare-td-lbl">الموثوقية</td><td><input class="compare-input" type="text" placeholder="الموثوقية..."></td><td><input class="compare-input" type="text" placeholder="الموثوقية..."></td></tr>
-        <tr><td class="compare-td-lbl">قابلية التوسع</td><td><input class="compare-input" type="text" placeholder="التوسع..."></td><td><input class="compare-input" type="text" placeholder="التوسع..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-9')">💡 عرض الإجابة النموذجية</button>
-    </div>
-    <div class="answer-reveal" id="ans-9">
-      <div class="ar-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
-      <table class="mini-compare">
-        <thead><tr><th>وجه المقارنة</th><th>الشبكات السلكية</th><th>الشبكات اللاسلكية</th></tr></thead>
-        <tbody>
-          <tr><td class="mlbl">السرعة</td><td>أسرع (من 100 ميجابايت – 10 جيجابايت)</td><td>كلما زادت المسافة بين الأجهزة قلت السرعة، وكلما ازداد عدد الأجهزة قلت السرعة</td></tr>
-          <tr><td class="mlbl">الأمان</td><td>يتم تأمينها بسهولة من خلال جدر الحماية</td><td>عرضة للاختراق بالرغم من استخدام أنظمة للحماية</td></tr>
-          <tr><td class="mlbl">الموثوقية</td><td>ذات موثوقية عالية</td><td>تتأثر بالتداخل من الأجهزة الإلكترونية الأخرى، وحركة المستخدمين المستمرة تؤدي إلى اضطراب في ثبات إشارة الشبكة</td></tr>
-          <tr><td class="mlbl">قابلية التوسع</td><td>صعبة ومكلفة</td><td>سهلة جداً تتم بمجرد إدخال كلمة المرور للشبكة</td></tr>
-        </tbody>
-      </table>
+    <div class="stats-row">
+      <div class="stat-badge" id="score-badge">✅ 0</div>
+      <div class="stat-badge xp-badge" id="xp-badge">⚡ 0 XP</div>
     </div>
   </div>
 </div>
 
-<div class="fancy-divider"><span></span><div class="fancy-divider-icon">✦</div><span></span></div>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!--   LESSON 4: الحوسبة السحابية والتقدم التكنولوجي     -->
-<!-- ══════════════════════════════════════════════════════ -->
-<div class="unit-section">
-  <div class="unit-header">
-    <div class="unit-icon">☁️</div>
-    <div>
-      <div class="unit-title">الدرس الرابع: الحوسبة السحابية والتقدم التكنولوجي</div>
-      <div class="unit-sub">الصفحات 153 – 164</div>
-    </div>
-    <span class="unit-count">أسئلة 10 – 15</span>
-  </div>
-
-  <!-- Q10: المصطلحات - MATCH -->
-  <div class="q-card" id="qcard-10">
-    <div class="q-header">
-      <span class="q-num-badge">10</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب المصطلح المناسب لكل مما يأتي:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>العبارة</th><th>المصطلح</th></tr></thead>
-      <tbody>
-        <tr><td class="match-td-num">1</td><td class="match-td-desc">هي تقديم خدمات حوسبة عند الطلب بدءاً من استخدام التطبيقات الحاسوبية المختلفة وانتهاءً بالقدرة على التخزين والمعالجة عبر الإنترنت.</td><td><input class="match-input" type="text" id="m10-1" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">2</td><td class="match-td-desc">يتم من خلاله تخزين البيانات على خوادم توفرها الشركات المزودة للخدمة ويتم الوصول إليها عبر الإنترنت.</td><td><input class="match-input" type="text" id="m10-2" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">3</td><td class="match-td-desc">نظام مصمم لمراقبة أحداث أو أشياء معينة وتقديم بيانات المراقبة إلى خوادم أو أجهزة أخرى على الشبكة.</td><td><input class="match-input" type="text" id="m10-3" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">4</td><td class="match-td-desc">مجموعة من المكونات المتصلة ببعضها بحيث تقوم بالتحكم بعملية أو نظام أو تطبيق معين.</td><td><input class="match-input" type="text" id="m10-4" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">5</td><td class="match-td-desc">نظام يراقب ويتحكم في البيئة المحيطة باستخدام أجهزة الاستشعار لمراقبة المعدات بغرض التحكم.</td><td><input class="match-input" type="text" id="m10-5" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">6</td><td class="match-td-desc">جهاز يكشف عن وجود إشارة كالحركة والضوء والضغط وتغير درجة الحرارة وما إلى ذلك.</td><td><input class="match-input" type="text" id="m10-6" placeholder="المصطلح..."></td></tr>
-        <tr><td class="match-td-num">7</td><td class="match-td-desc">النظام الذي يعتبر من أكثر أنظمة المراقبة شيوعاً واستخداماً.</td><td><input class="match-input" type="text" id="m10-7" placeholder="المصطلح..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch10()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-10')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-10"></div>
-    <div class="answer-reveal" id="ans-10">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>الحوسبة السحابية</b></div>
-      <div class="ans-box">2 – <b>التخزين السحابي</b></div>
-      <div class="ans-box">3 – <b>نظام المراقبة</b></div>
-      <div class="ans-box">4 – <b>نظام التحكم</b></div>
-      <div class="ans-box">5 – <b>نظام المراقبة والتحكم</b></div>
-      <div class="ans-box">6 – <b>المستشعر</b></div>
-      <div class="ans-box">7 – <b>نظام الإنذار ضد السرقة</b></div>
-    </div>
-  </div>
-
-  <!-- Q11: نوع المستشعر حسب الوصف -->
-  <div class="q-card" id="qcard-11">
-    <div class="q-header">
-      <span class="q-num-badge">11</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب نوع المستشعر المناسب في كل حالة من الحالات التالية:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>الحالة</th><th>نوع المستشعر</th></tr></thead>
-      <tbody>
-        <tr><td class="match-td-num">1</td><td class="match-td-desc">جهاز حساس للمس أو الضغط بحيث عند اللمس تغلق الدارة داخل جهاز الاستشعار ويحدث مرور للتيار، وعند تحرير التلامس يحدث العكس.</td><td><input class="match-input" type="text" id="m11-1" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">2</td><td class="match-td-desc">جهاز يستخدم للكشف عن وجود جسم متحرك داخل مجال رؤية المستشعر.</td><td><input class="match-input" type="text" id="m11-2" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">3</td><td class="match-td-desc">جهاز يقيس ضغط السوائل والغاز المسال.</td><td><input class="match-input" type="text" id="m11-3" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">4</td><td class="match-td-desc">جهاز يقوم بتشغيل الإنذار عند اكتشاف الدخان.</td><td><input class="match-input" type="text" id="m11-4" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">5</td><td class="match-td-desc">جهاز يكشف ويقيس درجة حرارة البيئة المحيطة به.</td><td><input class="match-input" type="text" id="m11-5" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">6</td><td class="match-td-desc">جهاز إلكتروني يستخدم للكشف عن الضوء.</td><td><input class="match-input" type="text" id="m11-6" placeholder="نوع المستشعر..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch11()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-11')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-11"></div>
-    <div class="answer-reveal" id="ans-11">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>مستشعر اللمس</b></div>
-      <div class="ans-box">2 – <b>مستشعر الحركة</b></div>
-      <div class="ans-box">3 – <b>مستشعر الضغط</b></div>
-      <div class="ans-box">4 – <b>مستشعر الدخان</b></div>
-      <div class="ans-box">5 – <b>مستشعر الحرارة</b></div>
-      <div class="ans-box">6 – <b>مستشعر الضوء</b></div>
-    </div>
-  </div>
-
-  <!-- Q12: نوع المستشعر حسب الاستخدام -->
-  <div class="q-card" id="qcard-12">
-    <div class="q-header">
-      <span class="q-num-badge">12</span>
-      <div class="q-text"><span class="q-type-tag tag-match">مطابقة</span>اكتب نوع المستشعر المناسب الذي يستخدم في كل حالة من الحالات التالية:</div>
-    </div>
-    <table class="match-table">
-      <thead><tr><th>#</th><th>الاستخدام</th><th>نوع المستشعر</th></tr></thead>
-      <tbody>
-        <tr><td class="match-td-num">1</td><td class="match-td-desc">يستخدم في أنظمة التدفئة والتبريد وفي الثلاجات والمواقد وفي الموازين الطبية.</td><td><input class="match-input" type="text" id="m12-1" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">2</td><td class="match-td-desc">يستخدم في أجهزة التلفاز الذكية والهواتف المحمولة وتشغيل مصابيح الشوارع ليلاً.</td><td><input class="match-input" type="text" id="m12-2" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">3</td><td class="match-td-desc">يستخدم في محطات الأرصاد الجوية والطائرات والسيارات.</td><td><input class="match-input" type="text" id="m12-3" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">4</td><td class="match-td-desc">يستخدم لأغراض أمنية وفي الأبواب الإلكترونية وفي الأضواء الخارجية في الحدائق والشوارع.</td><td><input class="match-input" type="text" id="m12-4" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">5</td><td class="match-td-desc">يستخدم في الهواتف المحمولة والأجهزة اللوحية وأجهزة الحاسوب المحمولة.</td><td><input class="match-input" type="text" id="m12-5" placeholder="نوع المستشعر..."></td></tr>
-        <tr><td class="match-td-num">6</td><td class="match-td-desc">يستخدم في المنازل وبالأخص في المطبخ وغرف النوم.</td><td><input class="match-input" type="text" id="m12-6" placeholder="نوع المستشعر..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="check-btn" onclick="checkMatch12()">🔍 تحقق من الإجابة</button>
-      <button class="reveal-btn" onclick="revealAnswer('ans-12')">💡 عرض الإجابة</button>
-    </div>
-    <div class="feedback-msg" id="fb-12"></div>
-    <div class="answer-reveal" id="ans-12">
-      <div class="ar-title">✅ الإجابة النموذجية:</div>
-      <div class="ans-box">1 – <b>مستشعر الحرارة</b></div>
-      <div class="ans-box">2 – <b>مستشعر الضوء</b></div>
-      <div class="ans-box">3 – <b>مستشعر الضغط</b></div>
-      <div class="ans-box">4 – <b>مستشعر الحركة</b></div>
-      <div class="ans-box">5 – <b>مستشعر اللمس</b></div>
-      <div class="ans-box">6 – <b>مستشعر الدخان</b></div>
-    </div>
-  </div>
-
-  <!-- Q13: آثار الحوسبة السحابية -->
-  <div class="q-card" id="qcard-13">
-    <div class="q-header">
-      <span class="q-num-badge">13</span>
-      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>اذكر اثنتين من آثار استخدام الحوسبة السحابية في حياتنا.</div>
-    </div>
-    <div class="list-items">
-      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الأثر الأول..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الأثر الثاني..."></div>
-    </div>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-13')">💡 عرض الإجابة</button>
-    </div>
-    <div class="answer-reveal" id="ans-13">
-      <div class="ar-title">✅ الإجابة النموذجية (أي اثنتين مما يلي):</div>
-      <div class="ans-box">1 – التطور في إمكانية التسوق.</div>
-      <div class="ans-box">2 – الترجمة بين اللغات.</div>
-      <div class="ans-box">3 – ريادة الأعمال.</div>
-      <div class="ans-box">4 – سهولة إصلاح الأعطال.</div>
-      <div class="ans-box">5 – جعل البرمجيات والحواسيب غير ظاهرة للمستخدم.</div>
-      <div class="ans-box">6 – تطوير الذات والقدرة على اتخاذ القرارات الذكية.</div>
-      <div class="ans-box">7 – الحوسبة السحابية في مجال الصحة.</div>
-    </div>
-  </div>
-
-  <!-- Q14: ميزات الحوسبة السحابية -->
-  <div class="q-card" id="qcard-14">
-    <div class="q-header">
-      <span class="q-num-badge">14</span>
-      <div class="q-text"><span class="q-type-tag tag-list">أذكر/عدّد</span>عدّد اثنتين من ميزات الحوسبة السحابية.</div>
-    </div>
-    <div class="list-items">
-      <div class="list-item-wrap"><span class="list-bullet">1</span><input class="list-input" type="text" placeholder="الميزة الأولى..."></div>
-      <div class="list-item-wrap"><span class="list-bullet">2</span><input class="list-input" type="text" placeholder="الميزة الثانية..."></div>
-    </div>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-14')">💡 عرض الإجابة</button>
-    </div>
-    <div class="answer-reveal" id="ans-14">
-      <div class="ar-title">✅ الإجابة النموذجية (أي اثنتين مما يلي):</div>
-      <div class="ans-box">1 – الوصول في شتى أنحاء العالم.</div>
-      <div class="ans-box">2 – المزيد من المساحة التخزينية.</div>
-      <div class="ans-box">3 – سهولة الإعداد.</div>
-      <div class="ans-box">4 – التحديثات التلقائية.</div>
-      <div class="ans-box">5 – تقليل التكلفة.</div>
-    </div>
-  </div>
-
-  <!-- Q15: مقارنة نظام التحكم المفتوح والمغلق -->
-  <div class="q-card" id="qcard-15">
-    <div class="q-header">
-      <span class="q-num-badge">15</span>
-      <div class="q-text"><span class="q-type-tag tag-compare">مقارنة</span>قارن بين نظام التحكم المفتوح ونظام التحكم المغلق من حيث: تأثر المخرجات بالمدخلات | مقارنة المخرجات بالمطلوب | التعامل مع الظروف الخارجية | التغذية الراجعة | مثال</div>
-    </div>
-    <table class="compare-table">
-      <thead><tr><th style="width:24%">وجه المقارنة</th><th>النظام المفتوح</th><th>النظام المغلق</th></tr></thead>
-      <tbody>
-        <tr><td class="compare-td-lbl">تأثر المخرجات بالمدخلات</td><td><input class="compare-input" type="text" placeholder="المفتوح..."></td><td><input class="compare-input" type="text" placeholder="المغلق..."></td></tr>
-        <tr><td class="compare-td-lbl">مقارنة المخرجات بالمطلوب</td><td><input class="compare-input" type="text" placeholder="المفتوح..."></td><td><input class="compare-input" type="text" placeholder="المغلق..."></td></tr>
-        <tr><td class="compare-td-lbl">التعامل مع الظروف الخارجية</td><td><input class="compare-input" type="text" placeholder="المفتوح..."></td><td><input class="compare-input" type="text" placeholder="المغلق..."></td></tr>
-        <tr><td class="compare-td-lbl">التغذية الراجعة</td><td><input class="compare-input" type="text" placeholder="المفتوح..."></td><td><input class="compare-input" type="text" placeholder="المغلق..."></td></tr>
-        <tr><td class="compare-td-lbl">مثال</td><td><input class="compare-input" type="text" placeholder="مثال..."></td><td><input class="compare-input" type="text" placeholder="مثال..."></td></tr>
-      </tbody>
-    </table>
-    <div class="btn-row">
-      <button class="reveal-btn" onclick="revealAnswer('ans-15')">💡 عرض الإجابة النموذجية</button>
-    </div>
-    <div class="answer-reveal" id="ans-15">
-      <div class="ar-title">✅ الإجابة النموذجية (من ورقة المدرسة):</div>
-      <table class="mini-compare">
-        <thead><tr><th>وجه المقارنة</th><th>النظام المفتوح</th><th>النظام المغلق</th></tr></thead>
-        <tbody>
-          <tr><td class="mlbl">تأثر المخرجات بالمدخلات</td><td>لا تتأثر مخرجات النظام بمدخلاته.</td><td>تتم عملية التغذية الراجعة على المخرجات بشكل دائم.</td></tr>
-          <tr><td class="mlbl">مقارنة المخرجات بالمطلوب</td><td>لا يمكن مقارنة القيم الموجودة بالبيانات المطلوبة.</td><td>تتم مراقبة المخرجات باستمرار.</td></tr>
-          <tr><td class="mlbl">التعامل مع الظروف الخارجية</td><td>لا تستطيع التعامل مع الظروف والمؤثرات الخارجية.</td><td>تتكيف مع الظروف الموجودة والمحيطة.</td></tr>
-          <tr><td class="mlbl">التغذية الراجعة</td><td>لا يوجد نظام للتغذية الراجعة.</td><td>توجد تغذية راجعة مستمرة.</td></tr>
-          <tr><td class="mlbl">مثال</td><td><b>الغسالة</b></td><td><b>المكيف</b></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
+<!-- ===== QUIZ ===== -->
+<div id="quiz" class="screen" style="display:none">
+  <div id="question-container"></div>
 </div>
 
-<button class="submit-all-btn" onclick="submitAll()">🏆 عرض النتيجة النهائية للأسئلة التفاعلية</button>
-
-<!-- RESULT PANEL -->
-<div class="result-panel" id="resultPanel">
-  <div class="result-score-big" id="resultScore">0%</div>
-  <div class="result-label">من إجمالي أسئلة المطابقة التفاعلية</div>
-  <div class="result-stars" id="resultStars">⭐⭐⭐⭐⭐</div>
-  <div class="result-msg" id="resultMsg">أحسنت!</div>
-  <div class="result-breakdown">
-    <div class="rb-item"><span class="rb-num" id="rb-correct">0</span>إجابات صحيحة</div>
-    <div class="rb-item"><span class="rb-num" id="rb-wrong">0</span>إجابات خاطئة</div>
-    <div class="rb-item"><span class="rb-num" id="rb-total">0</span>إجمالي الأسئلة</div>
+<!-- ===== RESULTS ===== -->
+<div id="results" class="screen" style="display:none">
+  <div class="result-card">
+    <div id="trophy-display" class="trophy">🏆</div>
+    <div class="result-name" id="result-name">أحسنت!</div>
+    <div class="score-circle" id="score-circle" data-score="0%"></div>
+    <div class="result-stats-grid">
+      <div class="rstat"><div class="n" id="r-correct">0</div><div class="l">✅ صحيح</div></div>
+      <div class="rstat"><div class="n" id="r-wrong">0</div><div class="l">❌ خطأ</div></div>
+      <div class="rstat"><div class="n" id="r-xp">0</div><div class="l">⚡ XP</div></div>
+    </div>
+    <div class="badge-row" id="badges-display"></div>
+    <button class="btn-cert" onclick="showCertificate()">📜 عرض شهادة الإنجاز</button>
+    <button class="btn-retry" onclick="retryQuiz()">🔄 إعادة الاختبار</button>
   </div>
-  <button class="restart-btn" onclick="restartQuiz()">🔄 إعادة المحاولة</button>
 </div>
 
-</main>
+<!-- ===== CERTIFICATE ===== -->
+<div id="certificate" class="screen" style="display:none">
+  <div class="cert-paper" id="cert-paper">
+    <img class="cert-logo" id="cert-logo-img" src="" alt="شعار المدرسة">
+    <div class="cert-school">مدرسة الشحانية الإعدادية الثانوية للبنين</div>
+    <div style="font-size:13px;color:#999;margin-bottom:16px;">وزارة التربية والتعليم والتعليم العالي • دولة قطر</div>
+    <div class="cert-title">🏆 شهادة إنجاز</div>
+    <div class="cert-line"></div>
+    <div style="font-size:16px;color:#666;">يُشهد بأن الطالب</div>
+    <div class="cert-student" id="cert-name">—</div>
+    <div class="cert-body">
+      قد أتمّ بنجاح الاختبار التفاعلي لمادة<br>
+      <strong>الحوسبة وتكنولوجيا المعلومات – الصف العاشر</strong><br>
+      الوحدة الثانية: الشبكات المتقدمة<br>
+      (الفصل الثاني – العام الدراسي 2025/2026)
+    </div>
+    <div class="cert-score" id="cert-score">0%</div>
+    <div class="cert-meta">
+      <div><div class="label">الدرجة</div><div class="value" id="cert-grade-val">—</div></div>
+      <div><div class="label">التاريخ</div><div class="value" id="cert-date">—</div></div>
+      <div><div class="label">نقاط XP</div><div class="value" id="cert-xp-val">—</div></div>
+    </div>
+    <div style="margin-top:20px;font-size:13px;color:#999;font-style:italic;">الرؤية: متعـلم ريـادي لتنمـية مستدامـة</div>
+    <button class="btn-print" onclick="window.print()">🖨️ طباعة الشهادة</button>
+    <button class="btn-print btn-back-cert" style="background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);margin-right:10px;" onclick="showScreen('results')">🔙 العودة للنتائج</button>
+  </div>
+</div>
 
 <script>
-  // Scored match questions and their correct answers
-  const matchData = {
-    3: {ids:['m3-1','m3-2','m3-3'], answers:[['lan','شبكة محلية','المحلية'],['man','حضرية','مدنية'],['wan','الواسعة']]},
-    4: {ids:['m4-1','m4-2','m4-3','m4-4','m4-5'], answers:[['خطي','bus'],['حلقي','ring'],['نجمي','star'],['مختلط','hybrid'],['متشابك','mesh']]},
-    6: {ids:['m6-1','m6-2','m6-3','m6-4','m6-5','m6-6','m6-7'], answers:[['النقل','transport'],['الشبكة','network'],['ربط البيانات','data link'],['الفيزيائية','physical'],['التقديم','presentation'],['الجلسة','session'],['التطبيقات','application']]},
-    7: {ids:['m7-1','m7-2','m7-3','m7-4','m7-5','m7-6'], answers:[['http'],['https'],['dns'],['ftp'],['smtp'],['tcp','ip','tcp/ip']]},
-    10: {ids:['m10-1','m10-2','m10-3','m10-4','m10-5','m10-6','m10-7'], answers:[['حوسبة سحابية','سحابية'],['تخزين سحابي','سحابي'],['نظام المراقبة','المراقبة'],['نظام التحكم','التحكم'],['مراقبة والتحكم','المراقبة والتحكم'],['مستشعر'],['الإنذار ضد السرقة','إنذار','سرقة']]},
-    11: {ids:['m11-1','m11-2','m11-3','m11-4','m11-5','m11-6'], answers:[['لمس'],['حركة'],['ضغط'],['دخان'],['حرارة'],['ضوء']]},
-    12: {ids:['m12-1','m12-2','m12-3','m12-4','m12-5','m12-6'], answers:[['حرارة'],['ضوء'],['ضغط'],['حركة'],['لمس'],['دخان']]}
+// ===== LOGO =====
+const LOGO_B64 = 'data:image/jpeg;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/xAAC/9oADAMBAAIAAwAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQSU0gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnBvqtKEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHQAAAI6v3btqcQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACXKwAALrd5cpKYE4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAu5UABFM/pKIapCYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAwAAAgAxQRxSyQQARzhyjhgCQgSDwAgygjxAhBRTxwgxBTgBRQzhCAACQRjBjRTRAAAgAQBwASQAAAAAAAAAAAAAADDQQyygTighQyQDTDTRBgAABQSgDxRSyAQxDBBAhzzCxwxAjixyigySAATwxQBQzCCjSTTxCAwhzgAAAAAAAAAAAAAhRwzwARQQDQCCzgDQTyhyRSjgSDAySzzwhAwxSSxAiAhyBggixgBzAyDhhihCBQRDixwziiRzSxSQAAAAAAAAAAAAAgRDTACQiRiSADCzDwhCBDRChSCACBDyxBTCBwxCiACCBBBCTQAjCSDjTBAQywABCBSyyzwxhwxSwgAAAAAAAAAAAAAAjTDCAADAAAAAADShziAAAAAAAAAACBCAAAAAAABDjgAAAAACAAAAAAAAAAAAAAAAAAACSgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/xAAC/9oADAMBAAIAAwAAABDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzjCjTXzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzDDTzzzHGbFqbTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzAhTzz6azb+dZcTXzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzB9nzyt9QDf674YPzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzkSBF3ymdrq576kZPzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz2ZPc3QFjEvdOhFGanzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyCzs4cgHkNPOlYw+hXzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyisQ9ytbTyWReVMwyJRzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyi6X77Rv3yxSrObPIrPfzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzylHzyhsv7YlsviTyteD2W9JXzyzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyVrHyjX/AO6SHg988rgH6amjc86+1888888888888888888888888888888888888888888888888888888888888888sfkc86I+BnsRE4Ur8lZEFt89aX88888888888888888888888888888888888888888888888888888888888888888uZG0gmjKbrXYelr5X6TechjY88888888888888888888888888888888888888888888888888888888888888888s8uaRzpTLt58NM8n3eveQpCjM88888888888888888888888888888888888888888888888888888888888888888888wkPMYxLB2/8wOfNacohGd888888888888888888888888888888888888888888888888888888888888888888888sdpgQAZVHeUvuAq2TwiG888888888888888888888888888888888888888888888888888888888888888888888+88pv/AcwSn7bBnoYysk8888888888888888888888888888888888888888888888888888888888888888888888888MBRENhW2qYDE9n5F888888888888888888888888888888888888888888888888888888888888888888888888888MJlIbaVmCSRAZ188888888888888888888888888888888888888888888888888888888888888888888888888888oFQUjArmNpLsc888888888888888888888888888888888888888888888888888888888888888888888888888888chEwPzAwxd088888888888888888888888888888888888888888888888888888888888888888888888888888888wG3zuqJn6c8888888888888888888888888888888888888888888888888888888888888888888888888888888obb6vk8xQK8sU888888888888888888888888888888888888888888888888888888888888888888888888888wi5Clc9FS33uhIR88888888888888888888888888888888888888888888888888888888888888888888888888i/wB3Cpn/ADy1t3vm9A3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzhstwSk3zyyzW02kwvzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzyzOvjzzzzzzzzzzxp/Tzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz1RXzzzzzzzzzzwkH3zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzxzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzTTTzjzzzzzzzjzzzzzzzDzzzzTzzzzzzzzjzzzTzzzjDzzzzzzzDDzzzTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwAxDxiDzzzziQjywxBjiQRzzzwDDzzzzyCjSzhhTzySATTzzzjSigQThTjzzzzzzzzzzzzzzzzzzzzzzzzzxTzygDSxxDTzjzRjSCSzBgixQjzziBSSASjzSzgCDzDSixDzjCzTjTzygShCgjjjRzzDDzzBTBjTzzzzzzzzzzzzzxBSDRgyBwxzyzThzDwCyTwiQjgyBxyRDRgSAjRQDzjQRzxSxgAxDSCiCADxhBCDTiCAzyjSThizBTzzzzzzzzzzzzzzSzDSiCywAARjyizTyRxCQiSCzySAhQzwzSQQxCgxhQwzyySAhixAAgiyBxRAjiAiyBhghjCDggSDzzzzzzzzzzzzzSzBhiCiDByzywywDzAhxThxQxzzzzzwAByzxAAwDjARTzwwhgBzxyxwiyxjDRBzwyCCADDAQgBgDzzzzzzzzzzzzzyzQQSjzyzzzzzzyzyyiTzzzzzzzzzzwxzzzzzzzzywATzzzzyzzzzzzzzzzzzzzzzzzzyyjDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz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';
+document.getElementById('logo-welcome').src = LOGO_B64;
+
+// ===== QUESTIONS DATA =====
+const ALL_QUESTIONS = [
+// ─── MCQ ───
+{type:'mcq',topic:'شبكات الحاسوب',q:'ما هو التعريف الصحيح لشبكة الحاسوب؟',opts:['جهاز حاسوب واحد متصل بالإنترنت','عدد من الحواسيب (على الأقل اثنان) متصلة ببعضها لمشاركة الموارد','برنامج لتصفح الإنترنت','بروتوكول لنقل البيانات'],ans:1,exp:'شبكة الحاسوب هي عدد من الحواسيب (على الأقل اثنان) متصلة ببعضها البعض من أجل مشاركة الموارد (البيانات والأجهزة).'},
+{type:'mcq',topic:'أنواع الشبكات',q:'أي نوع من الشبكات يربط أجهزة في نطاق ضيق مثل المدرسة أو الشركة؟',opts:['WAN','MAN','LAN','PAN'],ans:2,exp:'شبكة LAN (الشبكة المحلية) تتكون من أجهزة حواسيب متصلة في نطاق ضيق مثل شركة أو مؤسسة أو مدرسة.'},
+{type:'mcq',topic:'أنواع الشبكات',q:'ما نوع الشبكة التي تربط مجموعة من الشبكات المحلية في نفس المدينة؟',opts:['LAN','WAN','MAN','Internet'],ans:2,exp:'شبكة MAN (الشبكة المتروبوليتانية) تقوم بربط مجموعة من الشبكات المحلية في عدة مبانٍ في نفس المدينة مثل الجامعات.'},
+{type:'mcq',topic:'أنواع الشبكات',q:'شبكة الإنترنت مثال على أي نوع من الشبكات؟',opts:['LAN','MAN','WAN','Intranet'],ans:2,exp:'شبكة WAN لا تتقيد بموقع جغرافي محدد ويمكن أن تشمل دولة أو قارة أو حتى الكرة الأرضية مثل شبكة الإنترنت.'},
+{type:'mcq',topic:'بروتوكولات',q:'ما وظيفة بروتوكول HTTP؟',opts:['نقل الملفات','تصفح صفحات الويب','إرسال البريد الإلكتروني','ترجمة العناوين'],ans:1,exp:'بروتوكول HTTP يضمن تبادل البيانات في الشبكة العنكبوتية العالمية (صفحات الويب).'},
+{type:'mcq',topic:'بروتوكولات',q:'أي بروتوكول يوفر اتصالاً آمناً بين حاسوبين؟',opts:['HTTP','FTP','HTTPS','SMTP'],ans:2,exp:'بروتوكول HTTPS يوفر اتصالاً آمناً بين حاسوبين، يختلف عن HTTP في توفير التشفير.'},
+{type:'mcq',topic:'بروتوكولات',q:'ما وظيفة بروتوكول FTP؟',opts:['نقل رسائل البريد','تصفح الويب','نقل الملفات بين حواسيب الشبكة','تحويل العناوين'],ans:2,exp:'بروتوكول FTP يسمح بنقل الملفات بين حواسيب الشبكة.'},
+{type:'mcq',topic:'بروتوكولات',q:'أي نظام يحول عناوين الحواسيب في الشبكة إلى عناوين IP؟',opts:['SMTP','FTP','HTTP','DNS'],ans:3,exp:'نظام DNS يحول عناوين الحواسيب في الشبكة (أسماء النطاقات) إلى ما يقابلها من عناوين IP.'},
+{type:'mcq',topic:'TCP/IP',q:'ما الدور الرئيسي لبروتوكول TCP/IP؟',opts:['تصميم المواقع','تجهيز مقاطع البيانات ونقلها عبر الشبكة','إنشاء كلمات المرور','تصفية المحتوى'],ans:1,exp:'بروتوكول TCP/IP يختص بتجهيز مقاطع البيانات ونقلها عبر الشبكة.'},
+{type:'mcq',topic:'مخططات الشبكات',q:'في مخطط النجمي، كيف يتصل كل جهاز؟',opts:['بجهاز ناقل رئيسي خطي','بجهاز مركزي (موزع أو محول)','بجهاز آخر مباشرة','بجميع الأجهزة الأخرى'],ans:1,exp:'في المخطط النجمي يتم توصيل كل جهاز طرفي في الشبكة بجهاز مركزي (موزع أو محول).'},
+{type:'mcq',topic:'الحوسبة السحابية',q:'ما هي الحوسبة السحابية؟',opts:['شبكة محلية داخل المبنى','تقديم خدمات حوسبة عند الطلب عبر الإنترنت','برامج مثبتة على الجهاز','ذاكرة الوصول العشوائي'],ans:1,exp:'الحوسبة السحابية هي تقديم خدمات حوسبة عند الطلب بدءاً من استخدام التطبيقات الحاسوبية المختلفة وانتهاءً بالقدرة على التخزين والمعالجة عبر الإنترنت.'},
+{type:'mcq',topic:'الحوسبة السحابية',q:'ما التخزين السحابي؟',opts:['تخزين البيانات على القرص الصلب المحلي','تخزين البيانات على خوادم الشركات المزودة والوصول إليها عبر الإنترنت','طباعة البيانات','نسخ البيانات على USB'],ans:1,exp:'التخزين السحابي يتم من خلاله تخزين البيانات على خوادم توفرها الشركات المزودة للخدمة ويتم الوصول إليها عبر الإنترنت.'},
+{type:'mcq',topic:'المستشعرات',q:'أي مستشعر يُستخدم في أنظمة التدفئة والتبريد وفي الثلاجات؟',opts:['مستشعر الضوء','مستشعر الدخان','مستشعر الحرارة','مستشعر الضغط'],ans:2,exp:'مستشعر الحرارة يستخدم في أنظمة التدفئة والتبريد وفي الثلاجات والمواقد وفي الموازين الطبية.'},
+{type:'mcq',topic:'المستشعرات',q:'أي مستشعر يُستخدم لأغراض أمنية وفي الأبواب الإلكترونية؟',opts:['مستشعر الحرارة','مستشعر الدخان','مستشعر الضغط','مستشعر الحركة'],ans:3,exp:'مستشعر الحركة يستخدم لأغراض أمنية وفي الأبواب الإلكترونية وفي الأضواء الخارجية في الحدائق والشوارع.'},
+{type:'mcq',topic:'المستشعرات',q:'أي مستشعر يُستخدم في الهواتف المحمولة والأجهزة اللوحية؟',opts:['مستشعر الحركة','مستشعر اللمس','مستشعر الضغط','مستشعر الضوء'],ans:1,exp:'مستشعر اللمس يستخدم في الهواتف المحمولة والأجهزة اللوحية وأجهزة الحاسوب المحمولة.'},
+{type:'mcq',topic:'نموذج OSI',q:'أي طبقة في نموذج OSI مسؤولة عن نقل البيانات من خلال الوسط الملموس كالكابلات؟',opts:['طبقة التطبيقات','طبقة النقل','طبقة الشبكة','الطبقة الفيزيائية'],ans:3,exp:'الطبقة الفيزيائية تقوم بنقل البيانات من خلال الوسط الملموس كالتوصيلات والكابلات.'},
+{type:'mcq',topic:'نموذج OSI',q:'أي طبقة في نموذج OSI تقوم بتشفير وفك تشفير البيانات؟',opts:['طبقة الجلسة','طبقة التقديم','طبقة النقل','طبقة ربط البيانات'],ans:1,exp:'طبقة التقديم تقوم بتشفير وفك تشفير البيانات.'},
+{type:'mcq',topic:'الشبكة اللاسلكية',q:'أي من التالي مثال على تقنية شبكة لاسلكية؟',opts:['الكابل المحوري','البلوتوث','كابل الألياف الضوئية','كابل الإيثرنت'],ans:1,exp:'البلوتوث من أبرز تقنيات الشبكة اللاسلكية إلى جانب Wi-Fi وNFC.'},
+{type:'mcq',topic:'الشبكة السلكية',q:'ما سرعة الشبكة السلكية تقريباً؟',opts:['1-10 ميجابايت','100 ميجابايت إلى 10 جيجابايت','500 كيلوبايت','غير محدودة'],ans:1,exp:'الشبكات السلكية أسرع وتتراوح سرعتها من 100 ميجابايت إلى 10 جيجابايت في الثانية.'},
+{type:'mcq',topic:'أنظمة التحكم',q:'أي مثال يدل على نظام التحكم المغلق؟',opts:['الغسالة الأوتوماتيكية','المكيف','الضوء اليدوي','الإشارة الضوئية'],ans:1,exp:'المكيف مثال على نظام التحكم المغلق لأنه يراقب درجة الحرارة باستمرار ويتكيف مع الظروف المحيطة.'},
+
+// ─── TRUE/FALSE ───
+{type:'tf',topic:'أنواع الشبكات',q:'شبكة MAN تُستخدم لربط الأجهزة داخل غرفة واحدة فقط.',ans:false,exp:'شبكة MAN تربط مجموعة شبكات محلية في نفس المدينة (كالجامعات والمؤسسات الكبيرة) وليس فقط في غرفة.'},
+{type:'tf',topic:'بروتوكولات',q:'بروتوكول SMTP يُستخدم لنقل رسائل البريد الإلكتروني.',ans:true,exp:'صحيح، بروتوكول SMTP يُستخدم لنقل رسائل البريد الإلكتروني.'},
+{type:'tf',topic:'TCP/IP',q:'يقوم بروتوكول TCP/IP بتقسيم الرسائل إلى حزم في جهاز المرسل.',ans:true,exp:'صحيح، من مهام TCP/IP تقسيم الرسائل إلى حزم في جهاز المرسل وإعادة تجميعها في جهاز المستقبل.'},
+{type:'tf',topic:'الشبكات',q:'الشبكات اللاسلكية أسرع دائماً من الشبكات السلكية.',ans:false,exp:'خطأ، الشبكات السلكية أسرع وأكثر استقراراً. الشبكات اللاسلكية تتأثر بالمسافة وعدد الأجهزة.'},
+{type:'tf',topic:'المستشعرات',q:'مستشعر الدخان يستخدم في المنازل وخاصةً في المطبخ وغرف النوم.',ans:true,exp:'صحيح، مستشعر الدخان يستخدم في المنازل وبالأخص في المطبخ وغرف النوم لاكتشاف الحرائق.'},
+{type:'tf',topic:'نموذج OSI',q:'نموذج OSI يتكون من خمس طبقات فقط.',ans:false,exp:'خطأ، نموذج OSI يتكون من سبع طبقات: التطبيقات، التقديم، الجلسة، النقل، الشبكة، ربط البيانات، الفيزيائية.'},
+{type:'tf',topic:'أنظمة التحكم',q:'نظام التحكم المفتوح لا يوجد فيه نظام للتغذية الراجعة.',ans:true,exp:'صحيح، نظام التحكم المفتوح لا يوجد فيه نظام للتغذية الراجعة، مثاله الغسالة.'},
+{type:'tf',topic:'الحوسبة السحابية',q:'من مميزات الحوسبة السحابية التحديثات التلقائية.',ans:true,exp:'صحيح، التحديثات التلقائية من أبرز مزايا الحوسبة السحابية إلى جانب الوصول العالمي وتقليل التكلفة.'},
+
+// ─── FILL BLANK ───
+{type:'fill',topic:'مخططات الشبكات',q:'في مخطط _______ يتم توصيل كل جهاز بجهاز آخر بتوصيلات سلكية مما يعني اتصال كل جهاز بكافة الأجهزة الأخرى.',ans:'المتشابك',alt:['متشابك'],exp:'المخطط المتشابك (Mesh) يوصل كل جهاز بكافة الأجهزة الأخرى في الشبكة.'},
+{type:'fill',topic:'المستشعرات',q:'الجهاز الذي يكشف عن وجود إشارة كالحركة والضوء والضغط وتغير درجة الحرارة يُسمى _______.',ans:'المستشعر',alt:['مستشعر'],exp:'المستشعر هو جهاز يكشف عن وجود إشارة كالحركة والضوء والضغط وتغير درجة الحرارة.'},
+{type:'fill',topic:'الأمان',q:'الشبكات السلكية يتم تأمينها بسهولة من خلال _______.',ans:'جدر الحماية',alt:['جدران الحماية','الجدار الناري'],exp:'الشبكات السلكية يتم تأمينها بسهولة من خلال جدر الحماية (Firewalls).'},
+{type:'fill',topic:'أنظمة المراقبة',q:'النظام الذي يعتبر من أكثر أنظمة المراقبة شيوعاً واستخداماً هو نظام _______ ضد السرقة.',ans:'الإنذار',alt:['إنذار'],exp:'نظام الإنذار ضد السرقة يُعد من أكثر أنظمة المراقبة شيوعاً واستخداماً.'},
+{type:'fill',topic:'الحوسبة السحابية',q:'من آثار استخدام الحوسبة السحابية: الحوسبة السحابية في مجال _______.',ans:'الصحة',alt:['الصحة والطب'],exp:'الحوسبة السحابية أحدثت تحولاً كبيراً في مجال الصحة من حيث تخزين وتبادل السجلات الطبية.'},
+
+// ─── MATCHING ───
+{type:'matching',topic:'بروتوكولات الشبكة',q:'طابق كل بروتوكول مع وظيفته الصحيحة:',
+ left:['HTTP','FTP','DNS','SMTP'],
+ right:['نقل الملفات بين الحواسيب','تصفح صفحات الويب','تحويل أسماء النطاقات لعناوين IP','إرسال البريد الإلكتروني'],
+ ans:[1,0,2,3],
+ exp:'HTTP=صفحات الويب، FTP=نقل الملفات، DNS=ترجمة العناوين، SMTP=البريد الإلكتروني'},
+{type:'matching',topic:'طبقات OSI',q:'طابق كل طبقة من طبقات OSI مع مهمتها:',
+ left:['الطبقة الفيزيائية','طبقة التقديم','طبقة الجلسة','طبقة النقل'],
+ right:['نقل البيانات عبر الكابلات','تأمين نقل البيانات مع تجنب الأخطاء','تشفير وفك تشفير البيانات','تأسيس وإدارة وإنهاء الاتصال'],
+ ans:[0,2,3,1],
+ exp:'الفيزيائية=الكابلات، التقديم=التشفير، الجلسة=إدارة الاتصال، النقل=تجنب الأخطاء'},
+
+// ─── ORDERING ───
+{type:'ordering',topic:'TCP/IP',q:'رتب خطوات نقل البيانات باستخدام بروتوكول TCP/IP بالترتيب الصحيح:',
+ items:['إعادة ترتيب الحزم وتجميعها في جهاز المستقبل','تقسيم الرسائل إلى حزم في جهاز المرسل','فحص البيانات للتثبت من عدم وجود أخطاء','تمرير الحزم البرمجية ونقلها عبر الشبكة'],
+ ans:[1,3,0,2],
+ exp:'الترتيب الصحيح: التقسيم ← النقل ← التجميع ← الفحص'},
+{type:'ordering',topic:'نموذج OSI',q:'رتب الطبقات التالية من نموذج OSI من الأعلى إلى الأسفل:',
+ items:['طبقة الشبكة','طبقة التطبيقات','الطبقة الفيزيائية','طبقة النقل'],
+ ans:[1,3,0,2],
+ exp:'من الأعلى: التطبيقات ← النقل ← الشبكة ← الفيزيائية'},
+
+// ─── FLASHCARDS ───
+{type:'flash',topic:'المصطلحات',q:'ما تعريف: الحوسبة السحابية',ans:'تقديم خدمات حوسبة عند الطلب بدءاً من استخدام التطبيقات وانتهاءً بالتخزين والمعالجة عبر الإنترنت',exp:'الحوسبة السحابية Cloud Computing هي توفير خدمات تقنية المعلومات عبر الإنترنت عوضاً عن تثبيتها محلياً.'},
+{type:'flash',topic:'المصطلحات',q:'ما تعريف: نموذج OSI',ans:'نموذج الاتصال المفتوح المكون من 7 طبقات لتوحيد طريقة تواصل الأجهزة في الشبكة',exp:'OSI = Open Systems Interconnection وهو إطار مرجعي معياري يصف كيفية إرسال واستقبال البيانات عبر الشبكة.'},
+{type:'flash',topic:'المصطلحات',q:'ما تعريف: نظام التحكم المغلق',ans:'نظام يراقب المخرجات باستمرار ويقوم بالتغذية الراجعة للتكيف مع الظروف المحيطة',exp:'نظام التحكم المغلق يتميز بالتغذية الراجعة المستمرة، مثال: المكيف.'},
+{type:'flash',topic:'المصطلحات',q:'ما تعريف: المستشعر',ans:'جهاز يكشف عن وجود إشارة كالحركة والضوء والضغط وتغير درجة الحرارة',exp:'المستشعر (Sensor) يحوّل المتغيرات الفيزيائية إلى إشارات يمكن للأنظمة الإلكترونية قراءتها.'},
+
+// ─── SPEED CHALLENGE ───
+{type:'speed',topic:'سرعة',q:'ما هو اختصار الشبكة المحلية الضيقة؟',opts:['WAN','MAN','LAN','PAN'],ans:2,time:10,exp:'LAN = Local Area Network = الشبكة المحلية'},
+{type:'speed',topic:'سرعة',q:'كم عدد طبقات نموذج OSI؟',opts:['4','5','6','7'],ans:3,time:8,exp:'نموذج OSI يتكون من 7 طبقات.'},
+{type:'speed',topic:'سرعة',q:'ما البروتوكول الآمن لنقل البيانات عبر الويب؟',opts:['HTTP','FTP','HTTPS','SMTP'],ans:2,time:10,exp:'HTTPS = HyperText Transfer Protocol Secure'},
+{type:'speed',topic:'سرعة',q:'أي نظام تحكم يتميز بعدم وجود تغذية راجعة؟',opts:['المغلق','المفتوح','الهجين','المتكامل'],ans:1,time:10,exp:'نظام التحكم المفتوح لا يوجد فيه تغذية راجعة.'},
+{type:'speed',topic:'سرعة',q:'أي مستشعر يُستخدم في مستشعرات الأرصاد الجوية والطائرات؟',opts:['الحرارة','الضوء','الضغط','الدخان'],ans:2,time:10,exp:'مستشعر الضغط يستخدم في محطات الأرصاد الجوية والطائرات والسيارات.'},
+
+// ─── DEFINE ───
+{type:'define',topic:'تعريف',q:'عرّف: شبكة WAN',ans:'شبكة واسعة النطاق لا تتقيد بموقع جغرافي محدد يمكن أن تشمل دولة أو قارة أو الكرة الأرضية كاملة مثل الإنترنت',exp:'WAN = Wide Area Network'},
+{type:'define',topic:'تعريف',q:'عرّف: نظام المراقبة والتحكم',ans:'نظام يراقب ويتحكم في البيئة المحيطة باستخدام أجهزة الاستشعار لمراقبة المعدات بغرض التحكم',exp:'أنظمة SCADA مثال على أنظمة المراقبة والتحكم.'},
+
+// ─── COMPARE ───
+{type:'compare',topic:'المقارنة',q:'صنّف كل خاصية إلى الشبكة السلكية أو اللاسلكية:',
+ items:[
+   {text:'أسرع سرعة (100 ميجابايت - 10 جيجابايت)',cat:0},
+   {text:'سهولة التوسع بإدخال كلمة المرور',cat:1},
+   {text:'موثوقية عالية',cat:0},
+   {text:'عرضة للاختراق بالرغم من أنظمة الحماية',cat:1},
+   {text:'يتم تأمينها بجدر الحماية',cat:0},
+   {text:'تتأثر بالتداخل من الأجهزة الإلكترونية',cat:1},
+ ],
+ cats:['الشبكات السلكية','الشبكات اللاسلكية'],
+ exp:'السلكية: أسرع، أكثر أماناً وموثوقية. اللاسلكية: سهلة التوسع، عرضة للتداخل والاختراق.'},
+{type:'compare',topic:'المقارنة',q:'صنّف كل خاصية إلى نظام التحكم المفتوح أو المغلق:',
+ items:[
+   {text:'لا يوجد تغذية راجعة',cat:0},
+   {text:'توجد تغذية راجعة مستمرة',cat:1},
+   {text:'مثاله: الغسالة',cat:0},
+   {text:'مثاله: المكيف',cat:1},
+   {text:'لا تتكيف مع الظروف الخارجية',cat:0},
+   {text:'تتكيف مع الظروف المحيطة',cat:1},
+ ],
+ cats:['نظام التحكم المفتوح','نظام التحكم المغلق'],
+ exp:'المفتوح: لا تغذية راجعة، لا يتكيف. المغلق: تغذية راجعة مستمرة، يتكيف مع البيئة.'},
+];
+
+
+// ===== STATE =====
+let studentName = '';
+let studentClass = '';
+let questions = [];
+let currentQ = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let xp = 0;
+let timerInterval = null;
+let qStates = [];
+let selectedMatch1 = null;
+let matchAnswers = {};
+let orderArr = [];
+let compareSelected = null;
+let compareAnswers = {};
+let draftMCQ = null;
+let draftTF = null;
+
+function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]); }
+function pointsFor(q){ return q.type==='define'?15:(q.type==='matching'||q.type==='ordering'||q.type==='compare'?20:10); }
+function getState(){ return qStates[currentQ] || (qStates[currentQ]={answered:false,correct:false,user:null}); }
+
+function resetQuizState(keepStudent=false){
+  if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+  currentQ = 0; correctCount = 0; wrongCount = 0; xp = 0;
+  selectedMatch1 = null; matchAnswers = {}; orderArr = []; compareSelected = null; compareAnswers = {}; draftMCQ = null; draftTF = null;
+  questions = shuffle([...ALL_QUESTIONS]).slice(0,50);
+  qStates = questions.map(()=>({answered:false,correct:false,user:null}));
+  if(!keepStudent){
+    const n=document.getElementById('student-name'); if(n) n.value='';
+    const c=document.getElementById('student-class'); if(c) c.value='';
+  }
+}
+
+function startQuiz(){
+  const nameEl = document.getElementById('student-name');
+  const classEl = document.getElementById('student-class');
+  studentName = (nameEl?.value || '').trim();
+  studentClass = (classEl?.value || '').trim();
+  if(!studentName){ alert('يرجى إدخال اسم الطالب أولاً.'); nameEl?.focus(); return; }
+  if(!studentClass){ alert('يرجى اختيار الصف / الشعبة أولاً.'); classEl?.focus(); return; }
+  resetQuizState(true);
+  document.getElementById('quiz-header').style.display='block';
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{ s.style.display='none'; s.classList.remove('active'); });
+  const el = document.getElementById(id); if(el){ el.style.display='block'; el.classList.add('active'); }
+}
+
+function updateHeader(){
+  const total = questions.length || 50;
+  const pct = Math.round(((currentQ+1)/total)*100);
+  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('q-progress-txt').textContent = 'السؤال '+(currentQ+1)+' من '+total+' • '+studentName+' • '+studentClass;
+  document.getElementById('score-badge').textContent = '✅ '+correctCount;
+  document.getElementById('xp-badge').textContent = '⚡ '+xp+' XP';
+}
+
+function renderQuestion(){
+  if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+  updateHeader();
+  selectedMatch1=null; matchAnswers={}; orderArr=[]; compareSelected=null; compareAnswers={}; draftMCQ=null; draftTF=null;
+  const q = questions[currentQ];
+  const container = document.getElementById('question-container');
+  container.innerHTML = buildCard(q);
+  restoreAnsweredView(q);
+  attachEvents(q);
+}
+
+function buildCard(q){
+  const types = {mcq:'اختيار من متعدد',tf:'صح أم خطأ',fill:'أكمل الفراغ',matching:'مطابقة',ordering:'ترتيب',flash:'بطاقة تعلم',speed:'تحدي السرعة',define:'عرّف المصطلح',compare:'المقارنة'};
+  let body='';
+  if(q.type==='mcq'||q.type==='speed'){
+    body = `<div class="q-text">${q.q}</div>
+      ${q.type==='speed'?`<div class="speed-timer"><div class="timer-ring" id="timer-ring"><svg width="80" height="80"><circle class="bg" cx="40" cy="40" r="34"/><circle class="progress" id="timer-circle" cx="40" cy="40" r="34" stroke-dasharray="${2*Math.PI*34}" stroke-dashoffset="0"/></svg><div class="timer-num" id="timer-num">${q.time}</div></div></div>`:''}
+      <div class="options-list">${q.opts.map((o,i)=>`<button class="option-btn" data-idx="${i}">${o}</button>`).join('')}</div><div class="answer-note">يمكنك تغيير اختيارك قبل الضغط على زر التحقق.</div><button class="btn-nav btn-submit" id="btn-submit" onclick="submitMCQ()" style="margin-top:12px;width:100%">تحقق من الإجابة ✔️</button>`;
+  } else if(q.type==='tf'){
+    body = `<div class="q-text">${q.q}</div><div class="tf-wrap"><button class="tf-btn true-btn" data-val="true">✅ صحيح</button><button class="tf-btn false-btn" data-val="false">❌ خطأ</button></div><div class="answer-note">يمكنك تغيير اختيارك قبل الضغط على زر التحقق.</div><button class="btn-nav btn-submit" id="btn-submit" onclick="submitTF()" style="margin-top:12px;width:100%">تحقق من الإجابة ✔️</button>`;
+  } else if(q.type==='fill'){
+    body = `<div class="q-text">${q.q}</div><input class="fill-input" id="fill-input" type="text" placeholder="اكتب إجابتك هنا..." dir="rtl"><button class="btn-nav btn-submit" id="btn-submit" onclick="checkFill()" style="margin-top:10px;width:100%">تحقق ✔️</button>`;
+  } else if(q.type==='define'){
+    body = `<div class="q-text">${q.q}</div><textarea class="fill-input" id="fill-input" rows="4" placeholder="اكتب تعريفك هنا..." dir="rtl" style="resize:vertical"></textarea><button class="btn-nav btn-submit" id="btn-submit" onclick="checkDefine()" style="margin-top:10px;width:100%">تحقق ✔️</button>`;
+  } else if(q.type==='matching'){
+    body = buildMatching(q);
+  } else if(q.type==='ordering'){
+    body = buildOrdering(q);
+  } else if(q.type==='flash'){
+    body = `<div class="q-text" style="font-size:15px;margin-bottom:12px;">اقرأ المصطلح ثم اضغط على البطاقة لرؤية التعريف:</div>
+    <div class="flashcard-wrap" onclick="this.querySelector('.flashcard').classList.toggle('flipped')"><div class="flashcard"><div class="card-face card-front"><div class="icon">📚</div><div class="term">${q.q.replace('ما تعريف: ','')}</div><div style="font-size:12px;margin-top:8px;opacity:0.7">اضغط لرؤية التعريف</div></div><div class="card-face card-back"><div class="icon">💡</div><div class="def">${q.ans}</div></div></div></div><div class="flip-hint">👆 اضغط على البطاقة للقلب</div><button class="btn-nav btn-submit" id="btn-submit" onclick="markFlashDone()" style="margin-top:12px;width:100%">فهمت البطاقة ✔️</button>`;
+  } else if(q.type==='compare'){
+    body = buildCompare(q);
+  }
+  return `<div class="nav-top-actions"><button class="btn-small-action" onclick="prevQuestion()">السابق</button><button class="btn-small-action" onclick="undoAnswer()">↩️ تراجع عن الإجابة</button><button class="btn-small-action" onclick="restartFromBeginning()">🔄 إعادة من البداية</button></div>
+  <div class="question-card"><div class="q-header"><span class="q-type-badge">${types[q.type]||q.type}</span><span class="q-num">${currentQ+1} / ${questions.length}</span></div><div class="q-body"><div class="q-context">الموضوع: ${q.topic||'الشبكات المتقدمة'}</div>${body}<div id="feedback-box" class="feedback-box"></div></div><div class="q-nav" id="q-nav"><button class="btn-nav btn-submit" onclick="prevQuestion()" ${currentQ===0?'disabled':''}>السابق</button><button class="btn-nav btn-next" onclick="nextQuestion()">${currentQ===questions.length-1?'إنهاء الاختبار':'التالي'}</button></div></div>`;
+}
+
+function buildMatching(q){
+  const leftCol = q.left.map((l,i)=>`<div class="match-item match-left" data-left="${i}" role="button" tabindex="0">${l}</div>`).join('');
+  const rightCol = q.right.map((r,i)=>`<div class="match-item match-right" data-right="${i}" role="button" tabindex="0">${r}</div>`).join('');
+  return `<div class="q-text">${q.q}</div>
+  <div class="matching-grid">
+    <div class="match-col-header">العناصر</div><div class="match-col-header">الاختيارات</div>
+    <div style="display:flex;flex-direction:column;gap:10px">${leftCol}</div>
+    <div style="display:flex;flex-direction:column;gap:10px">${rightCol}</div>
+  </div>
+  <div id="match-summary" class="match-summary">اختر عنصرًا من العمود الأول ثم اختر الإجابة المناسبة من العمود الثاني. يمكنك تغيير أي مطابقة قبل الضغط على تحقق.</div>
+  <button class="btn-nav btn-submit" id="btn-submit" onclick="checkMatching()" style="margin-top:12px;width:100%">تحقق ✔️</button>`;
+}
+function buildOrdering(q){
+  orderArr = [...q.items.keys()];
+  return `<div class="q-text">${q.q}</div><div class="order-list" id="order-list">${orderArr.map((idx,pos)=>`<div class="order-item" data-idx="${idx}"><span class="order-num">${pos+1}</span><span>${q.items[idx]}</span><span style="margin-right:auto">↕️</span></div>`).join('')}</div><div class="answer-note">اضغط على العنصر لتحريكه إلى أعلى حتى تصل للترتيب الصحيح.</div><button class="btn-nav btn-submit" id="btn-submit" onclick="checkOrdering()" style="margin-top:12px;width:100%">تحقق ✔️</button>`;
+}
+function buildCompare(q){
+  const chips=q.items.map((it,i)=>`<div class="compare-chip ${it.cat===0?'chip-open':'chip-closed'}" data-idx="${i}" onclick="placeCompare(${i})">${it.text}</div>`).join('');
+  const cats=q.cats.map((c,i)=>`<div><div style="font-weight:900;color:var(--maroon);margin-bottom:8px">${c}</div><div class="compare-item" id="cat-${i}"></div></div>`).join('');
+  return `<div class="q-text">${q.q}</div><div style="margin-bottom:12px;background:#f5f5f5;padding:12px;border-radius:12px;"><div style="font-size:13px;font-weight:700;color:#666;margin-bottom:8px">اضغط على العنصر ثم اختر التصنيف:</div><div id="chips-pool" style="display:flex;flex-wrap:wrap;gap:8px">${chips}</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#fafafa;padding:12px;border-radius:12px;min-height:100px">${cats}</div><div id="compare-select-cat" style="display:none;margin-top:10px">${q.cats.map((c,i)=>`<button onclick="assignCat(${i})" style="margin-left:6px;padding:8px 16px;background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));color:white;border:none;border-radius:10px;cursor:pointer;font-family:Cairo,sans-serif;font-size:14px;font-weight:700">${c}</button>`).join('')}</div><button class="btn-nav btn-submit" id="btn-submit" onclick="checkCompare()" style="margin-top:12px;width:100%">تحقق ✔️</button>`;
+}
+
+function attachEvents(q){
+  if(getState().answered) return;
+  if(q.type==='mcq'||q.type==='speed') document.querySelectorAll('.option-btn').forEach(btn=>btn.onclick=()=>selectMCQ(parseInt(btn.dataset.idx)));
+  if(q.type==='tf') document.querySelectorAll('.tf-btn').forEach(btn=>btn.onclick=()=>selectTF(btn.dataset.val==='true'));
+  if(q.type==='matching') attachMatchingEvents();
+  if(q.type==='ordering') attachOrderingEvents();
+  if(q.type==='speed') startSpeedTimer(q);
+  if(q.type==='fill') document.getElementById('fill-input')?.addEventListener('keydown',e=>{ if(e.key==='Enter') checkFill(); });
+}
+function attachMatchingEvents(){
+  const chooseLeft = (el)=>{
+    if(getState().answered) return;
+    selectedMatch1 = parseInt(el.dataset.left);
+    document.querySelectorAll('.match-left').forEach(x=>x.classList.remove('selected'));
+    el.classList.add('selected');
+    updateMatchVisuals();
   };
-
-  let correctCount=0, wrongCount=0, answeredQuestions=new Set();
-  const TOTAL = Object.keys(matchData).length; // 7 match questions
-
-  function updateScore(){
-    document.getElementById('scoreCorrect').textContent=correctCount;
-    document.getElementById('scoreWrong').textContent=wrongCount;
-    document.getElementById('scoreAnswered').textContent=answeredQuestions.size;
-    document.getElementById('scoreTotal').textContent=TOTAL;
-    document.getElementById('progressBar').style.width=Math.round((answeredQuestions.size/TOTAL)*100)+'%';
-  }
-
-  function checkMatchGeneric(qNum){
-    const d=matchData[qNum];
-    let allOk=true;
-    d.ids.forEach((id,i)=>{
-      const inp=document.getElementById(id);
-      const val=inp.value.trim().toLowerCase();
-      const ok=d.answers[i].some(k=>val.includes(k.toLowerCase()));
-      inp.classList.toggle('correct',ok);
-      inp.classList.toggle('wrong',!ok);
-      if(!ok) allOk=false;
-    });
-    const card=document.getElementById('qcard-'+qNum);
-    const fb=document.getElementById('fb-'+qNum);
-    if(!answeredQuestions.has(qNum)){
-      answeredQuestions.add(qNum);
-      if(allOk){correctCount++;card.classList.add('answered-correct');spawnConfetti();}
-      else{wrongCount++;card.classList.add('answered-wrong');}
-      updateScore();
+  const chooseRight = (el)=>{
+    if(getState().answered) return;
+    const rightIdx = parseInt(el.dataset.right);
+    if(selectedMatch1===null){
+      alert('اختر عنصرًا من العمود الأول أولاً، ثم اختر الإجابة المناسبة من العمود الثاني.');
+      return;
     }
-    showFB(fb,allOk?'correct':'wrong',allOk?'🎉 ممتاز! جميع الإجابات صحيحة!':'❌ بعض الإجابات غير صحيحة، راجعها أو اضغط عرض الإجابة.');
-  }
-
-  function checkMatch3(){checkMatchGeneric(3)}
-  function checkMatch4(){checkMatchGeneric(4)}
-  function checkMatch6(){checkMatchGeneric(6)}
-  function checkMatch7(){checkMatchGeneric(7)}
-  function checkMatch10(){checkMatchGeneric(10)}
-  function checkMatch11(){checkMatchGeneric(11)}
-  function checkMatch12(){checkMatchGeneric(12)}
-
-  function showFB(el,type,msg){
-    el.innerHTML='<span>'+(type==='correct'?'✅':'❌')+'</span>'+msg;
-    el.className='feedback-msg show '+(type==='correct'?'correct-msg':'wrong-msg');
-  }
-
-  function revealAnswer(id){document.getElementById(id).classList.toggle('show')}
-
-  function submitAll(){
-    const pct=TOTAL>0?Math.round((correctCount/TOTAL)*100):0;
-    document.getElementById('resultScore').textContent=pct+'%';
-    document.getElementById('rb-correct').textContent=correctCount;
-    document.getElementById('rb-wrong').textContent=wrongCount;
-    document.getElementById('rb-total').textContent=TOTAL;
-    let stars,msg;
-    if(pct>=90){stars='⭐⭐⭐⭐⭐';msg='🏆 ممتاز! أداء رائع جداً!';}
-    else if(pct>=75){stars='⭐⭐⭐⭐';msg='👏 جيد جداً! أنت على المسار الصحيح.';}
-    else if(pct>=60){stars='⭐⭐⭐';msg='👍 جيد! راجع الإجابات الخاطئة.';}
-    else if(pct>=40){stars='⭐⭐';msg='📚 تحتاج إلى مراجعة أكثر للمادة.';}
-    else{stars='⭐';msg='💪 راجع الكتاب وأعد المحاولة!';}
-    document.getElementById('resultStars').textContent=stars;
-    document.getElementById('resultMsg').textContent=msg;
-    document.getElementById('resultPanel').classList.add('show');
-    document.getElementById('resultPanel').scrollIntoView({behavior:'smooth',block:'center'});
-    if(pct>=60){for(let i=0;i<35;i++)setTimeout(()=>spawnConfetti(),i*75);}
-  }
-
-  function restartQuiz(){
-    correctCount=0;wrongCount=0;answeredQuestions.clear();
-    updateScore();
-    document.getElementById('resultPanel').classList.remove('show');
-    document.querySelectorAll('.q-card').forEach(card=>{
-      card.classList.remove('answered-correct','answered-wrong');
-      card.querySelectorAll('.match-input,.compare-input,.list-input,.def-box').forEach(i=>{i.value='';i.classList.remove('correct','wrong');});
-      card.querySelectorAll('.feedback-msg').forEach(f=>{f.className='feedback-msg';f.innerHTML='';});
-      card.querySelectorAll('.answer-reveal').forEach(a=>a.classList.remove('show'));
-    });
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-
-  const confColors=['#7a1e2e','#c9a84c','#e8c96a','#2e7d52','#1e50a0','#a02840'];
-  function spawnConfetti(){
-    for(let i=0;i<7;i++){
-      const el=document.createElement('div');
-      el.className='confetti-piece';
-      el.style.cssText=`left:${Math.random()*100}vw;background:${confColors[Math.floor(Math.random()*confColors.length)]};width:${7+Math.random()*9}px;height:${7+Math.random()*9}px;animation-duration:${1.2+Math.random()*2}s;animation-delay:${Math.random()*0.4}s;border-radius:${Math.random()>.5?'50%':'3px'};`;
-      document.body.appendChild(el);
-      el.addEventListener('animationend',()=>el.remove());
-    }
-  }
-
-  window.addEventListener('DOMContentLoaded',()=>{
-    updateScore();
-    document.querySelectorAll('.q-card').forEach((c,i)=>c.style.animationDelay=(i*0.06)+'s');
+    // منع تكرار نفس الاختيار: إذا كان الاختيار مستخدمًا مع عنصر آخر يتم نقله للعنصر الحالي.
+    Object.keys(matchAnswers).forEach(k=>{ if(matchAnswers[k]===rightIdx && Number(k)!==selectedMatch1) delete matchAnswers[k]; });
+    matchAnswers[selectedMatch1] = rightIdx;
+    selectedMatch1 = null;
+    document.querySelectorAll('.match-left').forEach(x=>x.classList.remove('selected'));
+    updateMatchVisuals();
+  };
+  document.querySelectorAll('.match-left').forEach(el=>{ el.onclick=()=>chooseLeft(el); el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();chooseLeft(el);} }; });
+  document.querySelectorAll('.match-right').forEach(el=>{ el.onclick=()=>chooseRight(el); el.onkeydown=e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();chooseRight(el);} }; });
+  updateMatchVisuals();
+}
+function updateMatchVisuals(){
+  const q=questions[currentQ];
+  document.querySelectorAll('.match-item').forEach(el=>{ el.classList.remove('paired'); const b=el.querySelector('.pair-badge'); if(b) b.remove(); });
+  Object.entries(matchAnswers).forEach(([l,r])=>{
+    const leftEl=document.querySelector(`.match-left[data-left="${l}"]`);
+    const rightEl=document.querySelector(`.match-right[data-right="${r}"]`);
+    const badgeText=String(Number(l)+1);
+    [leftEl,rightEl].forEach(el=>{ if(el){ el.classList.add('paired'); const b=document.createElement('span'); b.className='pair-badge'; b.textContent=badgeText; el.prepend(b); } });
   });
+  const summary=document.getElementById('match-summary');
+  if(summary){
+    const count=Object.keys(matchAnswers).length;
+    const lines=Object.entries(matchAnswers).map(([l,r])=>`<div><strong>${Number(l)+1}.</strong> ${q.left[l]} ← ${q.right[r]}</div>`).join('');
+    summary.innerHTML = count ? `تم اختيار ${count} من ${q.left.length}: ${lines}<div style="margin-top:6px;color:#777">يمكنك الضغط على أي عنصر من العمود الأول لتعديل مطابقته.</div>` : 'اختر عنصرًا من العمود الأول ثم اختر الإجابة المناسبة من العمود الثاني. يمكنك تغيير أي مطابقة قبل الضغط على تحقق.';
+  }
+}
+function attachOrderingEvents(){
+  document.querySelectorAll('.order-item').forEach(el=>el.onclick=()=>{ const idx=parseInt(el.dataset.idx); const pos=orderArr.indexOf(idx); if(pos>0){ [orderArr[pos-1],orderArr[pos]]=[orderArr[pos],orderArr[pos-1]]; const q=questions[currentQ]; document.getElementById('order-list').innerHTML=orderArr.map((id,p)=>`<div class="order-item" data-idx="${id}"><span class="order-num">${p+1}</span><span>${q.items[id]}</span><span style="margin-right:auto">↕️</span></div>`).join(''); attachOrderingEvents(); }});
+}
+
+function finalizeAnswer(correct,user,feedback,pts=null){
+  const st=getState(); if(st.answered) return;
+  st.answered=true; st.correct=!!correct; st.user=user;
+  const add=pts ?? pointsFor(questions[currentQ]);
+  if(correct){ correctCount++; xp+=add; floatXP('+'+add+' XP',true); } else { wrongCount++; floatXP('-',false); }
+  if(timerInterval){ clearInterval(timerInterval); timerInterval=null; }
+  showFeedback(correct,feedback);
+  showCorrectAnswer(questions[currentQ]);
+  updateHeader();
+  disableCurrentInputs();
+}
+function disableCurrentInputs(){
+  document.querySelectorAll('button.option-btn,.tf-btn,.match-item,.order-item,.compare-chip').forEach(b=>{b.style.pointerEvents='none'; if(b.classList.contains('option-btn')) b.classList.add('disabled');});
+  const input=document.getElementById('fill-input'); if(input) input.disabled=true;
+  const sub=document.getElementById('btn-submit'); if(sub) sub.style.display='none';
+}
+
+function selectMCQ(idx){
+  if(getState().answered) return;
+  draftMCQ = idx;
+  document.querySelectorAll('.option-btn').forEach(b=>b.classList.toggle('selected-answer', parseInt(b.dataset.idx)===idx));
+}
+function submitMCQ(){
+  const q=questions[currentQ];
+  if(draftMCQ===null){ alert('اختر إجابة أولاً، ويمكنك تعديلها قبل التحقق.'); return; }
+  checkMCQ(draftMCQ,q);
+}
+function selectTF(val){
+  if(getState().answered) return;
+  draftTF = val;
+  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.toggle('selected-answer', b.dataset.val===String(val)));
+}
+function submitTF(){
+  const q=questions[currentQ];
+  if(draftTF===null){ alert('اختر صحيح أو خطأ أولاً، ويمكنك تعديل الاختيار قبل التحقق.'); return; }
+  checkTF(draftTF,q);
+}
+function correctAnswerText(q){
+  if(!q) return '';
+  if((q.type==='mcq'||q.type==='speed') && q.opts) return q.opts[q.ans] ?? '';
+  if(q.type==='tf') return q.ans ? 'صحيح' : 'خطأ';
+  if(q.type==='fill'||q.type==='define') return q.ans || '';
+  if(q.type==='matching' && q.left && q.right && q.ans) return q.left.map((l,i)=>`${l} ← ${q.right[q.ans[i]]}`).join(' | ');
+  if(q.type==='ordering' && q.items && q.ans) return q.ans.map((idx,i)=>`${i+1}- ${q.items[idx]}`).join(' | ');
+  if(q.type==='compare' && q.items && q.cats) return q.items.map((it)=>`${it.text} ← ${q.cats[it.cat]}`).join(' | ');
+  if(q.type==='flash') return q.ans || '';
+  return '';
+}
+function checkMCQ(idx,q){
+  const correct=idx===q.ans;
+  document.querySelectorAll('.option-btn').forEach(b=>{ const i=parseInt(b.dataset.idx); if(i===q.ans)b.classList.add('correct'); else if(i===idx&&!correct)b.classList.add('wrong'); });
+  finalizeAnswer(correct,idx,q.exp);
+}
+function checkTF(val,q){
+  const correct=val===q.ans;
+  document.querySelectorAll('.tf-btn').forEach(b=>{ if(b.dataset.val===(q.ans?'true':'false')) b.classList.add('selected-correct'); else if(b.dataset.val===String(val)&&!correct) b.classList.add('selected-wrong'); });
+  finalizeAnswer(correct,val,q.exp);
+}
+function checkFill(){
+  const q=questions[currentQ], input=document.getElementById('fill-input'); if(!input) return;
+  const val=input.value.trim(); if(!val){alert('اكتب إجابتك أولاً.');return;}
+  const norm=s=>String(s).trim().replace(/[إأآا]/g,'ا').replace(/ة/g,'ه').toLowerCase();
+  const correct=norm(val).includes(norm(q.ans))||(q.alt&&q.alt.some(a=>norm(val).includes(norm(a))));
+  input.classList.add(correct?'correct':'wrong');
+  finalizeAnswer(correct,val,q.exp+(correct?'':` الإجابة الصحيحة: ${q.ans}`));
+}
+function checkDefine(){
+  const q=questions[currentQ], input=document.getElementById('fill-input'); const val=input?.value.trim()||'';
+  if(!val){alert('اكتب التعريف أولاً.');return;}
+  const keywords=q.ans.split(' ').filter(w=>w.length>3);
+  const correct=keywords.filter(kw=>val.includes(kw)).length>=Math.ceil(keywords.length*0.35);
+  if(input) input.classList.add(correct?'correct':'wrong');
+  finalizeAnswer(correct,val,`الإجابة المقترحة: ${q.ans}`);
+}
+function checkMatching(){
+  const q=questions[currentQ];
+  if(Object.keys(matchAnswers).length<q.left.length){alert('أكمل جميع المطابقات أولاً.');return;}
+  let correct=true; q.ans.forEach((r,i)=>{ if(matchAnswers[i]!==r) correct=false; });
+  document.querySelectorAll('.match-left').forEach(el=>{
+    const i=parseInt(el.dataset.left);
+    el.classList.add(matchAnswers[i]===q.ans[i]?'matched-correct':'matched-wrong');
+  });
+  document.querySelectorAll('.match-right').forEach(el=>{
+    const r=parseInt(el.dataset.right);
+    const leftIndex=Number(Object.keys(matchAnswers).find(k=>matchAnswers[k]===r));
+    if(!Number.isNaN(leftIndex)) el.classList.add(matchAnswers[leftIndex]===q.ans[leftIndex]?'matched-correct':'matched-wrong');
+  });
+  finalizeAnswer(correct,{...matchAnswers},q.exp);
+}
+function checkOrdering(){
+  const q=questions[currentQ]; const correct=JSON.stringify(orderArr)===JSON.stringify(q.ans);
+  document.querySelectorAll('.order-item').forEach((el,pos)=>el.classList.add(orderArr[pos]===q.ans[pos]?'correct-order':'wrong-order'));
+  finalizeAnswer(correct,[...orderArr],q.exp);
+}
+function placeCompare(idx){ compareSelected=idx; document.querySelectorAll('.compare-chip').forEach(c=>c.style.outline='none'); const el=document.querySelector(`.compare-chip[data-idx="${idx}"]`); if(el) el.style.outline='3px solid var(--gold)'; document.getElementById('compare-select-cat').style.display='block'; }
+function assignCat(catIdx){
+  if(compareSelected===null) return; compareAnswers[compareSelected]=catIdx;
+  const chip=document.querySelector(`.compare-chip[data-idx="${compareSelected}"]`); const cat=document.getElementById('cat-'+catIdx);
+  if(chip&&cat){cat.appendChild(chip);chip.style.outline='none';}
+  compareSelected=null; document.getElementById('compare-select-cat').style.display='none';
+}
+function checkCompare(){
+  const q=questions[currentQ]; if(Object.keys(compareAnswers).length<q.items.length){alert('صنّف جميع العناصر أولاً.');return;}
+  let correct=true; q.items.forEach((it,i)=>{const isC=compareAnswers[i]===it.cat; if(!isC)correct=false; const chip=document.querySelector(`.compare-chip[data-idx="${i}"]`); if(chip) chip.classList.add(isC?'placed-correct':'placed-wrong');});
+  finalizeAnswer(correct,{...compareAnswers},q.exp);
+}
+function markFlashDone(){ finalizeAnswer(true,'done',questions[currentQ].exp,5); }
+
+function restoreAnsweredView(q){
+  const st=getState(); if(!st.answered) return;
+  if(q.type==='mcq'||q.type==='speed'){
+    document.querySelectorAll('.option-btn').forEach(b=>{const i=parseInt(b.dataset.idx); if(i===q.ans)b.classList.add('correct'); else if(i===st.user&&!st.correct)b.classList.add('wrong');});
+  } else if(q.type==='tf'){
+    document.querySelectorAll('.tf-btn').forEach(b=>{ if(b.dataset.val===(q.ans?'true':'false')) b.classList.add('selected-correct'); else if(b.dataset.val===String(st.user)&&!st.correct) b.classList.add('selected-wrong');});
+  } else if(q.type==='fill'||q.type==='define'){
+    const input=document.getElementById('fill-input'); if(input){ input.value=st.user||''; input.classList.add(st.correct?'correct':'wrong'); }
+  } else if(q.type==='matching'){
+    matchAnswers = {...(st.user||{})};
+    updateMatchVisuals();
+    document.querySelectorAll('.match-left').forEach(el=>{const i=parseInt(el.dataset.left);el.classList.add(matchAnswers[i]===q.ans[i]?'matched-correct':'matched-wrong');});
+    document.querySelectorAll('.match-right').forEach(el=>{
+      const r=parseInt(el.dataset.right);
+      const leftIndex=Number(Object.keys(matchAnswers).find(k=>matchAnswers[k]===r));
+      if(!Number.isNaN(leftIndex)) el.classList.add(matchAnswers[leftIndex]===q.ans[leftIndex]?'matched-correct':'matched-wrong');
+    });
+  }
+  showFeedback(st.correct, st.correct?'تم تسجيل الإجابة الصحيحة.':'تم تسجيل الإجابة، ويمكنك التراجع عنها للمحاولة من جديد.');
+  showCorrectAnswer(q);
+  disableCurrentInputs();
+}
+
+function undoAnswer(){
+  const st=getState();
+  if(!st.answered){ alert('لا توجد إجابة مسجلة للتراجع عنها في هذا السؤال.'); return; }
+  const pts=pointsFor(questions[currentQ]);
+  if(st.correct){ correctCount=Math.max(0,correctCount-1); xp=Math.max(0,xp-pts); } else wrongCount=Math.max(0,wrongCount-1);
+  qStates[currentQ]={answered:false,correct:false,user:null};
+  renderQuestion();
+}
+function prevQuestion(){ if(currentQ>0){ currentQ--; renderQuestion(); } }
+function nextQuestion(){ if(timerInterval){clearInterval(timerInterval);timerInterval=null;} if(currentQ>=questions.length-1){showResults();return;} currentQ++; renderQuestion(); }
+function restartFromBeginning(){ if(confirm('هل تريد إعادة الاختبار من البداية وحذف جميع الإجابات والنتيجة الحالية؟')){ resetQuizState(true); showScreen('quiz'); document.getElementById('quiz-header').style.display='block'; renderQuestion(); } }
+
+function startSpeedTimer(q){
+  if(getState().answered) return;
+  let t=q.time; const circle=document.getElementById('timer-circle'), num=document.getElementById('timer-num'); if(!circle||!num)return;
+  const R=34,circ=2*Math.PI*R;
+  timerInterval=setInterval(()=>{ t--; num.textContent=t; circle.style.strokeDashoffset=(1-t/q.time)*circ; if(t<=3)document.getElementById('timer-ring')?.classList.add('timer-urgent'); if(t<=0){ clearInterval(timerInterval); finalizeAnswer(false,'timeout','انتهى الوقت! '+q.exp); } },1000);
+}
+
+function showCorrectAnswer(q){
+  const fb=document.getElementById('feedback-box');
+  if(!fb) return;
+  const ans=correctAnswerText(q);
+  if(ans){ fb.innerHTML += `<div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.55);border:1px dashed currentColor;"><strong>✅ الإجابة الصحيحة:</strong><br>${ans}</div>`; }
+}
+function showFeedback(correct,text){ const fb=document.getElementById('feedback-box'); if(!fb)return; fb.className='feedback-box '+(correct?'correct':'wrong'); fb.innerHTML=`<span class="feedback-icon">${correct?'🎉':'❌'}</span> ${correct?'إجابة صحيحة! ':'إجابة خاطئة! '}<br><small>${text}</small>`; fb.style.display='block'; }
+function floatXP(text,pos){ const el=document.createElement('div'); el.className='xp-float '+(pos?'pos':'neg'); el.textContent=text; el.style.left=Math.random()*60+20+'%'; el.style.top='40%'; document.body.appendChild(el); setTimeout(()=>el.remove(),1500); }
+
+function showResults(){
+  if(timerInterval){clearInterval(timerInterval);timerInterval=null;}
+  document.getElementById('quiz-header').style.display='none'; showScreen('results');
+  const total=questions.length||1, pct=Math.round((correctCount/total)*100);
+  document.getElementById('result-name').textContent=studentName+' - '+studentClass+'، '+getGradeMsg(pct);
+  const circle=document.getElementById('score-circle'); circle.style.setProperty('--pct',pct+'%'); circle.setAttribute('data-score',pct+'%');
+  document.getElementById('r-correct').textContent=correctCount; document.getElementById('r-wrong').textContent=wrongCount; document.getElementById('r-xp').textContent=xp;
+  document.getElementById('trophy-display').textContent=pct>=90?'🥇':pct>=75?'🥈':pct>=60?'🥉':'📚';
+  const badges=[]; if(pct===100)badges.push('💯 نجم مثالي'); if(pct>=90)badges.push('🌟 ممتاز'); if(pct>=75)badges.push('🎯 متميز'); if(xp>=200)badges.push('⚡ محترف XP'); badges.push('🎓 أتممت الاختبار');
+  document.getElementById('badges-display').innerHTML=badges.map(b=>`<div class="badge">${b}</div>`).join(''); confetti();
+}
+function getGradeMsg(pct){ if(pct>=90)return 'ممتاز 🌟'; if(pct>=80)return 'جيد جداً 👏'; if(pct>=70)return 'جيد 👍'; if(pct>=50)return 'مقبول 📖'; return 'يحتاج مراجعة 💪'; }
+function confetti(){ const colors=['#c8962a','#7a1230','#1a3a6b','#ffffff','#e8b84b']; for(let i=0;i<60;i++){ setTimeout(()=>{ const el=document.createElement('div'); el.className='confetti-piece'; el.style.background=colors[Math.floor(Math.random()*colors.length)]; el.style.left=Math.random()*100+'vw'; el.style.top='-20px'; el.style.animationDuration=(2+Math.random()*3)+'s'; document.body.appendChild(el); setTimeout(()=>el.remove(),5000); },i*35); } }
+function showCertificate(){ showScreen('certificate'); const total=questions.length||1, pct=Math.round((correctCount/total)*100); document.getElementById('cert-name').textContent=studentName+' - '+studentClass; document.getElementById('cert-score').textContent=pct+'%'; document.getElementById('cert-grade-val').textContent=getGradeMsg(pct); document.getElementById('cert-date').textContent=new Date().toLocaleDateString('ar-QA',{year:'numeric',month:'long',day:'numeric'}); document.getElementById('cert-xp-val').textContent=xp+' XP'; document.getElementById('cert-logo-img').src=LOGO_B64; }
+function retryQuiz(){ document.getElementById('quiz-header').style.display='none'; resetQuizState(false); showScreen('welcome'); }
+// Set logos
+window.addEventListener('load',()=>{
+  document.querySelectorAll('[id*="logo"]').forEach(img=>{ if(img.tagName==='IMG') img.src=LOGO_B64; });
+});
 </script>
 </body>
 </html>
