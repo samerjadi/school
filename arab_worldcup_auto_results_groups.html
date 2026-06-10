@@ -1,367 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>لوحة المنتخبات العربية في كأس العالم 2026</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>كأس العالم 2026 | المنتخبات العربية</title>
 <style>
-:root{
-  --maroon:#7b1231; --maroon2:#4b071b; --gold:#f4c35a; --gold2:#c8942b;
-  --navy:#06182f; --glass:rgba(255,255,255,.12); --line:rgba(255,255,255,.18);
-  --text:#fff; --muted:#d9e3f0; --card:rgba(8,20,40,.74); --green:#18b26b; --red:#ff4d65; --blue:#3ab7ff;
-}
-*{box-sizing:border-box}
-body{
-  margin:0; font-family:"Tahoma","Segoe UI",Arial,sans-serif; color:var(--text);
-  background:
-    radial-gradient(circle at 15% 10%, rgba(244,195,90,.22), transparent 30%),
-    radial-gradient(circle at 90% 20%, rgba(123,18,49,.45), transparent 35%),
-    linear-gradient(135deg,#040916 0%,#081a35 48%,#3b0718 100%);
-  min-height:100vh;
-}
-body:before{
-  content:""; position:fixed; inset:0; pointer-events:none; opacity:.13;
-  background-image:linear-gradient(45deg, rgba(255,255,255,.08) 25%, transparent 25%),
-                   linear-gradient(-45deg, rgba(255,255,255,.08) 25%, transparent 25%);
-  background-size:42px 42px;
-}
-.container{width:min(1250px,94vw); margin:auto; padding:24px 0 45px; position:relative}
-.hero{
-  border:1px solid var(--line); border-radius:30px; padding:26px; overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.05));
-  box-shadow:0 24px 70px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.22);
-  position:relative;
-}
-.hero:after{content:"⚽"; position:absolute; left:25px; top:18px; font-size:88px; opacity:.09}
-.kicker{display:inline-flex; gap:10px; align-items:center; color:#261600; background:linear-gradient(90deg,var(--gold),#fff0b8); padding:9px 18px; border-radius:999px; font-weight:900}
-h1{font-size:clamp(30px,5vw,58px); margin:14px 0 8px; line-height:1.2}
-.subtitle{font-size:clamp(15px,2vw,22px); color:var(--muted); margin:0}
-.stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px}
-.stat{background:var(--card); border:1px solid var(--line); border-radius:22px; padding:16px; text-align:center}
-.stat b{font-size:30px; color:var(--gold); display:block}
-.tabs{display:flex; flex-wrap:wrap; gap:10px; margin:24px 0 16px; align-items:center}
-button,.select,input{
-  border:1px solid var(--line); background:rgba(255,255,255,.11); color:white; border-radius:14px;
-  padding:12px 16px; font-weight:800; font-size:15px; outline:none
-}
-button{cursor:pointer; transition:.2s}
-button:hover,button.active{background:linear-gradient(90deg,var(--gold),#fff0b8); color:#250b12; transform:translateY(-2px)}
-input::placeholder{color:#d8d8d8}
-select option{color:#111}
-.panel{display:none}
-.panel.active{display:block}
-.section-title{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:22px 0 14px}
-.section-title h2{margin:0; font-size:28px}
-.badge{background:rgba(244,195,90,.16); color:var(--gold); border:1px solid rgba(244,195,90,.35); border-radius:999px; padding:7px 12px; font-weight:900}
-.matches{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:16px}
-.match{
-  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.05));
-  border:1px solid var(--line); border-radius:26px; padding:17px; box-shadow:0 15px 36px rgba(0,0,0,.25);
-}
-.match-head{display:flex; justify-content:space-between; gap:10px; color:var(--muted); font-weight:800; font-size:14px}
-.teams{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px; margin:18px 0}
-.team{display:flex; align-items:center; gap:9px; font-weight:900; font-size:20px}
-.team.away{justify-content:flex-start}
-.team.home{justify-content:flex-end}
-.flag{font-size:32px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)); display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18)}
-.flag-emoji{font-size:30px;line-height:1}
-.vs{background:#05080f; border:1px solid var(--line); border-radius:14px; padding:8px 12px; color:var(--gold); font-weight:1000}
-.score-row{display:flex; gap:8px; align-items:center; justify-content:center; margin:10px 0}
-.score-row input{width:70px; text-align:center; font-size:18px; padding:10px}
-input:focus,select:focus,button:focus{box-shadow:0 0 0 3px rgba(244,195,90,.35); border-color:var(--gold)}
-.status{font-weight:900; border-radius:999px; padding:7px 12px}
-.status.NS{background:rgba(58,183,255,.15); color:#8dddff}
-.status.LIVE{background:rgba(255,77,101,.15); color:#ff8fa0}
-.status.FT{background:rgba(24,178,107,.15); color:#87efbd}
-.prob{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px}
-.prob-box{background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.10); border-radius:15px; padding:9px; text-align:center; color:var(--muted); font-size:13px}
-.prob-box label{display:block; font-weight:900; margin-bottom:6px; color:#fff}
-.prob-box input{width:100%; padding:8px; text-align:center; border-radius:10px; font-size:14px}
-.prob-bar{height:8px; background:rgba(255,255,255,.10); border-radius:999px; overflow:hidden; margin-top:8px}
-.prob-fill{height:100%; background:linear-gradient(90deg,var(--gold),#fff0b8); border-radius:999px}
-.help-note{margin:10px 0 0; color:#d9e3f0; font-size:13px; text-align:center; opacity:.9}
-kbd{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); border-bottom-width:3px; border-radius:7px; padding:2px 6px; color:var(--gold); font-weight:900}
-.group-note{margin-top:10px; color:var(--gold); font-weight:900; text-align:center}
-.table-wrap{overflow:auto; border:1px solid var(--line); border-radius:24px; background:rgba(0,0,0,.18); box-shadow:0 18px 40px rgba(0,0,0,.24); margin-bottom:18px}
-table{width:100%; border-collapse:collapse; min-width:780px}
-th,td{padding:13px 11px; border-bottom:1px solid rgba(255,255,255,.1); text-align:center; white-space:nowrap}
-th{background:linear-gradient(90deg,var(--maroon),#9d1d45); color:#fff; font-size:14px}
-td.team-cell{text-align:right; font-weight:900}
-tr:hover td{background:rgba(255,255,255,.055)}
-.rank{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%; background:rgba(244,195,90,.18); color:var(--gold); font-weight:1000}
-.group-card{margin-bottom:26px; border-radius:28px; padding:16px; background:rgba(255,255,255,.06); border:1px solid var(--line)}
-.country-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px}
-.country{
-  border:1px solid var(--line); border-radius:24px; padding:16px; background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04))
-}
-.country .top{display:flex; justify-content:space-between; align-items:center; font-size:22px; font-weight:1000; margin-bottom:10px}
-.mini{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
-.mini div{background:rgba(0,0,0,.2); border-radius:13px; padding:9px; text-align:center}
-.mini b{display:block; color:var(--gold); font-size:20px}
-.actions{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0}
-.primary{background:linear-gradient(90deg,var(--gold),#fff0b8); color:#260a13}
-@media(max-width:650px){
- .stats-grid{grid-template-columns:repeat(2,1fr)}
- .teams{grid-template-columns:1fr; text-align:center}
- .team,.team.home,.team.away{justify-content:center}
- .vs{justify-self:center}
-}
+:root{--maroon:#5b0b23;--maroon2:#8a1538;--gold:#d8b25c;--dark:#08111f;--card:rgba(255,255,255,.10);--line:rgba(255,255,255,.16);--txt:#fff;--muted:#d8dbe6;--green:#31d07f;--red:#ff5a6e;--blue:#55b7ff}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at 10% 10%,#8a1538 0,#08111f 42%,#030712 100%);color:var(--txt);min-height:100vh}body:before{content:"";position:fixed;inset:0;background:linear-gradient(135deg,rgba(216,178,92,.13),transparent 35%,rgba(138,21,56,.2));pointer-events:none}.wrap{max-width:1280px;margin:auto;padding:22px}.hero{border:1px solid var(--line);border-radius:30px;padding:28px;background:linear-gradient(135deg,rgba(138,21,56,.72),rgba(8,17,31,.82));box-shadow:0 26px 80px rgba(0,0,0,.35);position:relative;overflow:hidden}.hero:after{content:"⚽";position:absolute;left:35px;top:14px;font-size:110px;opacity:.12}.kicker{color:var(--gold);font-weight:800;letter-spacing:.5px}.hero h1{margin:8px 0 8px;font-size:clamp(26px,4vw,54px)}.hero p{margin:0;color:var(--muted);font-size:17px;line-height:1.9}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.btn,input,select{border:1px solid var(--line);border-radius:14px;padding:11px 14px;background:rgba(255,255,255,.1);color:#fff;outline:none}.btn{cursor:pointer;font-weight:800;background:linear-gradient(135deg,var(--gold),#fff0ad);color:#2b1700}.btn.secondary{background:rgba(255,255,255,.11);color:#fff}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}@media(max-width:900px){.grid{grid-template-columns:1fr}.wrap{padding:12px}}.panel{border:1px solid var(--line);border-radius:24px;background:var(--card);backdrop-filter:blur(12px);box-shadow:0 16px 45px rgba(0,0,0,.23);padding:16px}.panel h2{margin:0 0 14px;color:var(--gold);font-size:22px}.matches{display:grid;gap:14px}.match{border:1px solid var(--line);border-radius:22px;padding:15px;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.055));transition:.25s}.match:hover{transform:translateY(-2px);box-shadow:0 16px 45px rgba(0,0,0,.28)}.meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#e7e9f2;font-size:13px;margin-bottom:12px}.badge{border:1px solid rgba(216,178,92,.35);background:rgba(216,178,92,.12);color:#ffe8a2;border-radius:99px;padding:5px 10px;font-weight:800}.teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}.team{display:flex;align-items:center;gap:9px;font-weight:900;font-size:18px}.team.away{justify-content:flex-start}.flag-img{width:30px;height:22px;object-fit:cover;border-radius:5px;box-shadow:0 0 0 1px rgba(255,255,255,.45),0 6px 14px rgba(0,0,0,.25);background:#fff}.flag-fallback{display:none;font-size:26px;line-height:1}.score{display:flex;align-items:center;gap:6px}.score input{width:58px;text-align:center;font-size:18px;font-weight:900}.vs{font-weight:900;color:var(--gold);padding:0 4px}.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.prob{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.prob label{font-size:12px;color:#dce0ec}.prob input{width:100%;padding:8px;text-align:center}.bars{display:grid;gap:6px;margin-top:9px}.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),#fff0ad)}table{width:100%;border-collapse:collapse;overflow:hidden;border-radius:18px}th,td{border-bottom:1px solid rgba(255,255,255,.12);padding:10px;text-align:center;white-space:nowrap}th{color:#ffe8a2;background:rgba(216,178,92,.10)}tr:hover td{background:rgba(255,255,255,.055)}.namecell{display:flex;align-items:center;gap:8px;justify-content:flex-start;text-align:right}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.stat-card{border:1px solid var(--line);border-radius:20px;padding:14px;background:rgba(255,255,255,.08)}.stat-card .big{font-size:30px;font-weight:900;color:var(--gold)}.hint{color:#cdd3e1;font-size:13px;line-height:1.8;margin-top:10px}.hidden{display:none!important}.footer-space{height:24px}.search{min-width:260px;flex:1}.live{color:#fff;background:rgba(255,90,110,.18);border-color:rgba(255,90,110,.35)}
 </style>
 </head>
 <body>
-<div class="container">
-  <header class="hero">
-    <span class="kicker">🏆 World Cup 2026 • لوحة عربية تفاعلية</span>
-    <h1>لوحة مباريات المنتخبات العربية في كأس العالم</h1>
-    <p class="subtitle">جدول فاخر مع أعلام الدول، إدخال النتائج، ترتيب تلقائي للمجموعات، وإحصاءات مستقلة لكل منتخب عربي.</p>
-    <div class="stats-grid">
-      <div class="stat"><b id="totalMatches">0</b>مباراة</div>
-      <div class="stat"><b id="arabTeamsCount">0</b>منتخبات عربية</div>
-      <div class="stat"><b id="finishedCount">0</b>مباريات منتهية</div>
-      <div class="stat"><b id="totalGoals">0</b>أهداف مسجلة</div>
-    </div>
-  </header>
-
-  <nav class="tabs">
-    <button class="tab active" data-panel="matchesPanel">⚽ المباريات</button>
-    <button class="tab" data-panel="arabPanel">🇶🇦 إحصاءات العرب</button>
-    <button class="tab" data-panel="groupsPanel">📊 ترتيب المجموعات</button>
-    <button class="tab" data-panel="countriesPanel">🌍 بطاقة كل دولة</button>
-    <input id="search" placeholder="ابحث باسم المنتخب..." />
-    <select id="groupFilter" class="select"><option value="all">كل المجموعات</option></select>
-    <select id="statusFilter" class="select"><option value="all">كل الحالات</option><option value="NS">لم تبدأ</option><option value="LIVE">مباشر</option><option value="FT">انتهت</option></select>
-  </nav>
-
-  <section id="matchesPanel" class="panel active">
-    <div class="section-title"><h2>جدول المباريات</h2><span class="badge">Enter لاعتماد النتيجة • Ctrl+S للحفظ • / للبحث</span></div>
-    <div class="actions">
-      <button class="primary" onclick="saveScores()">💾 حفظ النتائج على الجهاز</button>
-      <button onclick="clearScores()">↺ إعادة تعيين النتائج</button>
-    </div>
-    <p class="help-note">اختصارات لوحة المفاتيح: <kbd>Enter</kbd> داخل حقول النتيجة لاعتماد المباراة، <kbd>Ctrl</kbd> + <kbd>S</kbd> للحفظ، <kbd>/</kbd> للبحث، و <kbd>Esc</kbd> لمسح البحث.</p>
-    <div id="matches" class="matches"></div>
+<div class="wrap">
+  <section class="hero">
+    <div class="kicker">لوحة تفاعلية فاخرة — كأس العالم 2026</div>
+    <h1>متابعة المنتخبات العربية والنتائج والإحصاءات</h1>
+    <p>أدخل نتائج المباريات يدويًا، وستتحدث الجداول تلقائيًا: الفوز، التعادل، الخسارة، الأهداف، الفارق، النقاط، ونسب الاحتمالات. الأعلام تظهر بجانب كل منتخب باستخدام صور SVG مع بديل تلقائي.</p>
   </section>
 
-  <section id="arabPanel" class="panel">
-    <div class="section-title"><h2>جدول المنتخبات العربية</h2><span class="badge">يُحتسب تلقائيًا من النتائج</span></div>
-    <div id="arabTable" class="table-wrap"></div>
-  </section>
+  <div class="toolbar">
+    <input id="search" class="search" placeholder="بحث سريع: قطر، المغرب، الأردن، المجموعة..." />
+    <select id="groupFilter"><option value="all">كل المجموعات</option></select>
+    <button class="btn" id="saveAll">حفظ النتائج</button>
+    <button class="btn secondary" id="resetAll">إعادة ضبط</button>
+  </div>
 
-  <section id="groupsPanel" class="panel">
-    <div class="section-title"><h2>ترتيب المجموعات</h2><span class="badge">الأردن والجزائر ضمن المجموعة G</span></div>
+  <div class="grid">
+    <section class="panel">
+      <h2>جدول المباريات وإدخال النتائج</h2>
+      <div id="matches" class="matches"></div>
+      <div class="hint">اختصارات لوحة المفاتيح: Enter لاعتماد المباراة الحالية، Ctrl+S للحفظ، / للبحث، Esc لمسح البحث.</div>
+    </section>
+
+    <aside class="panel">
+      <h2>إحصاءات سريعة</h2>
+      <div id="quickStats" class="cards"></div>
+      <div style="height:14px"></div>
+      <h2>ترتيب المنتخبات العربية</h2>
+      <div style="overflow:auto"><table id="arabTable"></table></div>
+    </aside>
+  </div>
+
+  <section class="panel" style="margin-top:18px">
+    <h2>ترتيب المجموعات</h2>
     <div id="groups"></div>
   </section>
-
-  <section id="countriesPanel" class="panel">
-    <div class="section-title"><h2>إحصائية خاصة لكل دولة</h2><span class="badge">كل منتخب على حدة</span></div>
-    <div id="countryCards" class="country-cards"></div>
-  </section>
+  <div class="footer-space"></div>
 </div>
-
 <script>
-const flags={
-"قطر":"🇶🇦","سويسرا":"🇨🇭","المغرب":"🇲🇦","البرازيل":"🇧🇷","تونس":"🇹🇳","السويد":"🇸🇪","مصر":"🇪🇬","بلجيكا":"🇧🇪",
-"السعودية":"🇸🇦","أوروغواي":"🇺🇾","العراق":"🇮🇶","النرويج":"🇳🇴","الجزائر":"🇩🇿","الأرجنتين":"🇦🇷","الأردن":"🇯🇴","النمسا":"🇦🇹",
-"كندا":"🇨🇦","إسكندنافيا":"🌍","اليابان":"🇯🇵","إسبانيا":"🇪🇸","نيوزيلندا":"🇳🇿","فرنسا":"🇫🇷","البوسنة والهرسك":"🇧🇦","هايتي":"🇭🇹",
-"هولندا":"🇳🇱","السنغال":"🇸🇳","الرأس الأخضر":"🇨🇻","إيران":"🇮🇷"
+const FLAGS={
+ "قطر":{code:"qa",emoji:"🇶🇦"},"السعودية":{code:"sa",emoji:"🇸🇦"},"المغرب":{code:"ma",emoji:"🇲🇦"},"تونس":{code:"tn",emoji:"🇹🇳"},"مصر":{code:"eg",emoji:"🇪🇬"},"الأردن":{code:"jo",emoji:"🇯🇴"},"الجزائر":{code:"dz",emoji:"🇩🇿"},"العراق":{code:"iq",emoji:"🇮🇶"},"الإمارات":{code:"ae",emoji:"🇦🇪"},"عمان":{code:"om",emoji:"🇴🇲"},"الكويت":{code:"kw",emoji:"🇰🇼"},"البحرين":{code:"bh",emoji:"🇧🇭"},
+ "فرنسا":{code:"fr",emoji:"🇫🇷"},"إسبانيا":{code:"es",emoji:"🇪🇸"},"البرازيل":{code:"br",emoji:"🇧🇷"},"الأرجنتين":{code:"ar",emoji:"🇦🇷"},"ألمانيا":{code:"de",emoji:"🇩🇪"},"إنجلترا":{code:"gb-eng",emoji:"🏴"},"إيطاليا":{code:"it",emoji:"🇮🇹"},"هولندا":{code:"nl",emoji:"🇳🇱"},"البرتغال":{code:"pt",emoji:"🇵🇹"},"بلجيكا":{code:"be",emoji:"🇧🇪"},"أمريكا":{code:"us",emoji:"🇺🇸"},"كندا":{code:"ca",emoji:"🇨🇦"},"المكسيك":{code:"mx",emoji:"🇲🇽"},"اليابان":{code:"jp",emoji:"🇯🇵"},"كوريا الجنوبية":{code:"kr",emoji:"🇰🇷"},"أستراليا":{code:"au",emoji:"🇦🇺"},"إيران":{code:"ir",emoji:"🇮🇷"},"أوروغواي":{code:"uy",emoji:"🇺🇾"},"كولومبيا":{code:"co",emoji:"🇨🇴"},"السنغال":{code:"sn",emoji:"🇸🇳"},"نيجيريا":{code:"ng",emoji:"🇳🇬"},"غانا":{code:"gh",emoji:"🇬🇭"},"كرواتيا":{code:"hr",emoji:"🇭🇷"},"سويسرا":{code:"ch",emoji:"🇨🇭"}
 };
-const arabTeams=["قطر","المغرب","تونس","مصر","السعودية","العراق","الجزائر","الأردن"];
-const groupNames={
-A:"المجموعة A: قطر، سويسرا، كندا، البوسنة والهرسك",
-B:"المجموعة B: المغرب، البرازيل، إسكندنافيا، هايتي",
-C:"المجموعة C: تونس، السويد، اليابان، هولندا",
-D:"المجموعة D: مصر، بلجيكا، نيوزيلندا، إيران",
-E:"المجموعة E: السعودية، أوروغواي، إسبانيا، الرأس الأخضر",
-F:"المجموعة F: العراق، النرويج، فرنسا، السنغال",
-G:"المجموعة G: الجزائر، الأردن، الأرجنتين، النمسا"
-};
-const matches=[
-{id:1,group:"A",day:"الأحد",date:"14 يونيو",time:"11:00 م",home:"قطر",away:"سويسرا",p:[35,29,36]},
-{id:2,group:"B",day:"الاثنين",date:"15 يونيو",time:"02:00 ص",home:"المغرب",away:"البرازيل",p:[23,24,53]},
-{id:3,group:"C",day:"الثلاثاء",date:"16 يونيو",time:"06:00 ص",home:"تونس",away:"السويد",p:[31,30,39]},
-{id:4,group:"D",day:"الثلاثاء",date:"16 يونيو",time:"11:00 م",home:"مصر",away:"بلجيكا",p:[30,28,42]},
-{id:5,group:"E",day:"الخميس",date:"18 يونيو",time:"02:00 ص",home:"السعودية",away:"أوروغواي",p:[28,29,43]},
-{id:6,group:"F",day:"الخميس",date:"18 يونيو",time:"11:00 م",home:"العراق",away:"النرويج",p:[30,29,41]},
-{id:7,group:"G",day:"الجمعة",date:"19 يونيو",time:"05:00 ص",home:"الجزائر",away:"الأرجنتين",p:[20,23,57]},
-{id:8,group:"G",day:"السبت",date:"20 يونيو",time:"08:00 ص",home:"الأردن",away:"النمسا",p:[33,30,37]},
-{id:9,group:"A",day:"الاثنين",date:"22 يونيو",time:"02:00 ص",home:"قطر",away:"كندا",p:[37,30,33]},
-{id:10,group:"B",day:"الاثنين",date:"22 يونيو",time:"02:00 ص",home:"المغرب",away:"إسكندنافيا",p:[42,29,29]},
-{id:11,group:"C",day:"الثلاثاء",date:"23 يونيو",time:"08:00 ص",home:"تونس",away:"اليابان",p:[28,29,43]},
-{id:12,group:"E",day:"الأربعاء",date:"24 يونيو",time:"03:00 ص",home:"السعودية",away:"إسبانيا",p:[22,25,53]},
-{id:13,group:"D",day:"الخميس",date:"25 يونيو",time:"05:00 ص",home:"مصر",away:"نيوزيلندا",p:[48,28,24]},
-{id:14,group:"F",day:"الجمعة",date:"26 يونيو",time:"02:00 ص",home:"العراق",away:"فرنسا",p:[18,22,60]},
-{id:15,group:"G",day:"السبت",date:"27 يونيو",time:"08:00 ص",home:"الجزائر",away:"الأردن",p:[39,31,30]},
-{id:16,group:"A",day:"الأحد",date:"28 يونيو",time:"03:00 ص",home:"قطر",away:"البوسنة والهرسك",p:[40,30,30]},
-{id:17,group:"B",day:"الاثنين",date:"29 يونيو",time:"03:00 ص",home:"المغرب",away:"هايتي",p:[55,25,20]},
-{id:18,group:"C",day:"الثلاثاء",date:"30 يونيو",time:"05:00 ص",home:"تونس",away:"هولندا",p:[24,26,50]},
-{id:19,group:"F",day:"الأربعاء",date:"01 يوليو",time:"11:00 م",home:"العراق",away:"السنغال",p:[34,30,36]},
-{id:20,group:"E",day:"الخميس",date:"02 يوليو",time:"02:00 ص",home:"السعودية",away:"الرأس الأخضر",p:[46,29,25]},
-{id:21,group:"D",day:"الجمعة",date:"03 يوليو",time:"05:00 ص",home:"مصر",away:"إيران",p:[41,30,29]},
-{id:22,group:"G",day:"السبت",date:"04 يوليو",time:"03:00 ص",home:"الأردن",away:"الأرجنتين",p:[18,22,60]},
-{id:23,group:"G",day:"الأحد",date:"05 يوليو",time:"06:00 ص",home:"الجزائر",away:"النمسا",p:[36,30,34]}
+const ARABS=["قطر","السعودية","المغرب","تونس","مصر","الأردن","الجزائر","العراق","الإمارات","عمان","الكويت","البحرين"];
+const DEFAULT_MATCHES=[
+ {id:1,group:"المجموعة الأولى",home:"قطر",away:"إسبانيا",date:"2026-06-11",time:"20:00",stadium:"ملعب لوسيل",p:[22,28,50]},
+ {id:2,group:"المجموعة الأولى",home:"قطر",away:"كندا",date:"2026-06-16",time:"18:00",stadium:"ملعب البيت",p:[38,30,32]},
+ {id:3,group:"المجموعة الثانية",home:"السعودية",away:"ألمانيا",date:"2026-06-12",time:"21:00",stadium:"ملعب دولي",p:[18,24,58]},
+ {id:4,group:"المجموعة الثانية",home:"السعودية",away:"غانا",date:"2026-06-17",time:"19:00",stadium:"ملعب دولي",p:[34,31,35]},
+ {id:5,group:"المجموعة الثالثة",home:"المغرب",away:"البرازيل",date:"2026-06-13",time:"22:00",stadium:"ملعب دولي",p:[26,27,47]},
+ {id:6,group:"المجموعة الثالثة",home:"المغرب",away:"اليابان",date:"2026-06-18",time:"18:00",stadium:"ملعب دولي",p:[39,30,31]},
+ {id:7,group:"المجموعة الرابعة",home:"تونس",away:"فرنسا",date:"2026-06-14",time:"20:00",stadium:"ملعب دولي",p:[20,25,55]},
+ {id:8,group:"المجموعة الرابعة",home:"تونس",away:"أستراليا",date:"2026-06-19",time:"17:00",stadium:"ملعب دولي",p:[36,30,34]},
+ {id:9,group:"المجموعة الخامسة",home:"مصر",away:"إنجلترا",date:"2026-06-15",time:"21:00",stadium:"ملعب دولي",p:[23,26,51]},
+ {id:10,group:"المجموعة الخامسة",home:"مصر",away:"كوريا الجنوبية",date:"2026-06-20",time:"19:00",stadium:"ملعب دولي",p:[37,29,34]},
+ {id:11,group:"المجموعة السادسة",home:"الأردن",away:"الجزائر",date:"2026-06-16",time:"21:00",stadium:"ملعب دولي",p:[29,32,39]},
+ {id:12,group:"المجموعة السادسة",home:"الأردن",away:"البرتغال",date:"2026-06-21",time:"20:00",stadium:"ملعب دولي",p:[14,22,64]},
+ {id:13,group:"المجموعة السادسة",home:"الجزائر",away:"البرتغال",date:"2026-06-26",time:"20:00",stadium:"ملعب دولي",p:[24,28,48]}
 ];
-function loadData(){
-  const savedScores=JSON.parse(localStorage.getItem("arab_wc_scores")||"{}");
-  const savedProbs=JSON.parse(localStorage.getItem("arab_wc_probabilities")||"{}");
-  matches.forEach(m=>{
-    Object.assign(m,savedScores[m.id]||{});
-    if(savedProbs[m.id]) m.p=savedProbs[m.id];
-  });
-}
-function teamHtml(name){return `<span class="flag" title="علم ${name}"><span class="flag-emoji">${flags[name]||"🏳️"}</span></span><span>${name}</span>`;}
-function statusText(m){return m.status==="FT"?"انتهت":m.status==="LIVE"?"مباشر":"لم تبدأ";}
-function cleanPercent(v){
-  const n=Number(v);
-  if(!Number.isFinite(n)) return 0;
-  return Math.max(0, Math.min(100, Math.round(n)));
-}
-function probHtml(m){
-  const labels=[m.home,"تعادل",m.away];
-  return `<div class="prob">${m.p.map((val,i)=>`
-    <div class="prob-box">
-      <label>${i===1?"⚖️ ":""}${labels[i]}</label>
-      <input class="prob-input" type="number" min="0" max="100" inputmode="numeric" data-id="${m.id}" data-prob="${i}" value="${val}" aria-label="احتمال ${labels[i]}">
-      <div class="prob-bar"><div class="prob-fill" style="width:${val}%"></div></div>
-      <small>${val}%</small>
-    </div>`).join("")}</div>`;
-}
-function renderMatches(){
-  const q=document.getElementById("search").value.trim();
-  const gf=document.getElementById("groupFilter").value;
-  const sf=document.getElementById("statusFilter").value;
-  const box=document.getElementById("matches"); box.innerHTML="";
-  matches.filter(m=>(gf==="all"||m.group===gf) && (sf==="all"||(m.status||"NS")===sf) && (!q || m.home.includes(q)||m.away.includes(q)))
-  .forEach(m=>{
-    const card=document.createElement("div"); card.className="match";
-    card.innerHTML=`
-      <div class="match-head"><span>${m.day} • ${m.date} • ${m.time}</span><span class="status ${m.status||'NS'}">${statusText(m)}</span></div>
-      <div class="teams">
-        <div class="team home">${teamHtml(m.home)}</div>
-        <div class="vs">VS</div>
-        <div class="team away">${teamHtml(m.away)}</div>
-      </div>
-      <div class="score-row">
-        <input class="score-input" data-id="${m.id}" data-key="homeScore" type="number" min="0" inputmode="numeric" placeholder="-" value="${m.homeScore ?? ""}" aria-label="نتيجة ${m.home}">
-        <b>:</b>
-        <input class="score-input" data-id="${m.id}" data-key="awayScore" type="number" min="0" inputmode="numeric" placeholder="-" value="${m.awayScore ?? ""}" aria-label="نتيجة ${m.away}">
-        <select class="select status-select" data-id="${m.id}" aria-label="حالة المباراة">
-          <option value="NS" ${(m.status||"NS")==="NS"?"selected":""}>لم تبدأ</option>
-          <option value="LIVE" ${m.status==="LIVE"?"selected":""}>مباشر</option>
-          <option value="FT" ${m.status==="FT"?"selected":""}>انتهت</option>
-        </select>
-        <button type="button" class="finish-btn" data-id="${m.id}">اعتماد</button>
-      </div>
-      ${probHtml(m)}
-      <div class="group-note">${groupNames[m.group]}</div>
-    `;
-    box.appendChild(card);
-  });
-  attachMatchEvents();
-  renderAll();
-}
-function attachMatchEvents(){
-  document.querySelectorAll('.score-input').forEach(input=>{
-    input.addEventListener('change', e=>updateScore(Number(e.target.dataset.id), e.target.dataset.key, e.target.value, false));
-    input.addEventListener('keydown', e=>{
-      if(e.key==='Enter'){
-        e.preventDefault();
-        updateScore(Number(e.target.dataset.id), e.target.dataset.key, e.target.value, false);
-        markFinished(Number(e.target.dataset.id));
-      }
-    });
-  });
-  document.querySelectorAll('.status-select').forEach(sel=>sel.addEventListener('change', e=>updateScore(Number(e.target.dataset.id),'status',e.target.value,false)));
-  document.querySelectorAll('.finish-btn').forEach(btn=>btn.addEventListener('click', e=>markFinished(Number(e.currentTarget.dataset.id))));
-  document.querySelectorAll('.prob-input').forEach(input=>{
-    input.addEventListener('change', e=>updateProbability(Number(e.target.dataset.id), Number(e.target.dataset.prob), e.target.value));
-    input.addEventListener('keydown', e=>{
-      if(e.key==='Enter'){
-        e.preventDefault();
-        updateProbability(Number(e.target.dataset.id), Number(e.target.dataset.prob), e.target.value);
-      }
-    });
-  });
-}
-function updateScore(id,key,val,rerender=true){
-  const m=matches.find(x=>x.id===id);
-  if(key.includes("Score")) {
-    m[key]=val===""?undefined:Number(val);
-    if(Number.isFinite(m.homeScore) && Number.isFinite(m.awayScore) && (m.status||"NS")==="NS") m.status="FT";
-  } else m[key]=val;
-  saveScores(false);
-  if(rerender) renderMatches(); else renderAll();
-}
-function updateProbability(id,index,val){
-  const m=matches.find(x=>x.id===id);
-  m.p[index]=cleanPercent(val);
-  saveProbabilities(false);
-  renderMatches();
-}
-function markFinished(id){
-  const m=matches.find(x=>x.id===id);
-  const cardInputValues=[...document.querySelectorAll(`.score-input[data-id="${id}"]`)];
-  cardInputValues.forEach(inp=>updateScore(id, inp.dataset.key, inp.value, false));
-  if(!Number.isFinite(m.homeScore) || !Number.isFinite(m.awayScore)){ alert("يرجى إدخال نتيجة الفريقين أولًا"); return; }
-  m.status="FT";
-  saveScores(false);
-  renderMatches();
-}
-function saveScores(alertUser=true){
-  const data={}; matches.forEach(m=>data[m.id]={homeScore:m.homeScore,awayScore:m.awayScore,status:m.status});
-  localStorage.setItem("arab_wc_scores",JSON.stringify(data));
-  if(alertUser) alert("تم حفظ النتائج على هذا الجهاز بنجاح");
-}
-function saveProbabilities(alertUser=true){
-  const data={}; matches.forEach(m=>data[m.id]=m.p);
-  localStorage.setItem("arab_wc_probabilities",JSON.stringify(data));
-  if(alertUser) alert("تم حفظ الاحتمالات بنجاح");
-}
-function clearScores(){
-  if(confirm("هل تريد حذف جميع النتائج المدخلة والاحتمالات المعدلة؟")){
-    localStorage.removeItem("arab_wc_scores"); localStorage.removeItem("arab_wc_probabilities");
-    matches.forEach(m=>{delete m.homeScore; delete m.awayScore; m.status="NS"});
-    location.reload();
-  }
-}
-function teamsInGroups(){
-  const groups={};
-  matches.forEach(m=>{groups[m.group] ||= new Set(); groups[m.group].add(m.home); groups[m.group].add(m.away);});
-  return Object.fromEntries(Object.entries(groups).map(([g,s])=>[g,[...s]]));
-}
-function blank(team){return {team,mp:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0};}
-function calcStandings(){
-  const groups=teamsInGroups(), standings={};
-  for(const g in groups){standings[g]={}; groups[g].forEach(t=>standings[g][t]=blank(t));}
-  matches.filter(m=>m.status==="FT" && Number.isFinite(m.homeScore) && Number.isFinite(m.awayScore)).forEach(m=>{
-    const h=standings[m.group][m.home], a=standings[m.group][m.away];
-    h.mp++; a.mp++; h.gf+=m.homeScore; h.ga+=m.awayScore; a.gf+=m.awayScore; a.ga+=m.homeScore;
-    if(m.homeScore>m.awayScore){h.w++; a.l++; h.pts+=3}
-    else if(m.homeScore<m.awayScore){a.w++; h.l++; a.pts+=3}
-    else{h.d++; a.d++; h.pts++; a.pts++}
-  });
-  for(const g in standings){Object.values(standings[g]).forEach(t=>t.gd=t.gf-t.ga); standings[g]=Object.values(standings[g]).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));}
-  return standings;
-}
-function tableHtml(rows){
-  return `<table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>فاز</th><th>تعادل</th><th>خسر</th><th>له</th><th>عليه</th><th>الفارق</th><th>النقاط</th><th>نسبة الفوز</th></tr></thead><tbody>`+
-  rows.map((r,i)=>`<tr><td><span class="rank">${i+1}</span></td><td class="team-cell">${teamHtml(r.team)}</td><td>${r.mp}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd}</td><td><b style="color:var(--gold)">${r.pts}</b></td><td>${r.mp?Math.round((r.w/r.mp)*100):0}%</td></tr>`).join("")+
-  `</tbody></table>`;
-}
-function renderGroups(){const st=calcStandings(), box=document.getElementById("groups"); box.innerHTML=""; Object.keys(groupNames).forEach(g=>{const div=document.createElement("div"); div.className="group-card"; div.innerHTML=`<div class="section-title"><h2>${groupNames[g]}</h2></div><div class="table-wrap">${tableHtml(st[g]||[])}</div>`; box.appendChild(div);});}
-function renderArab(){const all=Object.values(calcStandings()).flat().filter(r=>arabTeams.includes(r.team)).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar')); document.getElementById("arabTable").innerHTML=tableHtml(all);}
-function renderCountryCards(){const all=Object.values(calcStandings()).flat(); const box=document.getElementById("countryCards"); box.innerHTML=""; all.sort((a,b)=>a.team.localeCompare(b.team,'ar')).forEach(r=>{const div=document.createElement("div"); div.className="country"; div.innerHTML=`<div class="top"><span>${teamHtml(r.team)}</span><span>${r.pts} نقطة</span></div><div class="mini"><div><b>${r.mp}</b>لعب</div><div><b>${r.w}</b>فوز</div><div><b>${r.d}</b>تعادل</div><div><b>${r.l}</b>خسارة</div><div><b>${r.gf}</b>له</div><div><b>${r.ga}</b>عليه</div><div><b>${r.gd}</b>الفارق</div><div><b>${r.mp?Math.round((r.w/r.mp)*100):0}%</b>فوز</div><div><b>${flags[r.team]||"🏳️"}</b>العلم</div></div>`; box.appendChild(div);});}
-function renderStats(){document.getElementById("totalMatches").textContent=matches.length; document.getElementById("arabTeamsCount").textContent=arabTeams.length; const fins=matches.filter(m=>m.status==="FT"); document.getElementById("finishedCount").textContent=fins.length; document.getElementById("totalGoals").textContent=fins.reduce((s,m)=>s+(m.homeScore||0)+(m.awayScore||0),0);}
-function renderAll(){renderStats(); renderGroups(); renderArab(); renderCountryCards();}
-document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active")); btn.classList.add("active"); document.getElementById(btn.dataset.panel).classList.add("active");});
-Object.keys(groupNames).forEach(g=>document.getElementById("groupFilter").innerHTML+=`<option value="${g}">${groupNames[g]}</option>`);
-["search","groupFilter","statusFilter"].forEach(id=>document.getElementById(id).addEventListener("input",renderMatches));
-document.addEventListener('keydown', e=>{
-  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){e.preventDefault(); saveScores(true); saveProbabilities(false);}
-  if(e.key==='/' && !['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault(); document.getElementById('search').focus();}
-  if(e.key==='Escape' && document.activeElement.id==='search'){document.getElementById('search').value=''; renderMatches();}
-  if(e.altKey && ['1','2','3','4'].includes(e.key)){e.preventDefault(); document.querySelectorAll('.tab')[Number(e.key)-1]?.click();}
-});
-loadData(); renderMatches();
+let matches=load();
+function load(){try{return JSON.parse(localStorage.getItem('wc_matches_v_svg'))||DEFAULT_MATCHES}catch(e){return DEFAULT_MATCHES}}
+function save(){localStorage.setItem('wc_matches_v_svg',JSON.stringify(matches))}
+function flagHtml(name){const f=FLAGS[name]||{code:"un",emoji:"🏳️"}; const src=f.code==='un'?'' : `https://flagcdn.com/${f.code}.svg`; return `<span class="flagWrap"><img class="flag-img" src="${src}" alt="علم ${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline-block'"/><span class="flag-fallback">${f.emoji}</span></span>`}
+function teamHtml(name){return `<span class="namecell">${flagHtml(name)}<b>${name}</b></span>`}
+function dayName(d){return new Intl.DateTimeFormat('ar-QA',{weekday:'long'}).format(new Date(d+'T12:00:00'))}
+function fmtDate(d){return new Intl.DateTimeFormat('ar-QA',{day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00'))}
+function statBase(){return {لعب:0,فاز:0,تعادل:0,خسر:0,له:0,عليه:0,فارق:0,نقاط:0}}
+function compute(filterArab=false){const stats={}; matches.forEach(m=>{[m.home,m.away].forEach(t=>{if(!stats[t])stats[t]=statBase()}); if(Number.isFinite(+m.hs)&&Number.isFinite(+m.as)){const h=+m.hs,a=+m.as; stats[m.home].لعب++;stats[m.away].لعب++;stats[m.home].له+=h;stats[m.home].عليه+=a;stats[m.away].له+=a;stats[m.away].عليه+=h; if(h>a){stats[m.home].فاز++;stats[m.away].خسر++;stats[m.home].نقاط+=3}else if(h<a){stats[m.away].فاز++;stats[m.home].خسر++;stats[m.away].نقاط+=3}else{stats[m.home].تعادل++;stats[m.away].تعادل++;stats[m.home].نقاط++;stats[m.away].نقاط++}}}); Object.values(stats).forEach(s=>s.فارق=s.له-s.عليه); let rows=Object.entries(stats).map(([team,s])=>({team,...s})); if(filterArab)rows=rows.filter(r=>ARABS.includes(r.team)); return rows.sort((a,b)=>b.نقاط-a.نقاط||b.فارق-a.فارق||b.له-a.له||a.team.localeCompare(b.team,'ar'))}
+function table(rows){return `<thead><tr><th>المنتخب</th><th>لعب</th><th>فاز</th><th>تعادل</th><th>خسر</th><th>له</th><th>عليه</th><th>+/-</th><th>النقاط</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${teamHtml(r.team)}</td><td>${r.لعب}</td><td>${r.فاز}</td><td>${r.تعادل}</td><td>${r.خسر}</td><td>${r.له}</td><td>${r.عليه}</td><td>${r.فارق}</td><td><b>${r.نقاط}</b></td></tr>`).join('')}</tbody>`}
+function renderMatches(){const q=document.getElementById('search').value.trim(); const gf=document.getElementById('groupFilter').value; const box=document.getElementById('matches'); box.innerHTML=matches.filter(m=>(gf==='all'||m.group===gf)&&(!q||JSON.stringify(m).includes(q))).map(m=>`<article class="match" data-id="${m.id}"><div class="meta"><span class="badge">${m.group}</span><span>${dayName(m.date)} • ${fmtDate(m.date)} • ${m.time} بتوقيت قطر</span><span>${m.stadium||''}</span></div><div class="teams"><div class="team">${flagHtml(m.home)} ${m.home}</div><div class="score"><input inputmode="numeric" class="hs" value="${m.hs??''}" placeholder="0"><span class="vs">-</span><input inputmode="numeric" class="as" value="${m.as??''}" placeholder="0"></div><div class="team away">${flagHtml(m.away)} ${m.away}</div></div><div class="prob"><div><label>فوز ${m.home}</label><input class="ph" type="number" min="0" max="100" value="${m.p?.[0]??33}"></div><div><label>تعادل</label><input class="pd" type="number" min="0" max="100" value="${m.p?.[1]??34}"></div><div><label>فوز ${m.away}</label><input class="pa" type="number" min="0" max="100" value="${m.p?.[2]??33}"></div></div><div class="bars"><div class="bar"><span style="width:${m.p?.[0]??33}%"></span></div><div class="bar"><span style="width:${m.p?.[1]??34}%"></span></div><div class="bar"><span style="width:${m.p?.[2]??33}%"></span></div></div><div class="actions"><button class="btn apply">اعتماد النتيجة</button><button class="btn secondary clear">مسح</button></div></article>`).join('')||'<div class="hint">لا توجد مباريات مطابقة للبحث.</div>'; bindMatchEvents()}
+function bindMatchEvents(){document.querySelectorAll('.match').forEach(card=>{const id=+card.dataset.id; const update=()=>{const m=matches.find(x=>x.id===id); const hs=card.querySelector('.hs').value, as=card.querySelector('.as').value; m.hs=hs===''?null:+hs; m.as=as===''?null:+as; m.p=[+card.querySelector('.ph').value||0,+card.querySelector('.pd').value||0,+card.querySelector('.pa').value||0]; save(); renderAll(false)}; card.querySelector('.apply').onclick=update; card.querySelector('.clear').onclick=()=>{const m=matches.find(x=>x.id===id); delete m.hs; delete m.as; save(); renderAll()}; card.querySelectorAll('input').forEach(inp=>inp.addEventListener('keydown',e=>{if(e.key==='Enter')update()}));})}
+function renderTables(){document.getElementById('arabTable').innerHTML=table(compute(true)); const groups=[...new Set(matches.map(m=>m.group))]; const html=groups.map(g=>{const teams=[...new Set(matches.filter(m=>m.group===g).flatMap(m=>[m.home,m.away]))]; const rows=compute(false).filter(r=>teams.includes(r.team)); return `<div style="margin:14px 0"><h3 style="color:#ffe8a2;margin:0 0 8px">${g}</h3><div style="overflow:auto"><table>${table(rows)}</table></div></div>`}).join(''); document.getElementById('groups').innerHTML=html}
+function renderStats(){const rows=compute(true); const total=matches.filter(m=>ARABS.includes(m.home)||ARABS.includes(m.away)).length; const done=matches.filter(m=>(ARABS.includes(m.home)||ARABS.includes(m.away))&&Number.isFinite(+m.hs)&&Number.isFinite(+m.as)).length; const top=rows[0]; document.getElementById('quickStats').innerHTML=`<div class="stat-card"><div>مباريات عربية</div><div class="big">${done}/${total}</div></div><div class="stat-card"><div>أفضل عربي بالنقاط</div><div class="big" style="font-size:22px">${top?flagHtml(top.team)+' '+top.team:'-'}</div></div><div class="stat-card"><div>إجمالي أهداف العرب</div><div class="big">${rows.reduce((a,r)=>a+r.له,0)}</div></div><div class="stat-card"><div>أكثر منتخب عربي تسجيلًا</div><div class="big" style="font-size:22px">${rows.sort((a,b)=>b.له-a.له)[0]?teamHtml(rows.sort((a,b)=>b.له-a.له)[0].team):'-'}</div></div>`}
+function initFilters(){const groups=[...new Set(matches.map(m=>m.group))]; document.getElementById('groupFilter').innerHTML='<option value="all">كل المجموعات</option>'+groups.map(g=>`<option>${g}</option>`).join('')}
+function renderAll(rematch=true){if(rematch)renderMatches(); renderTables(); renderStats()}
+initFilters(); renderAll();
+document.getElementById('search').oninput=()=>renderMatches(); document.getElementById('groupFilter').onchange=()=>renderMatches(); document.getElementById('saveAll').onclick=()=>{save(); alert('تم حفظ النتائج بنجاح')}; document.getElementById('resetAll').onclick=()=>{if(confirm('هل تريد إعادة ضبط النتائج؟')){localStorage.removeItem('wc_matches_v_svg'); matches=DEFAULT_MATCHES.map(x=>({...x})); initFilters(); renderAll()}};
+document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.key.toLowerCase()==='s'){e.preventDefault();save();alert('تم الحفظ')}; if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();document.getElementById('search').focus()}; if(e.key==='Escape'){document.getElementById('search').value='';renderMatches()}});
 </script>
 </body>
 </html>
