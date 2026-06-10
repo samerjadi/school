@@ -63,18 +63,24 @@ select option{color:#111}
 .team{display:flex; align-items:center; gap:9px; font-weight:900; font-size:20px}
 .team.away{justify-content:flex-start}
 .team.home{justify-content:flex-end}
-.flag{font-size:28px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)); display:inline-flex; align-items:center; justify-content:center}
-.flag-img{width:32px;height:22px;object-fit:cover;border-radius:5px;box-shadow:0 4px 10px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);background:#fff}
-.flag-emoji{font-size:28px;line-height:1}
+.flag{font-size:32px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.35)); display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.18)}
+.flag-emoji{font-size:30px;line-height:1}
 .vs{background:#05080f; border:1px solid var(--line); border-radius:14px; padding:8px 12px; color:var(--gold); font-weight:1000}
 .score-row{display:flex; gap:8px; align-items:center; justify-content:center; margin:10px 0}
 .score-row input{width:70px; text-align:center; font-size:18px; padding:10px}
+input:focus,select:focus,button:focus{box-shadow:0 0 0 3px rgba(244,195,90,.35); border-color:var(--gold)}
 .status{font-weight:900; border-radius:999px; padding:7px 12px}
 .status.NS{background:rgba(58,183,255,.15); color:#8dddff}
 .status.LIVE{background:rgba(255,77,101,.15); color:#ff8fa0}
 .status.FT{background:rgba(24,178,107,.15); color:#87efbd}
 .prob{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px}
-.prob span{background:rgba(0,0,0,.21); border-radius:12px; padding:8px; text-align:center; color:var(--muted); font-size:13px}
+.prob-box{background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.10); border-radius:15px; padding:9px; text-align:center; color:var(--muted); font-size:13px}
+.prob-box label{display:block; font-weight:900; margin-bottom:6px; color:#fff}
+.prob-box input{width:100%; padding:8px; text-align:center; border-radius:10px; font-size:14px}
+.prob-bar{height:8px; background:rgba(255,255,255,.10); border-radius:999px; overflow:hidden; margin-top:8px}
+.prob-fill{height:100%; background:linear-gradient(90deg,var(--gold),#fff0b8); border-radius:999px}
+.help-note{margin:10px 0 0; color:#d9e3f0; font-size:13px; text-align:center; opacity:.9}
+kbd{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.18); border-bottom-width:3px; border-radius:7px; padding:2px 6px; color:var(--gold); font-weight:900}
 .group-note{margin-top:10px; color:var(--gold); font-weight:900; text-align:center}
 .table-wrap{overflow:auto; border:1px solid var(--line); border-radius:24px; background:rgba(0,0,0,.18); box-shadow:0 18px 40px rgba(0,0,0,.24); margin-bottom:18px}
 table{width:100%; border-collapse:collapse; min-width:780px}
@@ -127,11 +133,12 @@ tr:hover td{background:rgba(255,255,255,.055)}
   </nav>
 
   <section id="matchesPanel" class="panel active">
-    <div class="section-title"><h2>جدول المباريات</h2><span class="badge">يمكن إدخال النتيجة مباشرة</span></div>
+    <div class="section-title"><h2>جدول المباريات</h2><span class="badge">Enter لاعتماد النتيجة • Ctrl+S للحفظ • / للبحث</span></div>
     <div class="actions">
       <button class="primary" onclick="saveScores()">💾 حفظ النتائج على الجهاز</button>
       <button onclick="clearScores()">↺ إعادة تعيين النتائج</button>
     </div>
+    <p class="help-note">اختصارات لوحة المفاتيح: <kbd>Enter</kbd> داخل حقول النتيجة لاعتماد المباراة، <kbd>Ctrl</kbd> + <kbd>S</kbd> للحفظ، <kbd>/</kbd> للبحث، و <kbd>Esc</kbd> لمسح البحث.</p>
     <div id="matches" class="matches"></div>
   </section>
 
@@ -157,12 +164,6 @@ const flags={
 "السعودية":"🇸🇦","أوروغواي":"🇺🇾","العراق":"🇮🇶","النرويج":"🇳🇴","الجزائر":"🇩🇿","الأرجنتين":"🇦🇷","الأردن":"🇯🇴","النمسا":"🇦🇹",
 "كندا":"🇨🇦","إسكندنافيا":"🌍","اليابان":"🇯🇵","إسبانيا":"🇪🇸","نيوزيلندا":"🇳🇿","فرنسا":"🇫🇷","البوسنة والهرسك":"🇧🇦","هايتي":"🇭🇹",
 "هولندا":"🇳🇱","السنغال":"🇸🇳","الرأس الأخضر":"🇨🇻","إيران":"🇮🇷"
-};
-const flagCodes={
-"قطر":"qa","سويسرا":"ch","المغرب":"ma","البرازيل":"br","تونس":"tn","السويد":"se","مصر":"eg","بلجيكا":"be",
-"السعودية":"sa","أوروغواي":"uy","العراق":"iq","النرويج":"no","الجزائر":"dz","الأرجنتين":"ar","الأردن":"jo","النمسا":"at",
-"كندا":"ca","اليابان":"jp","إسبانيا":"es","نيوزيلندا":"nz","فرنسا":"fr","البوسنة والهرسك":"ba","هايتي":"ht",
-"هولندا":"nl","السنغال":"sn","الرأس الأخضر":"cv","إيران":"ir"
 };
 const arabTeams=["قطر","المغرب","تونس","مصر","السعودية","العراق","الجزائر","الأردن"];
 const groupNames={
@@ -197,25 +198,32 @@ const matches=[
 {id:20,group:"E",day:"الخميس",date:"02 يوليو",time:"02:00 ص",home:"السعودية",away:"الرأس الأخضر",p:[46,29,25]},
 {id:21,group:"D",day:"الجمعة",date:"03 يوليو",time:"05:00 ص",home:"مصر",away:"إيران",p:[41,30,29]},
 {id:22,group:"G",day:"السبت",date:"04 يوليو",time:"03:00 ص",home:"الأردن",away:"الأرجنتين",p:[18,22,60]},
-{id:23,group:"G",day:"الأحد",date:"05 يوليو",time:"06:00 ص",home:"الجزائر",away:"النمسا",p:[36,30,34]},
+{id:23,group:"G",day:"الأحد",date:"05 يوليو",time:"06:00 ص",home:"الجزائر",away:"النمسا",p:[36,30,34]}
 ];
-
-function loadScores(){
-  const saved=JSON.parse(localStorage.getItem("arab_wc_scores")||"{}");
-  matches.forEach(m=>Object.assign(m,saved[m.id]||{}));
+function loadData(){
+  const savedScores=JSON.parse(localStorage.getItem("arab_wc_scores")||"{}");
+  const savedProbs=JSON.parse(localStorage.getItem("arab_wc_probabilities")||"{}");
+  matches.forEach(m=>{
+    Object.assign(m,savedScores[m.id]||{});
+    if(savedProbs[m.id]) m.p=savedProbs[m.id];
+  });
 }
-function teamHtml(name){
-  const code=flagCodes[name];
-  const emoji=flags[name]||"🏳️";
-  const flag = code
-    ? `<span class="flag"><img class="flag-img" src="https://flagcdn.com/w80/${code}.png" alt="علم ${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="flag-emoji" style="display:none">${emoji}</span></span>`
-    : `<span class="flag"><span class="flag-emoji">${emoji}</span></span>`;
-  return `${flag}<span>${name}</span>`
+function teamHtml(name){return `<span class="flag" title="علم ${name}"><span class="flag-emoji">${flags[name]||"🏳️"}</span></span><span>${name}</span>`;}
+function statusText(m){return m.status==="FT"?"انتهت":m.status==="LIVE"?"مباشر":"لم تبدأ";}
+function cleanPercent(v){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return 0;
+  return Math.max(0, Math.min(100, Math.round(n)));
 }
-function statusText(m){
-  if(m.status==="FT") return "انتهت";
-  if(m.status==="LIVE") return "مباشر";
-  return "لم تبدأ";
+function probHtml(m){
+  const labels=[m.home,"تعادل",m.away];
+  return `<div class="prob">${m.p.map((val,i)=>`
+    <div class="prob-box">
+      <label>${i===1?"⚖️ ":""}${labels[i]}</label>
+      <input class="prob-input" type="number" min="0" max="100" inputmode="numeric" data-id="${m.id}" data-prob="${i}" value="${val}" aria-label="احتمال ${labels[i]}">
+      <div class="prob-bar"><div class="prob-fill" style="width:${val}%"></div></div>
+      <small>${val}%</small>
+    </div>`).join("")}</div>`;
 }
 function renderMatches(){
   const q=document.getElementById("search").value.trim();
@@ -233,36 +241,66 @@ function renderMatches(){
         <div class="team away">${teamHtml(m.away)}</div>
       </div>
       <div class="score-row">
-        <input type="number" min="0" placeholder="-" value="${m.homeScore ?? ""}" onchange="updateScore(${m.id},'homeScore',this.value)">
+        <input class="score-input" data-id="${m.id}" data-key="homeScore" type="number" min="0" inputmode="numeric" placeholder="-" value="${m.homeScore ?? ""}" aria-label="نتيجة ${m.home}">
         <b>:</b>
-        <input type="number" min="0" placeholder="-" value="${m.awayScore ?? ""}" onchange="updateScore(${m.id},'awayScore',this.value)">
-        <select class="select" onchange="updateScore(${m.id},'status',this.value)">
+        <input class="score-input" data-id="${m.id}" data-key="awayScore" type="number" min="0" inputmode="numeric" placeholder="-" value="${m.awayScore ?? ""}" aria-label="نتيجة ${m.away}">
+        <select class="select status-select" data-id="${m.id}" aria-label="حالة المباراة">
           <option value="NS" ${(m.status||"NS")==="NS"?"selected":""}>لم تبدأ</option>
           <option value="LIVE" ${m.status==="LIVE"?"selected":""}>مباشر</option>
           <option value="FT" ${m.status==="FT"?"selected":""}>انتهت</option>
         </select>
-        <button type="button" onclick="markFinished(${m.id})">اعتماد</button>
+        <button type="button" class="finish-btn" data-id="${m.id}">اعتماد</button>
       </div>
-      <div class="prob"><span>${m.home}: ${m.p[0]}%</span><span>تعادل: ${m.p[1]}%</span><span>${m.away}: ${m.p[2]}%</span></div>
+      ${probHtml(m)}
       <div class="group-note">${groupNames[m.group]}</div>
     `;
     box.appendChild(card);
   });
+  attachMatchEvents();
   renderAll();
 }
-function updateScore(id,key,val){
+function attachMatchEvents(){
+  document.querySelectorAll('.score-input').forEach(input=>{
+    input.addEventListener('change', e=>updateScore(Number(e.target.dataset.id), e.target.dataset.key, e.target.value, false));
+    input.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        updateScore(Number(e.target.dataset.id), e.target.dataset.key, e.target.value, false);
+        markFinished(Number(e.target.dataset.id));
+      }
+    });
+  });
+  document.querySelectorAll('.status-select').forEach(sel=>sel.addEventListener('change', e=>updateScore(Number(e.target.dataset.id),'status',e.target.value,false)));
+  document.querySelectorAll('.finish-btn').forEach(btn=>btn.addEventListener('click', e=>markFinished(Number(e.currentTarget.dataset.id))));
+  document.querySelectorAll('.prob-input').forEach(input=>{
+    input.addEventListener('change', e=>updateProbability(Number(e.target.dataset.id), Number(e.target.dataset.prob), e.target.value));
+    input.addEventListener('keydown', e=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        updateProbability(Number(e.target.dataset.id), Number(e.target.dataset.prob), e.target.value);
+      }
+    });
+  });
+}
+function updateScore(id,key,val,rerender=true){
   const m=matches.find(x=>x.id===id);
   if(key.includes("Score")) {
     m[key]=val===""?undefined:Number(val);
     if(Number.isFinite(m.homeScore) && Number.isFinite(m.awayScore) && (m.status||"NS")==="NS") m.status="FT";
-  } else {
-    m[key]=val;
-  }
+  } else m[key]=val;
   saveScores(false);
+  if(rerender) renderMatches(); else renderAll();
+}
+function updateProbability(id,index,val){
+  const m=matches.find(x=>x.id===id);
+  m.p[index]=cleanPercent(val);
+  saveProbabilities(false);
   renderMatches();
 }
 function markFinished(id){
   const m=matches.find(x=>x.id===id);
+  const cardInputValues=[...document.querySelectorAll(`.score-input[data-id="${id}"]`)];
+  cardInputValues.forEach(inp=>updateScore(id, inp.dataset.key, inp.value, false));
   if(!Number.isFinite(m.homeScore) || !Number.isFinite(m.awayScore)){ alert("يرجى إدخال نتيجة الفريقين أولًا"); return; }
   m.status="FT";
   saveScores(false);
@@ -273,19 +311,21 @@ function saveScores(alertUser=true){
   localStorage.setItem("arab_wc_scores",JSON.stringify(data));
   if(alertUser) alert("تم حفظ النتائج على هذا الجهاز بنجاح");
 }
+function saveProbabilities(alertUser=true){
+  const data={}; matches.forEach(m=>data[m.id]=m.p);
+  localStorage.setItem("arab_wc_probabilities",JSON.stringify(data));
+  if(alertUser) alert("تم حفظ الاحتمالات بنجاح");
+}
 function clearScores(){
-  if(confirm("هل تريد حذف جميع النتائج المدخلة؟")){
-    localStorage.removeItem("arab_wc_scores");
+  if(confirm("هل تريد حذف جميع النتائج المدخلة والاحتمالات المعدلة؟")){
+    localStorage.removeItem("arab_wc_scores"); localStorage.removeItem("arab_wc_probabilities");
     matches.forEach(m=>{delete m.homeScore; delete m.awayScore; m.status="NS"});
-    renderMatches();
+    location.reload();
   }
 }
 function teamsInGroups(){
   const groups={};
-  matches.forEach(m=>{
-    groups[m.group] ||= new Set();
-    groups[m.group].add(m.home); groups[m.group].add(m.away);
-  });
+  matches.forEach(m=>{groups[m.group] ||= new Set(); groups[m.group].add(m.home); groups[m.group].add(m.away);});
   return Object.fromEntries(Object.entries(groups).map(([g,s])=>[g,[...s]]));
 }
 function blank(team){return {team,mp:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0};}
@@ -299,59 +339,29 @@ function calcStandings(){
     else if(m.homeScore<m.awayScore){a.w++; h.l++; a.pts+=3}
     else{h.d++; a.d++; h.pts++; a.pts++}
   });
-  for(const g in standings){
-    Object.values(standings[g]).forEach(t=>t.gd=t.gf-t.ga);
-    standings[g]=Object.values(standings[g]).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));
-  }
+  for(const g in standings){Object.values(standings[g]).forEach(t=>t.gd=t.gf-t.ga); standings[g]=Object.values(standings[g]).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));}
   return standings;
 }
-function tableHtml(rows, title){
+function tableHtml(rows){
   return `<table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>فاز</th><th>تعادل</th><th>خسر</th><th>له</th><th>عليه</th><th>الفارق</th><th>النقاط</th><th>نسبة الفوز</th></tr></thead><tbody>`+
   rows.map((r,i)=>`<tr><td><span class="rank">${i+1}</span></td><td class="team-cell">${teamHtml(r.team)}</td><td>${r.mp}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd}</td><td><b style="color:var(--gold)">${r.pts}</b></td><td>${r.mp?Math.round((r.w/r.mp)*100):0}%</td></tr>`).join("")+
   `</tbody></table>`;
 }
-function renderGroups(){
-  const st=calcStandings(), box=document.getElementById("groups"); box.innerHTML="";
-  Object.keys(groupNames).forEach(g=>{
-    const div=document.createElement("div"); div.className="group-card";
-    div.innerHTML=`<div class="section-title"><h2>${groupNames[g]}</h2></div><div class="table-wrap">${tableHtml(st[g]||[])}</div>`;
-    box.appendChild(div);
-  });
-}
-function renderArab(){
-  const all=Object.values(calcStandings()).flat().filter(r=>arabTeams.includes(r.team))
-   .sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));
-  document.getElementById("arabTable").innerHTML=tableHtml(all);
-}
-function renderCountryCards(){
-  const all=Object.values(calcStandings()).flat();
-  const box=document.getElementById("countryCards"); box.innerHTML="";
-  all.sort((a,b)=>a.team.localeCompare(b.team,'ar')).forEach(r=>{
-    const div=document.createElement("div"); div.className="country";
-    div.innerHTML=`<div class="top"><span>${teamHtml(r.team)}</span><span>${r.pts} نقطة</span></div>
-    <div class="mini">
-      <div><b>${r.mp}</b>لعب</div><div><b>${r.w}</b>فوز</div><div><b>${r.d}</b>تعادل</div>
-      <div><b>${r.l}</b>خسارة</div><div><b>${r.gf}</b>له</div><div><b>${r.ga}</b>عليه</div>
-      <div><b>${r.gd}</b>الفارق</div><div><b>${r.mp?Math.round((r.w/r.mp)*100):0}%</b>فوز</div><div><b>${flags[r.team]||"🏳️"}</b>العلم</div>
-    </div>`;
-    box.appendChild(div);
-  });
-}
-function renderStats(){
-  document.getElementById("totalMatches").textContent=matches.length;
-  document.getElementById("arabTeamsCount").textContent=arabTeams.length;
-  const fins=matches.filter(m=>m.status==="FT");
-  document.getElementById("finishedCount").textContent=fins.length;
-  document.getElementById("totalGoals").textContent=fins.reduce((s,m)=>s+(m.homeScore||0)+(m.awayScore||0),0);
-}
+function renderGroups(){const st=calcStandings(), box=document.getElementById("groups"); box.innerHTML=""; Object.keys(groupNames).forEach(g=>{const div=document.createElement("div"); div.className="group-card"; div.innerHTML=`<div class="section-title"><h2>${groupNames[g]}</h2></div><div class="table-wrap">${tableHtml(st[g]||[])}</div>`; box.appendChild(div);});}
+function renderArab(){const all=Object.values(calcStandings()).flat().filter(r=>arabTeams.includes(r.team)).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar')); document.getElementById("arabTable").innerHTML=tableHtml(all);}
+function renderCountryCards(){const all=Object.values(calcStandings()).flat(); const box=document.getElementById("countryCards"); box.innerHTML=""; all.sort((a,b)=>a.team.localeCompare(b.team,'ar')).forEach(r=>{const div=document.createElement("div"); div.className="country"; div.innerHTML=`<div class="top"><span>${teamHtml(r.team)}</span><span>${r.pts} نقطة</span></div><div class="mini"><div><b>${r.mp}</b>لعب</div><div><b>${r.w}</b>فوز</div><div><b>${r.d}</b>تعادل</div><div><b>${r.l}</b>خسارة</div><div><b>${r.gf}</b>له</div><div><b>${r.ga}</b>عليه</div><div><b>${r.gd}</b>الفارق</div><div><b>${r.mp?Math.round((r.w/r.mp)*100):0}%</b>فوز</div><div><b>${flags[r.team]||"🏳️"}</b>العلم</div></div>`; box.appendChild(div);});}
+function renderStats(){document.getElementById("totalMatches").textContent=matches.length; document.getElementById("arabTeamsCount").textContent=arabTeams.length; const fins=matches.filter(m=>m.status==="FT"); document.getElementById("finishedCount").textContent=fins.length; document.getElementById("totalGoals").textContent=fins.reduce((s,m)=>s+(m.homeScore||0)+(m.awayScore||0),0);}
 function renderAll(){renderStats(); renderGroups(); renderArab(); renderCountryCards();}
-document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{
-  document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active"); document.getElementById(btn.dataset.panel).classList.add("active");
-});
+document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active")); btn.classList.add("active"); document.getElementById(btn.dataset.panel).classList.add("active");});
 Object.keys(groupNames).forEach(g=>document.getElementById("groupFilter").innerHTML+=`<option value="${g}">${groupNames[g]}</option>`);
 ["search","groupFilter","statusFilter"].forEach(id=>document.getElementById(id).addEventListener("input",renderMatches));
-loadScores(); renderMatches();
+document.addEventListener('keydown', e=>{
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){e.preventDefault(); saveScores(true); saveProbabilities(false);}
+  if(e.key==='/' && !['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault(); document.getElementById('search').focus();}
+  if(e.key==='Escape' && document.activeElement.id==='search'){document.getElementById('search').value=''; renderMatches();}
+  if(e.altKey && ['1','2','3','4'].includes(e.key)){e.preventDefault(); document.querySelectorAll('.tab')[Number(e.key)-1]?.click();}
+});
+loadData(); renderMatches();
 </script>
 </body>
 </html>
