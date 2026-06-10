@@ -1,186 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>جدول مباريات المنتخبات العربية في كأس العالم</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لوحة مباريات المنتخبات العربية | كأس العالم 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&family=Reem+Kufi:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--q:#7b0928;--g:#d6a93b;--n:#07162e;--b:#0b2d66;--w:#fff;--mut:#eef2f7;--ok:#13a36f;--bad:#d83a3a;--draw:#f2a100}
-*{box-sizing:border-box} body{margin:0;font-family:Cairo,system-ui;background:radial-gradient(circle at top,#17335f 0,#07162e 38%,#050914 100%);color:#fff;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;background:linear-gradient(135deg,rgba(214,169,59,.12),transparent 25%,rgba(123,9,40,.22) 65%,transparent),url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><path d="M0 60h120M60 0v120" stroke="rgba(255,255,255,.05)"/><circle cx="60" cy="60" r="42" fill="none" stroke="rgba(255,255,255,.04)"/></svg>');pointer-events:none}
-.container{width:min(1260px,94vw);margin:auto;padding:28px 0 60px;position:relative}.hero{padding:26px;border:1px solid rgba(214,169,59,.45);border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(14px);overflow:hidden}.hero h1{font-family:Reem Kufi,Cairo;margin:0;text-align:center;font-size:clamp(28px,5vw,58px);line-height:1.25;text-shadow:0 4px 18px rgba(0,0,0,.45)}.gold{color:var(--g)}.sub{text-align:center;color:#dbe7ff;margin:12px 0 0;font-size:18px}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:22px 0}.card{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.055));border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:16px;text-align:center;box-shadow:0 12px 35px rgba(0,0,0,.22)}.num{font-size:32px;font-weight:900;color:var(--g)}.lbl{color:#d9e6ff}.toolbar{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0}.btn,.select,input{border:0;border-radius:16px;padding:13px 16px;font-family:Cairo;font-weight:800}.btn{cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--q),#b71d46);box-shadow:0 10px 25px rgba(123,9,40,.35);transition:.2s}.btn:hover{transform:translateY(-2px)}.btn.gold{background:linear-gradient(135deg,#a6781d,var(--g));color:#101828}.select,input{background:#fff;color:#081528;min-width:170px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:start}.panel{background:rgba(255,255,255,.95);color:#101828;border-radius:26px;padding:18px;border:1px solid rgba(214,169,59,.6);box-shadow:0 24px 70px rgba(0,0,0,.28)}.panel h2{margin:4px 0 16px;color:var(--q);font-size:26px}.table-wrap{overflow:auto;border-radius:18px;border:1px solid #d9dee8}table{width:100%;border-collapse:collapse;min-width:920px;background:#fff}th{position:sticky;top:0;background:linear-gradient(135deg,#f6c542,var(--g));color:#101828;z-index:1;font-size:15px}td,th{padding:11px 10px;border-bottom:1px solid #e5e7ef;text-align:center;white-space:nowrap}tr:hover td{background:#fff9e7}.team{font-weight:900;color:#123177}.flag{font-size:24px}.vs{display:inline-flex;align-items:center;justify-content:center;background:#111827;color:#fff;border-radius:9px;padding:3px 10px;font-weight:900}.scorebox{display:flex;gap:6px;align-items:center;justify-content:center} .scorebox input{width:52px;min-width:0;padding:9px;text-align:center;border:1px solid #cfd6e4;background:#f8fafc}.date{font-weight:900;color:#111827}.time{font-weight:900;color:#c9152f}.pill{display:inline-block;border-radius:999px;padding:4px 10px;font-weight:900}.win{background:#dcfce7;color:#166534}.loss{background:#fee2e2;color:#991b1b}.draw{background:#fef3c7;color:#92400e}.small{font-size:13px;color:#5b6475}.standings table{min-width:780px}.rank{font-weight:900;background:#f6f7fb}.note{margin-top:12px;color:#5b6475;font-size:13px}.match-card{display:none}.footer{text-align:center;margin-top:22px;color:#c9d6f2}.toast{position:fixed;bottom:24px;left:24px;background:#111827;color:#fff;padding:14px 18px;border-radius:16px;box-shadow:0 15px 40px #0008;display:none;z-index:9}
-.prob-cell{min-width:220px}.prob-bars{display:grid;gap:5px;min-width:210px}.bar{height:21px;background:#edf2f7;border-radius:999px;overflow:hidden;position:relative;border:1px solid #d9e1ee}.bar span{display:block;height:100%;border-radius:999px}.bar b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#111827;text-shadow:0 1px 0 rgba(255,255,255,.55)}.bar.winbar span{background:linear-gradient(90deg,#86efac,#22c55e)}.bar.drawbar span{background:linear-gradient(90deg,#fde68a,#f59e0b)}.bar.lossbar span{background:linear-gradient(90deg,#fecaca,#ef4444)}.prob-edit{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:7px}.prob-edit label{font-size:11px;color:#475569;font-weight:900}.prob-edit input{width:100%;min-width:0;padding:5px;border:1px solid #d7deea;background:#f8fafc;border-radius:10px;text-align:center}.prob-note{background:#fff8db;border:1px solid #f0cc63;color:#584112;border-radius:16px;padding:10px 14px;margin:10px 0 14px;font-weight:800}.mc-prob{margin-top:12px}.api-box{background:#f8fafc;border:1px solid #d7deea;border-radius:18px;padding:12px;margin:10px 0 16px;color:#111827}.api-box summary{font-weight:900;color:var(--q);cursor:pointer}.api-box code{white-space:normal;background:#eef2ff;padding:2px 6px;border-radius:8px}.api-box input{width:100%;margin:8px 0;border:1px solid #cfd6e4}.time-state{font-weight:900}.ended{color:#166534}.upcoming{color:#0b2d66}.live{color:#b45309}.groups-panel{grid-column:1 / -1}.group-card{margin:12px 0 18px;border:1px solid #e5e7ef;border-radius:18px;overflow:hidden}.group-title{background:linear-gradient(135deg,#07162e,#123177);color:white;padding:12px 16px;font-weight:900}.group-card table{min-width:760px}.tag{display:inline-block;background:#eef2ff;color:#123177;border-radius:999px;padding:3px 8px;font-weight:900}
-.live-console{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.console-card{background:linear-gradient(135deg,#07162e,#17335f);color:#fff;border-radius:18px;padding:14px;border:1px solid rgba(214,169,59,.45);box-shadow:0 12px 30px rgba(0,0,0,.18)}.console-card b{display:block;color:var(--g);font-size:22px}.countdown{font-weight:900;color:#7b0928}.api-row{display:grid;grid-template-columns:1.5fr .7fr .7fr;gap:10px}.api-mini{font-size:12px;color:#64748b;line-height:1.8}.switch{display:inline-flex;gap:8px;align-items:center;font-weight:900;color:#111827}.switch input{width:auto;min-width:0}.danger-note{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;border-radius:14px;padding:10px 12px;margin-top:10px;font-weight:800}.mini-btn{border:0;border-radius:10px;padding:7px 9px;font-family:Cairo;font-weight:900;cursor:pointer;background:#eef2ff;color:#123177}.next-match{margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:12px}.next-match h3{margin:0 0 6px;color:#7b0928}.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#ef4444;margin-left:6px;box-shadow:0 0 0 4px rgba(239,68,68,.15)}.status-dot.on{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.18)}
-@media(max-width:980px){.live-console{grid-template-columns:repeat(2,1fr)}.api-row{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.panel{padding:12px}.match-card{display:block;background:#fff;border:1px solid #e5e7ef;border-radius:18px;padding:14px;margin:10px 0}.desktop-matches{display:none}.mc-top{display:flex;justify-content:space-between;color:#5b6475;font-weight:800}.mc-teams{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0}.mc-team{font-weight:900;color:#123177}.mc-score{display:flex;gap:8px;justify-content:center}.mc-score input{width:56px}.standings table{min-width:720px}}
-@media(max-width:560px){.live-console{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.hero{padding:18px}.toolbar{justify-content:stretch}.btn,.select,input{width:100%}}
+:root{--bg:#070b1a;--card:rgba(255,255,255,.09);--card2:rgba(255,255,255,.13);--stroke:rgba(255,255,255,.18);--gold:#ffd36b;--gold2:#f5b842;--maroon:#8a1538;--green:#28d17c;--red:#ff5b6e;--blue:#79b7ff;--text:#f8fbff;--muted:#b7c2d6;--shadow:0 22px 60px rgba(0,0,0,.35)}
+*{box-sizing:border-box}body{margin:0;font-family:Cairo,system-ui,Tahoma,Arial;background:radial-gradient(circle at 12% 5%,rgba(138,21,56,.55),transparent 34%),radial-gradient(circle at 87% 12%,rgba(255,211,107,.18),transparent 30%),linear-gradient(135deg,#050814,#111a33 50%,#050814);color:var(--text);min-height:100vh}.shell{max-width:1280px;margin:auto;padding:24px}.hero{position:relative;overflow:hidden;border:1px solid var(--stroke);border-radius:32px;padding:30px;background:linear-gradient(135deg,rgba(138,21,56,.75),rgba(16,24,48,.82)),url('https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=1600&auto=format&fit=crop');background-size:cover;background-position:center;box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;inset:auto -10% -45% -10%;height:160px;background:radial-gradient(ellipse at center,rgba(255,211,107,.3),transparent 65%)}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid var(--stroke);font-weight:800;color:var(--gold)}h1{font-size:clamp(28px,5vw,58px);line-height:1.1;margin:18px 0 8px;font-weight:900;letter-spacing:-1.5px}.lead{max-width:850px;margin:0;color:#eef4ff;font-size:18px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}.btn,.select,.search{border:1px solid var(--stroke);background:rgba(255,255,255,.12);color:var(--text);border-radius:16px;padding:11px 14px;font-family:inherit;font-weight:800;box-shadow:0 10px 24px rgba(0,0,0,.12)}.btn{cursor:pointer;transition:.22s}.btn:hover{transform:translateY(-2px);background:rgba(255,211,107,.22)}.btn.primary{background:linear-gradient(135deg,var(--gold),#fff0a8);color:#2b1b00;border:0}.search{min-width:240px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.stat{border:1px solid var(--stroke);background:var(--card);border-radius:24px;padding:18px;backdrop-filter:blur(14px);box-shadow:0 14px 34px rgba(0,0,0,.18)}.stat b{display:block;font-size:30px;color:var(--gold)}.stat span{color:var(--muted);font-weight:700}.section{margin-top:20px;border:1px solid var(--stroke);background:rgba(255,255,255,.075);border-radius:28px;padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(16px)}.section h2{margin:0 0 14px;font-size:24px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}.match{position:relative;overflow:hidden;border:1px solid var(--stroke);background:linear-gradient(160deg,rgba(255,255,255,.13),rgba(255,255,255,.06));border-radius:24px;padding:16px;transition:.25s}.match:hover{transform:translateY(-4px);border-color:rgba(255,211,107,.55)}.topline{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;font-weight:800}.teams{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:15px 0}.team{display:flex;gap:8px;align-items:center;font-weight:900;font-size:18px}.team.away{justify-content:flex-end}.flag{font-size:28px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}.vs{background:#030612;border:1px solid rgba(255,255,255,.2);padding:8px 10px;border-radius:14px;color:var(--gold);font-weight:900}.score{font-size:28px;font-weight:900;text-align:center;margin:8px 0}.pills{display:flex;flex-wrap:wrap;gap:8px}.pill{font-size:12px;font-weight:900;border:1px solid var(--stroke);border-radius:999px;padding:6px 9px;background:rgba(255,255,255,.09)}.live{background:rgba(255,91,110,.2);color:#ffd8dd}.done{background:rgba(40,209,124,.18);color:#caffdf}.soon{background:rgba(121,183,255,.16);color:#d7eaff}.prob{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.prob div{padding:8px;border-radius:12px;background:rgba(0,0,0,.18);text-align:center;font-weight:900;font-size:12px}.table-wrap{overflow:auto;border-radius:20px;border:1px solid var(--stroke)}table{width:100%;border-collapse:collapse;min-width:760px;background:rgba(0,0,0,.14)}th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.1);text-align:center;font-weight:800}th{position:sticky;top:0;background:rgba(138,21,56,.88);color:#fff}tr:hover td{background:rgba(255,255,255,.06)}.team-name{text-align:right}.rank{width:40px;color:var(--gold)}.footer{text-align:center;color:var(--muted);margin:28px 0 6px;font-weight:700}.hidden{display:none!important}@media(max-width:800px){.shell{padding:12px}.grid{grid-template-columns:repeat(2,1fr)}.toolbar>*{width:100%}.hero{padding:22px;border-radius:24px}.cards{grid-template-columns:1fr}.team{font-size:15px}.flag{font-size:23px}}
 </style>
 </head>
 <body>
-<div class="container">
-  <section class="hero">
-    <h1>جدول مباريات <span class="gold">المنتخبات العربية</span> في كأس العالم</h1>
-    <p class="sub">لوحة متابعة ذكية: احتمالات قبل المباراة، تحديث تلقائي للنتائج، ترتيب المنتخبات العربية، ترتيب كل مجموعة، عدّاد للمباراة القادمة وتنبيهات الأهداف.</p>
-  </section>
-  <section class="cards" id="summaryCards"></section>
-  <section class="toolbar">
-    <select class="select" id="teamFilter"><option value="all">كل المنتخبات العربية</option></select>
-    <input id="searchBox" placeholder="ابحث باسم المنتخب أو الخصم..." />
-    <button class="btn gold" onclick="saveData()">💾 حفظ النتائج</button>
-    <button class="btn gold" onclick="autoUpdateResults()">⚡ تحديث النتائج تلقائياً</button>
-    <button class="btn" onclick="resetScores()">↺ إعادة ضبط النتائج</button>
-    <button class="btn" onclick="resetProbabilities()">🎲 إعادة الاحتمالات</button>
-    <button class="btn" onclick="window.print()">🖨️ طباعة / PDF</button>
-  </section>
-
-  <section class="panel" style="margin:0 0 20px">
-    <h2>🔴 مركز التحديث المباشر</h2>
-    <div class="live-console">
-      <div class="console-card"><span>حالة الربط</span><b id="apiState"><span class="status-dot"></span>غير متصل</b></div>
-      <div class="console-card"><span>آخر تحديث</span><b id="lastUpdate">لم يتم بعد</b></div>
-      <div class="console-card"><span>التحديث التلقائي</span><b id="autoState">متوقف</b></div>
-      <div class="console-card"><span>المباراة القادمة</span><b id="nextKickoffMini">—</b></div>
-    </div>
-    <div id="nextMatchBox" class="next-match"></div>
-  </section>
-  <main class="grid">
-    <section class="panel">
-      <h2>📅 المباريات والنتائج</h2>
-      <p class="prob-note">الاحتمالات تقديرية تعليمية وليست توقعاً رسمياً؛ ويمكن ربط الصفحة بمصدر نتائج JSON لتحديث النتيجة تلقائياً بعد نهاية المباراة.</p>
-      <details class="api-box" open><summary>⚙️ إعداد الربط التلقائي للنتائج</summary>
-        <p>الأفضل عند النشر على GitHub Pages أن يكون الرابط ملف JSON عام يتم تحديثه من GitHub Actions أو Google Apps Script؛ لأن أغلب خدمات النتائج المباشرة تحتاج مفتاح API لا يُفضّل وضعه داخل صفحة HTML عامة.</p>
-        <div class="api-row"><input id="apiUrl" placeholder="رابط JSON مباشر للنتائج"><select id="pollSeconds"><option value="30">كل 30 ثانية</option><option value="60" selected>كل دقيقة</option><option value="300">كل 5 دقائق</option></select><label class="switch"><input type="checkbox" id="notifyGoals"> تنبيه عند تغير النتيجة</label></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn" onclick="saveApiUrl()">حفظ الرابط</button><button class="btn gold" onclick="autoUpdateResults()">تجربة التحديث الآن</button><button class="btn gold" onclick="toggleAutoPoll()">تشغيل/إيقاف التحديث التلقائي</button><button class="mini-btn" onclick="downloadSampleJson()">تحميل نموذج JSON</button></div>
-        <p class="api-mini">الصيغة المقبولة: <code>[{"home":"قطر","away":"سويسرا","homeScore":1,"awayScore":0,"status":"FT"}]</code>، أو كائن يحتوي <code>matches</code> / <code>results</code>. الحالات المقبولة للانتهاء: FT أو FINISHED أو Final أو انتهت.</p>
-        <p class="danger-note">ملاحظة أمنية: لا تضع مفتاح API مدفوع داخل ملف HTML منشور، بل استخدم وسيطًا مثل GitHub Actions أو Apps Script لإنتاج ملف JSON عام.</p>
-      </details>
-      <div class="table-wrap desktop-matches"><table><thead><tr><th>اليوم والتاريخ</th><th>التوقيت</th><th>المجموعة</th><th>المنتخب العربي</th><th></th><th>الخصم</th><th>احتمالية المنتخب العربي</th><th>النتيجة</th><th>الحالة الزمنية</th><th>حالة النتيجة</th></tr></thead><tbody id="matchesBody"></tbody></table></div>
-      <div id="mobileMatches"></div>
-      <p class="note">تتحول المباراة إلى منتهية زمنياً بعد ساعتين من وقت بدايتها وفق ساعة جهازك، ثم يمكن جلب نتيجتها تلقائياً من الرابط الذي تضيفه.</p>
-    </section>
-    <section class="panel standings">
-      <h2>🏆 ترتيب المنتخبات العربية</h2>
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>ف</th><th>ت</th><th>خ</th><th>له</th><th>عليه</th><th>فارق</th><th>نقاط</th></tr></thead><tbody id="standingsBody"></tbody></table></div>
-      <p class="note">قاعدة النقاط: الفوز 3 نقاط، التعادل نقطة واحدة، الخسارة 0.</p>
-    </section>
-    <section class="panel standings groups-panel">
-      <h2>🌍 ترتيب كل منتخب في مجموعته</h2>
-      <div id="groupsStandings"></div>
-      <p class="note">ترتيب المجموعات هنا يُحسب من نتائج مباريات الجدول فقط، ويكتمل تلقائياً عند إضافة بقية نتائج المجموعة أو ربط مصدر نتائج خارجي.</p>
-    </section>
-  </main>
-  <div class="footer">تصميم تفاعلي فاخر للعرض والمتابعة الصفية — يمكن رفع الملف مباشرة على GitHub Pages.</div>
-</div><div id="toast" class="toast"></div>
+<div class="shell">
+<header class="hero">
+  <span class="badge">🏆 World Cup 2026</span>
+  <h1>لوحة المنتخبات العربية في كأس العالم</h1>
+  <p class="lead">واجهة فاخرة لعرض المباريات والنتائج والاحتمالات وترتيب المنتخبات العربية والمجموعات بشكل تلقائي، دون ملاحظات جانبية مشتتة.</p>
+  <div class="toolbar">
+    <input id="search" class="search" placeholder="ابحث باسم المنتخب..." />
+    <select id="filter" class="select"><option value="all">كل المنتخبات العربية</option></select>
+    <select id="status" class="select"><option value="all">كل الحالات</option><option value="NS">لم تبدأ</option><option value="LIVE">مباشر</option><option value="FT">انتهت</option></select>
+    <button class="btn primary" onclick="refreshAll()">⚡ تحديث العرض</button>
+    <button class="btn" onclick="window.print()">🖨️ طباعة</button>
+  </div>
+</header>
+<section class="grid">
+  <div class="stat"><b id="totalMatches">0</b><span>عدد المباريات</span></div>
+  <div class="stat"><b id="arabTeams">0</b><span>منتخب عربي</span></div>
+  <div class="stat"><b id="goalsCount">0</b><span>الأهداف المسجلة</span></div>
+  <div class="stat"><b id="nextMatch">—</b><span>المباراة القادمة</span></div>
+</section>
+<section class="section"><h2>⚽ المباريات والنتائج</h2><div id="matches" class="cards"></div></section>
+<section class="section"><h2>🇦🇪 ترتيب المنتخبات العربية</h2><div class="table-wrap"><table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>ف</th><th>ت</th><th>خ</th><th>له</th><th>عليه</th><th>الفارق</th><th>النقاط</th></tr></thead><tbody id="arabTable"></tbody></table></div></section>
+<section class="section"><h2>🌍 ترتيب المجموعات</h2><div id="groups"></div></section>
+<div class="footer">تصميم فاخر للعرض والمتابعة — يمكن تحديث النتائج من ملف matches.json</div>
+</div>
 <script>
-const arabTeams=['قطر','المغرب','تونس','مصر','السعودية','العراق','الجزائر','الأردن'];
-const matches=[
-{group:'A',day:'الأحد',date:'14 يونيو',time:'11:00 م',a:'قطر',af:'🇶🇦',b:'سويسرا',bf:'🇨🇭'},
-{group:'B',day:'الاثنين',date:'15 يونيو',time:'02:00 ص',a:'المغرب',af:'🇲🇦',b:'البرازيل',bf:'🇧🇷'},
-{group:'C',day:'الثلاثاء',date:'16 يونيو',time:'06:00 ص',a:'تونس',af:'🇹🇳',b:'السويد',bf:'🇸🇪'},
-{group:'D',day:'الثلاثاء',date:'16 يونيو',time:'11:00 م',a:'مصر',af:'🇪🇬',b:'بلجيكا',bf:'🇧🇪'},
-{group:'E',day:'الخميس',date:'18 يونيو',time:'02:00 ص',a:'السعودية',af:'🇸🇦',b:'أوروغواي',bf:'🇺🇾'},
-{group:'F',day:'الخميس',date:'18 يونيو',time:'11:00 م',a:'العراق',af:'🇮🇶',b:'النرويج',bf:'🇳🇴'},
-{group:'G',day:'الجمعة',date:'19 يونيو',time:'05:00 ص',a:'الجزائر',af:'🇩🇿',b:'الأرجنتين',bf:'🇦🇷'},
-{group:'G',day:'السبت',date:'20 يونيو',time:'08:00 ص',a:'الأردن',af:'🇯🇴',b:'النمسا',bf:'🇦🇹'},
-{group:'A',day:'الاثنين',date:'22 يونيو',time:'02:00 ص',a:'قطر',af:'🇶🇦',b:'كندا',bf:'🇨🇦'},
-{group:'B',day:'الاثنين',date:'22 يونيو',time:'02:00 ص',a:'المغرب',af:'🇲🇦',b:'إسكندنافيا',bf:'🌍'},
-{group:'C',day:'الثلاثاء',date:'23 يونيو',time:'08:00 ص',a:'تونس',af:'🇹🇳',b:'اليابان',bf:'🇯🇵'},
-{group:'E',day:'الأربعاء',date:'24 يونيو',time:'03:00 ص',a:'السعودية',af:'🇸🇦',b:'إسبانيا',bf:'🇪🇸'},
-{group:'D',day:'الخميس',date:'25 يونيو',time:'05:00 ص',a:'مصر',af:'🇪🇬',b:'نيوزيلندا',bf:'🇳🇿'},
-{group:'F',day:'الجمعة',date:'26 يونيو',time:'02:00 ص',a:'العراق',af:'🇮🇶',b:'فرنسا',bf:'🇫🇷'},
-{group:'G',day:'السبت',date:'27 يونيو',time:'08:00 ص',a:'الجزائر',af:'🇩🇿',b:'الأردن',bf:'🇯🇴'},
-{group:'A',day:'الأحد',date:'28 يونيو',time:'03:00 ص',a:'قطر',af:'🇶🇦',b:'البوسنة والهرسك',bf:'🇧🇦'},
-{group:'B',day:'الاثنين',date:'29 يونيو',time:'03:00 ص',a:'المغرب',af:'🇲🇦',b:'هايتي',bf:'🇭🇹'},
-{group:'C',day:'الثلاثاء',date:'30 يونيو',time:'05:00 ص',a:'تونس',af:'🇹🇳',b:'هولندا',bf:'🇳🇱'},
-{group:'F',day:'الأربعاء',date:'01 يوليو',time:'11:00 م',a:'العراق',af:'🇮🇶',b:'السنغال',bf:'🇸🇳'},
-{group:'E',day:'الخميس',date:'02 يوليو',time:'02:00 ص',a:'السعودية',af:'🇸🇦',b:'الرأس الأخضر',bf:'🇨🇻'},
-{group:'D',day:'الجمعة',date:'03 يوليو',time:'05:00 ص',a:'مصر',af:'🇪🇬',b:'إيران',bf:'🇮🇷'},
-{group:'G',day:'السبت',date:'04 يوليو',time:'03:00 ص',a:'الأردن',af:'🇯🇴',b:'الأرجنتين',bf:'🇦🇷'},
-{group:'G',day:'الأحد',date:'05 يوليو',time:'06:00 ص',a:'الجزائر',af:'🇩🇿',b:'النمسا',bf:'🇦🇹'}
+const ARABS=['قطر','المغرب','تونس','مصر','السعودية','العراق','الجزائر','الأردن'];
+const FLAGS={'قطر':'🇶🇦','المغرب':'🇲🇦','تونس':'🇹🇳','مصر':'🇪🇬','السعودية':'🇸🇦','العراق':'🇮🇶','الجزائر':'🇩🇿','الأردن':'🇯🇴','سويسرا':'🇨🇭','البرازيل':'🇧🇷','السويد':'🇸🇪','بلجيكا':'🇧🇪','أوروغواي':'🇺🇾','النرويج':'🇳🇴','الأرجنتين':'🇦🇷','النمسا':'🇦🇹','كندا':'🇨🇦','إسكندنافيا':'🌍','اليابان':'🇯🇵','إسبانيا':'🇪🇸','نيوزيلندا':'🇳🇿','فرنسا':'🇫🇷','البوسنة والهرسك':'🇧🇦','هايتي':'🇭🇹','هولندا':'🇳🇱','السنغال':'🇸🇳','الرأس الأخضر':'🇨🇻','إيران':'🇮🇷'};
+const baseMatches=[
+{date:'2026-06-14',day:'الأحد',time:'11:00 م',group:'A',home:'قطر',away:'سويسرا',h:null,a:null,status:'NS',p:[36,29,35]},
+{date:'2026-06-15',day:'الاثنين',time:'02:00 ص',group:'B',home:'المغرب',away:'البرازيل',h:null,a:null,status:'NS',p:[22,24,54]},
+{date:'2026-06-16',day:'الثلاثاء',time:'06:00 ص',group:'C',home:'تونس',away:'السويد',h:null,a:null,status:'NS',p:[30,31,39]},
+{date:'2026-06-16',day:'الثلاثاء',time:'11:00 م',group:'D',home:'مصر',away:'بلجيكا',h:null,a:null,status:'NS',p:[32,29,39]},
+{date:'2026-06-18',day:'الخميس',time:'02:00 ص',group:'E',home:'السعودية',away:'أوروغواي',h:null,a:null,status:'NS',p:[28,28,44]},
+{date:'2026-06-18',day:'الخميس',time:'11:00 م',group:'F',home:'العراق',away:'النرويج',h:null,a:null,status:'NS',p:[31,30,39]},
+{date:'2026-06-19',day:'الجمعة',time:'05:00 ص',group:'G',home:'الجزائر',away:'الأرجنتين',h:null,a:null,status:'NS',p:[20,22,58]},
+{date:'2026-06-20',day:'السبت',time:'08:00 ص',group:'H',home:'الأردن',away:'النمسا',h:null,a:null,status:'NS',p:[27,31,42]},
+{date:'2026-06-22',day:'الاثنين',time:'02:00 ص',group:'A',home:'قطر',away:'كندا',h:null,a:null,status:'NS',p:[39,30,31]},
+{date:'2026-06-22',day:'الاثنين',time:'02:00 ص',group:'B',home:'المغرب',away:'إسكندنافيا',h:null,a:null,status:'NS',p:[43,29,28]},
+{date:'2026-06-23',day:'الثلاثاء',time:'08:00 ص',group:'C',home:'تونس',away:'اليابان',h:null,a:null,status:'NS',p:[29,30,41]},
+{date:'2026-06-24',day:'الأربعاء',time:'03:00 ص',group:'E',home:'السعودية',away:'إسبانيا',h:null,a:null,status:'NS',p:[21,24,55]},
+{date:'2026-06-25',day:'الخميس',time:'05:00 ص',group:'D',home:'مصر',away:'نيوزيلندا',h:null,a:null,status:'NS',p:[48,28,24]},
+{date:'2026-06-26',day:'الجمعة',time:'02:00 ص',group:'F',home:'العراق',away:'فرنسا',h:null,a:null,status:'NS',p:[20,25,55]},
+{date:'2026-06-27',day:'السبت',time:'08:00 ص',group:'G',home:'الجزائر',away:'الأردن',h:null,a:null,status:'NS',p:[42,30,28]},
+{date:'2026-06-28',day:'الأحد',time:'03:00 ص',group:'A',home:'قطر',away:'البوسنة والهرسك',h:null,a:null,status:'NS',p:[37,31,32]},
+{date:'2026-06-29',day:'الاثنين',time:'03:00 ص',group:'B',home:'المغرب',away:'هايتي',h:null,a:null,status:'NS',p:[55,27,18]},
+{date:'2026-06-30',day:'الثلاثاء',time:'05:00 ص',group:'C',home:'تونس',away:'هولندا',h:null,a:null,status:'NS',p:[23,27,50]},
+{date:'2026-07-01',day:'الأربعاء',time:'11:00 م',group:'F',home:'العراق',away:'السنغال',h:null,a:null,status:'NS',p:[34,31,35]},
+{date:'2026-07-02',day:'الخميس',time:'02:00 ص',group:'E',home:'السعودية',away:'الرأس الأخضر',h:null,a:null,status:'NS',p:[49,29,22]},
+{date:'2026-07-03',day:'الجمعة',time:'05:00 ص',group:'D',home:'مصر',away:'إيران',h:null,a:null,status:'NS',p:[38,31,31]},
+{date:'2026-07-04',day:'السبت',time:'03:00 ص',group:'H',home:'الأردن',away:'الأرجنتين',h:null,a:null,status:'NS',p:[18,22,60]},
+{date:'2026-07-05',day:'الأحد',time:'06:00 ص',group:'G',home:'الجزائر',away:'النمسا',h:null,a:null,status:'NS',p:[41,30,29]}
 ];
-let scores=JSON.parse(localStorage.getItem('arabCupScores')||'{}');
-const defaultProbabilities=[
-{w:18,d:22,l:60},{w:20,d:23,l:57},{w:30,d:28,l:42},{w:18,d:24,l:58},{w:24,d:25,l:51},{w:38,d:29,l:33},{w:12,d:18,l:70},{w:28,d:30,l:42},{w:34,d:31,l:35},{w:44,d:30,l:26},{w:27,d:29,l:44},{w:14,d:20,l:66},{w:45,d:30,l:25},{w:13,d:19,l:68},{w:36,d:30,l:34},{w:46,d:31,l:23},{w:55,d:27,l:18},{w:18,d:24,l:58},{w:35,d:31,l:34},{w:48,d:29,l:23},{w:40,d:30,l:30},{w:10,d:17,l:73},{w:33,d:31,l:36}
-];
-let probs=JSON.parse(localStorage.getItem('arabCupProbabilities')||'{}');
-let autoTimer=null, previousScoresSnapshot=JSON.stringify(scores);
-function init(){setTimeout(()=>{let u=document.getElementById('apiUrl'); if(u)u.value=localStorage.getItem('arabCupApiUrl')||''; let p=document.getElementById('pollSeconds'); if(p)p.value=localStorage.getItem('arabCupPollSeconds')||'60'; let n=document.getElementById('notifyGoals'); if(n)n.checked=localStorage.getItem('arabCupNotify')==='1'; updateApiState();},0);const f=document.getElementById('teamFilter');arabTeams.forEach(t=>{let o=document.createElement('option');o.value=t;o.textContent=t;f.appendChild(o)});render();setInterval(renderLiveConsole,1000);}
-
-function saveApiUrl(){localStorage.setItem('arabCupApiUrl',document.getElementById('apiUrl').value.trim());localStorage.setItem('arabCupPollSeconds',document.getElementById('pollSeconds').value);localStorage.setItem('arabCupNotify',document.getElementById('notifyGoals').checked?'1':'0');updateApiState();show('تم حفظ إعدادات التحديث التلقائي ✅')}
-function matchDateTime(m){
-  const months={'يونيو':5,'يوليو':6}; const parts=m.date.split(' '); const day=parseInt(parts[0]); const month=months[parts[1]];
-  let [hh,mm]=m.time.replace('ص','').replace('م','').trim().split(':').map(Number); const pm=m.time.includes('م'), am=m.time.includes('ص');
-  if(pm && hh<12) hh+=12; if(am && hh===12) hh=0;
-  return new Date(2026,month,day,hh,mm||0,0);
-}
-function timeState(m){
-  const start=matchDateTime(m), end=new Date(start.getTime()+2*60*60*1000), now=new Date();
-  if(now<start) return '<span class="time-state upcoming">قادمة</span>';
-  if(now>=start && now<=end) return '<span class="time-state live">جارية الآن</span>';
-  return '<span class="time-state ended">انتهت زمنياً</span>';
-}
-async function autoUpdateResults(){
-  const url=(localStorage.getItem('arabCupApiUrl')||'').trim();
-  if(!url){show('أضف رابط API / JSON أولاً من إعداد الربط التلقائي');return;}
-  try{
-    const res=await fetch(url,{cache:'no-store'}); if(!res.ok) throw new Error('HTTP '+res.status);
-    const data=await res.json(); let updated=0;
-    const arr=Array.isArray(data)?data:(data.matches||data.results||[]);
-    arr.forEach(r=>{
-      const home=r.home||r.a||r.homeTeam||r.team1, away=r.away||r.b||r.awayTeam||r.team2;
-      const hs=r.homeScore??r.scoreA??r.ga??r.home_goals, as=r.awayScore??r.scoreB??r.gb??r.away_goals;
-      const done=['FT','FINISHED','انتهت','Final'].includes(r.status)||r.finished===true;
-      if(home&&away&&hs!==undefined&&as!==undefined&&done){
-        const idx=matches.findIndex(m=>(m.a===home&&m.b===away)||(m.a===away&&m.b===home));
-        if(idx>-1){
-          const m=matches[idx]; scores[idx]=scores[idx]||{ga:'',gb:''};
-          if(m.a===home){scores[idx].ga=Number(hs);scores[idx].gb=Number(as)} else {scores[idx].ga=Number(as);scores[idx].gb=Number(hs)}
-          updated++;
-        }
-      }
-    });
-    const newSnap=JSON.stringify(scores); const changed=newSnap!==previousScoresSnapshot; localStorage.setItem('arabCupScores',newSnap); previousScoresSnapshot=newSnap; document.getElementById('lastUpdate').textContent=new Date().toLocaleTimeString('ar-QA'); updateApiState(true); render(); if(changed && localStorage.getItem('arabCupNotify')==='1') notifyUser('تحديث نتيجة جديد','تم رصد تغير في إحدى نتائج المباريات'); show('تم تحديث '+updated+' نتيجة تلقائياً ⚡');
-  }catch(e){show('تعذر جلب النتائج: تحقق من الرابط أو صلاحية CORS');}
-}
-
-function status(m,i){let s=scores[i]; if(!s||s.ga===''||s.gb==='') return '<span class="pill">لم تُلعب</span>'; let ga=+s.ga,gb=+s.gb; if(ga>gb)return '<span class="pill win">فوز '+m.a+'</span>'; if(ga<gb)return '<span class="pill loss">خسارة '+m.a+'</span>'; return '<span class="pill draw">تعادل</span>';}
-function prob(i){return probs[i]||defaultProbabilities[i]||{w:33,d:34,l:33}}
-function probBox(i,m){let p=prob(i);return `<div class="prob-bars"><div class="bar winbar"><span style="width:${p.w}%"></span><b>فوز ${m.a}: ${p.w}%</b></div><div class="bar drawbar"><span style="width:${p.d}%"></span><b>تعادل: ${p.d}%</b></div><div class="bar lossbar"><span style="width:${p.l}%"></span><b>فوز ${m.b}: ${p.l}%</b></div><div class="prob-edit"><label>فوز<input type="number" min="0" max="100" value="${p.w}" onchange="setProb(${i},'w',this.value)"></label><label>تعادل<input type="number" min="0" max="100" value="${p.d}" onchange="setProb(${i},'d',this.value)"></label><label>خسارة<input type="number" min="0" max="100" value="${p.l}" onchange="setProb(${i},'l',this.value)"></label></div></div>`}
-function render(){let filter=document.getElementById('teamFilter').value, q=document.getElementById('searchBox').value.trim();let tbody='',cards='';matches.forEach((m,i)=>{if(filter!='all'&&m.a!=filter&&m.b!=filter)return;if(q&&!(m.a+m.b+m.day+m.date).includes(q))return;let s=scores[i]||{ga:'',gb:''};tbody+=`<tr><td class="date">${m.day} ${m.date}</td><td class="time">${m.time}</td><td><span class="tag">${m.group}</span></td><td class="team"><span class="flag">${m.af}</span> ${m.a}</td><td><span class="vs">VS</span></td><td class="team"><span class="flag">${m.bf}</span> ${m.b}</td><td class="prob-cell">${probBox(i,m)}</td><td><div class="scorebox"><input type="number" min="0" value="${s.ga}" onchange="setScore(${i},'ga',this.value)"><b> - </b><input type="number" min="0" value="${s.gb}" onchange="setScore(${i},'gb',this.value)"></div></td><td>${timeState(m)}</td><td>${status(m,i)}</td></tr>`;cards+=`<div class="match-card"><div class="mc-top"><span>${m.day} ${m.date} · المجموعة ${m.group}</span><span class="time">${m.time}</span></div><div class="mc-teams"><span class="mc-team">${m.af} ${m.a}</span><span class="vs">VS</span><span class="mc-team">${m.bf} ${m.b}</span></div><div class="mc-prob">${probBox(i,m)}</div><div class="mc-score"><input type="number" min="0" value="${s.ga}" onchange="setScore(${i},'ga',this.value)"><input type="number" min="0" value="${s.gb}" onchange="setScore(${i},'gb',this.value)"></div><p>${timeState(m)} · ${status(m,i)}</p></div>`});document.getElementById('matchesBody').innerHTML=tbody;document.getElementById('mobileMatches').innerHTML=cards;renderStandings();renderGroups();renderCards();renderLiveConsole();}
-function setProb(i,k,v){let p={...prob(i)};p[k]=Math.max(0,Math.min(100,parseInt(v)||0));probs[i]=p;localStorage.setItem('arabCupProbabilities',JSON.stringify(probs));render();}
-function resetProbabilities(){if(confirm('هل تريد إعادة جميع الاحتمالات إلى القيم الافتراضية؟')){probs={};localStorage.removeItem('arabCupProbabilities');render();show('تمت إعادة الاحتمالات الافتراضية 🎲')}}
-function setScore(i,k,v){scores[i]=scores[i]||{ga:'',gb:''};scores[i][k]=v===''?'':Math.max(0,parseInt(v)||0);localStorage.setItem('arabCupScores',JSON.stringify(scores));render();}
-function compute(){let st={};arabTeams.forEach(t=>st[t]={team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0});matches.forEach((m,i)=>{let s=scores[i];if(!s||s.ga===''||s.gb==='')return;let ga=+s.ga,gb=+s.gb;[m.a,m.b].forEach(t=>{if(st[t])st[t].p++});if(st[m.a]){st[m.a].gf+=ga;st[m.a].ga+=gb;if(ga>gb){st[m.a].w++;st[m.a].pts+=3}else if(ga==gb){st[m.a].d++;st[m.a].pts++}else st[m.a].l++}if(st[m.b]){st[m.b].gf+=gb;st[m.b].ga+=ga;if(gb>ga){st[m.b].w++;st[m.b].pts+=3}else if(ga==gb){st[m.b].d++;st[m.b].pts++}else st[m.b].l++}});Object.values(st).forEach(x=>x.gd=x.gf-x.ga);return Object.values(st).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));}
-function renderStandings(){document.getElementById('standingsBody').innerHTML=compute().map((x,i)=>`<tr><td class="rank">${i+1}</td><td class="team">${x.team}</td><td>${x.p}</td><td>${x.w}</td><td>${x.d}</td><td>${x.l}</td><td>${x.gf}</td><td>${x.ga}</td><td>${x.gd}</td><td><b>${x.pts}</b></td></tr>`).join('')}
-
-function computeGroup(group){
-  const groupMatches=matches.filter(m=>m.group===group); const teams=[...new Set(groupMatches.flatMap(m=>[m.a,m.b]))];
-  let st={}; teams.forEach(t=>st[t]={team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0,arab:arabTeams.includes(t)});
-  groupMatches.forEach((m,iGlobal)=>{let i=matches.indexOf(m), s=scores[i]; if(!s||s.ga===''||s.gb==='')return; let ga=+s.ga, gb=+s.gb;
-    st[m.a].p++; st[m.b].p++; st[m.a].gf+=ga; st[m.a].ga+=gb; st[m.b].gf+=gb; st[m.b].ga+=ga;
-    if(ga>gb){st[m.a].w++;st[m.a].pts+=3;st[m.b].l++} else if(ga<gb){st[m.b].w++;st[m.b].pts+=3;st[m.a].l++} else {st[m.a].d++;st[m.b].d++;st[m.a].pts++;st[m.b].pts++}
-  });
-  Object.values(st).forEach(x=>x.gd=x.gf-x.ga); return Object.values(st).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.team.localeCompare(b.team,'ar'));
-}
-function renderGroups(){
-  const groups=[...new Set(matches.map(m=>m.group))];
-  document.getElementById('groupsStandings').innerHTML=groups.map(g=>{const rows=computeGroup(g).map((x,i)=>`<tr><td class="rank">${i+1}</td><td class="team">${x.arab?'⭐ ':''}${x.team}</td><td>${x.p}</td><td>${x.w}</td><td>${x.d}</td><td>${x.l}</td><td>${x.gf}</td><td>${x.ga}</td><td>${x.gd}</td><td><b>${x.pts}</b></td></tr>`).join('');return `<div class="group-card"><div class="group-title">المجموعة ${g}</div><div class="table-wrap"><table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>ف</th><th>ت</th><th>خ</th><th>له</th><th>عليه</th><th>فارق</th><th>نقاط</th></tr></thead><tbody>${rows}</tbody></table></div></div>`}).join('');
-}
-
-function renderCards(){let played=Object.values(scores).filter(s=>s&&s.ga!==''&&s.gb!=='').length;let leaders=compute()[0];document.getElementById('summaryCards').innerHTML=`<div class="card"><div class="num">${matches.length}</div><div class="lbl">عدد المباريات</div></div><div class="card"><div class="num">${played}</div><div class="lbl">نتائج مدخلة</div></div><div class="card"><div class="num">${arabTeams.length}</div><div class="lbl">منتخبات عربية</div></div><div class="card"><div class="num">${leaders.team}</div><div class="lbl">المتصدر الحالي</div></div><div class="card"><div class="num">${leaders.pts}</div><div class="lbl">نقاط المتصدر</div></div>`}
-function saveData(){localStorage.setItem('arabCupScores',JSON.stringify(scores));show('تم حفظ النتائج بنجاح على هذا الجهاز ✅')}
-function resetScores(){if(confirm('هل تريد حذف جميع النتائج المدخلة؟')){scores={};localStorage.removeItem('arabCupScores');render();show('تمت إعادة الضبط')}}
-function show(t){let e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2400)}
-
-function updateApiState(ok=false){const has=(localStorage.getItem('arabCupApiUrl')||'').trim().length>0; const e=document.getElementById('apiState'); if(!e)return; e.innerHTML=`<span class="status-dot ${(has||ok)?'on':''}"></span>${(has||ok)?'جاهز':'غير متصل'}`;}
-function toggleAutoPoll(){saveApiUrl(); if(autoTimer){clearInterval(autoTimer); autoTimer=null; document.getElementById('autoState').textContent='متوقف'; show('تم إيقاف التحديث التلقائي'); return;} const sec=parseInt(localStorage.getItem('arabCupPollSeconds')||'60'); autoUpdateResults(); autoTimer=setInterval(autoUpdateResults,sec*1000); document.getElementById('autoState').textContent='كل '+sec+' ثانية'; show('تم تشغيل التحديث التلقائي 🔴');}
-function renderLiveConsole(){const upcoming=matches.map((m,i)=>({m,i,start:matchDateTime(m)})).filter(x=>x.start>new Date()).sort((a,b)=>a.start-b.start)[0]; const box=document.getElementById('nextMatchBox'); if(!box)return; if(!upcoming){box.innerHTML='<h3>انتهت جميع مباريات الجدول</h3>';document.getElementById('nextKickoffMini').textContent='—';return;} const diff=Math.max(0,upcoming.start-new Date()); const d=Math.floor(diff/86400000), h=Math.floor(diff%86400000/3600000), mn=Math.floor(diff%3600000/60000), sc=Math.floor(diff%60000/1000); document.getElementById('nextKickoffMini').textContent=upcoming.m.a+' × '+upcoming.m.b; box.innerHTML=`<h3>⏳ المباراة القادمة: ${upcoming.m.af} ${upcoming.m.a} × ${upcoming.m.bf} ${upcoming.m.b}</h3><div class="countdown">باقي: ${d} يوم و ${h} ساعة و ${mn} دقيقة و ${sc} ثانية</div><div class="small">${upcoming.m.day} ${upcoming.m.date} — ${upcoming.m.time} — المجموعة ${upcoming.m.group}</div>`;}
-function notifyUser(title,body){if(!('Notification' in window))return; if(Notification.permission==='granted') new Notification(title,{body}); else if(Notification.permission!=='denied') Notification.requestPermission().then(p=>{if(p==='granted')new Notification(title,{body})});}
-function downloadSampleJson(){const sample=matches.slice(0,5).map((m,i)=>({home:m.a,away:m.b,homeScore:i%3,awayScore:(i+1)%3,status:'FT'})); const blob=new Blob([JSON.stringify(sample,null,2)],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='worldcup-results-sample.json'; document.body.appendChild(a); a.click(); a.remove();}
-
-document.getElementById('teamFilter').addEventListener('change',render);document.getElementById('searchBox').addEventListener('input',render);init();
+let matches=[...baseMatches];
+function flag(t){return FLAGS[t]||'🏳️'}
+function statusLabel(s){return s==='FT'?'انتهت':s==='LIVE'?'مباشر':'لم تبدأ'}
+function statusClass(s){return s==='FT'?'done':s==='LIVE'?'live':'soon'}
+function score(m){return (m.h==null||m.a==null)?'— : —':`${m.h} : ${m.a}`}
+function standing(list){const rows={};list.forEach(m=>[m.home,m.away].forEach(t=>rows[t]??={team:t,p:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0}));list.forEach(m=>{if(m.h==null||m.a==null||m.status!=='FT')return;let H=rows[m.home],A=rows[m.away];H.p++;A.p++;H.gf+=m.h;H.ga+=m.a;A.gf+=m.a;A.ga+=m.h;if(m.h>m.a){H.w++;A.l++;H.pts+=3}else if(m.h<m.a){A.w++;H.l++;A.pts+=3}else{H.d++;A.d++;H.pts++;A.pts++}});Object.values(rows).forEach(r=>r.gd=r.gf-r.ga);return Object.values(rows).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf)}
+function rowHtml(r,i){return `<tr><td class="rank">${i+1}</td><td class="team-name">${flag(r.team)} ${r.team}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd}</td><td>${r.pts}</td></tr>`}
+function render(){const q=document.getElementById('search').value.trim(), f=document.getElementById('filter').value, st=document.getElementById('status').value;let shown=matches.filter(m=>(f==='all'||m.home===f||m.away===f)&&(st==='all'||m.status===st)&&(!q||m.home.includes(q)||m.away.includes(q)));document.getElementById('matches').innerHTML=shown.map(m=>`<article class="match"><div class="topline"><span>${m.day} ${m.date}</span><span>${m.time} • المجموعة ${m.group}</span></div><div class="teams"><div class="team"><span class="flag">${flag(m.home)}</span>${m.home}</div><div class="vs">VS</div><div class="team away">${m.away}<span class="flag">${flag(m.away)}</span></div></div><div class="score">${score(m)}</div><div class="pills"><span class="pill ${statusClass(m.status)}">${statusLabel(m.status)}</span><span class="pill">توقيت قطر</span></div><div class="prob"><div>${m.home}<br>${m.p[0]}%</div><div>تعادل<br>${m.p[1]}%</div><div>${m.away}<br>${m.p[2]}%</div></div></article>`).join('');
+const arab=standing(matches).filter(r=>ARABS.includes(r.team));document.getElementById('arabTable').innerHTML=arab.map(rowHtml).join('');
+const groups=[...new Set(matches.map(m=>m.group))].sort();document.getElementById('groups').innerHTML=groups.map(g=>`<h3>المجموعة ${g}</h3><div class="table-wrap"><table><thead><tr><th>#</th><th>المنتخب</th><th>لعب</th><th>ف</th><th>ت</th><th>خ</th><th>له</th><th>عليه</th><th>الفارق</th><th>النقاط</th></tr></thead><tbody>${standing(matches.filter(m=>m.group===g)).map(rowHtml).join('')}</tbody></table></div>`).join('');
+document.getElementById('totalMatches').textContent=matches.length;document.getElementById('arabTeams').textContent=ARABS.length;document.getElementById('goalsCount').textContent=matches.reduce((s,m)=>s+(m.h||0)+(m.a||0),0);let next=matches.find(m=>m.status!=='FT');document.getElementById('nextMatch').textContent=next?`${next.home} × ${next.away}`:'انتهت';}
+function refreshAll(){fetch('matches.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(data=>{if(Array.isArray(data)&&data.length){matches=data.map((m,i)=>({...baseMatches[i],...m,h:m.h??m.homeScore??baseMatches[i]?.h,a:m.a??m.awayScore??baseMatches[i]?.a,status:m.status??baseMatches[i]?.status}));}render();}).catch(render)}
+ARABS.forEach(t=>document.getElementById('filter').innerHTML+=`<option value="${t}">${t}</option>`);['search','filter','status'].forEach(id=>document.getElementById(id).addEventListener('input',render));refreshAll();setInterval(refreshAll,60000);
 </script>
-</body>
-</html>
+</body></html>
