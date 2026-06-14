@@ -187,5 +187,310 @@ function showSummary(){$('modal').classList.add('show')}function hideSummary(){$
 function buildAllQuestions(){$('allQuestions').innerHTML='<h2 style="color:var(--maroon)">جميع الأسئلة</h2>'+QUESTIONS.map((q,i)=>`<div class="miniQ"><b>${i+1}. ${escapeHtml(qTitle(q))}</b><br><small>${qTag(q)} — ${escapeHtml(q.topic||'الشبكات المتقدمة')}</small></div>`).join('')}
 document.addEventListener('keydown',e=>{if(document.getElementById('app').classList.contains('active')){if(e.key==='ArrowLeft')nextQuestion();if(e.key==='ArrowRight')prevQuestion();}});init();
 </script>
+<!-- ============================================================
+إصلاح التنقل المباشر بين الأسئلة - quiz_grade10_shahaniya.html
+انسخ هذا المقطع كاملًا وضعه قبل </body> مباشرة
+============================================================ -->
+<script>
+/* ============================================================
+   إصلاح التنقل المباشر بين الأسئلة - الصف العاشر
+   مدرسة الشحانية الإعدادية الثانوية للبنين
+   ضع هذا الكود قبل </body> مباشرة داخل quiz_grade10_shahaniya.html
+   ============================================================ */
+
+(function () {
+  "use strict";
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function showQuizArea() {
+    const hideIds = [
+      "welcomeScreen", "startScreen", "introScreen", "homeScreen",
+      "landingScreen", "resultScreen", "certificateScreen", "summaryModal"
+    ];
+
+    const showIds = [
+      "quizScreen", "quizContainer", "questionsScreen", "mainQuiz",
+      "app", "reviewApp", "questionArea"
+    ];
+
+    hideIds.forEach(id => {
+      const el = $(id);
+      if (el) el.style.display = "none";
+      if (el) el.classList.remove("active", "show");
+    });
+
+    showIds.forEach(id => {
+      const el = $(id);
+      if (el) {
+        el.style.display = "block";
+        el.classList.add("active");
+      }
+    });
+  }
+
+  function detectQuestionsArray() {
+    const possibleNames = ["questions", "quizQuestions", "allQuestions", "questionBank", "items"];
+    for (const name of possibleNames) {
+      if (Array.isArray(window[name]) && window[name].length > 0) {
+        return window[name];
+      }
+    }
+    return null;
+  }
+
+  function setCurrentQuestion(index) {
+    const possibleIndexNames = [
+      "currentQuestion",
+      "currentQuestionIndex",
+      "currentIndex",
+      "questionIndex",
+      "activeQuestion",
+      "activeQuestionIndex"
+    ];
+
+    possibleIndexNames.forEach(name => {
+      if (name in window) {
+        window[name] = index;
+      }
+    });
+  }
+
+  function renderQuestionSafely(index) {
+    const renderFunctions = [
+      "showQuestion",
+      "renderQuestion",
+      "loadQuestion",
+      "displayQuestion",
+      "goToQuestion",
+      "openQuestion"
+    ];
+
+    for (const fn of renderFunctions) {
+      if (typeof window[fn] === "function" && fn !== "goToQuestionDirect") {
+        try {
+          if (window[fn].length >= 1) {
+            window[fn](index);
+          } else {
+            window[fn]();
+          }
+          return true;
+        } catch (e) {
+          console.warn("تعذر تنفيذ دالة العرض:", fn, e);
+        }
+      }
+    }
+
+    return false;
+  }
+
+  window.goToQuestionDirect = function (index) {
+    index = Number(index);
+    if (!Number.isInteger(index) || index < 0) return false;
+
+    const questionsArray = detectQuestionsArray();
+    if (questionsArray && index >= questionsArray.length) return false;
+
+    showQuizArea();
+    setCurrentQuestion(index);
+    renderQuestionSafely(index);
+
+    document.querySelectorAll(".navBtn, .q-nav-btn, .question-nav button, #questionNav button")
+      .forEach((btn, i) => {
+        btn.classList.toggle("current", i === index);
+        btn.setAttribute("aria-current", i === index ? "true" : "false");
+      });
+
+    const possibleCards = document.querySelectorAll("[data-question-index], .questionCard, .question-card, .card");
+    const target = document.querySelector(`[data-question-index="${index}"]`) || possibleCards[index];
+
+    if (target && typeof target.scrollIntoView === "function") {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    return true;
+  };
+
+  function fixButtonsType() {
+    document.querySelectorAll("button").forEach(btn => {
+      if (!btn.hasAttribute("type")) {
+        btn.setAttribute("type", "button");
+      }
+    });
+  }
+
+  function enhanceQuestionNavButtons() {
+    const navSelectors = [
+      "#questionNav",
+      "#questionNavigator",
+      "#navGrid",
+      ".navGrid",
+      ".question-nav",
+      ".questions-nav",
+      ".q-nav",
+      ".questionNavigator",
+      ".navQuestions"
+    ];
+
+    const navAreas = document.querySelectorAll(navSelectors.join(","));
+
+    navAreas.forEach(nav => {
+      nav.querySelectorAll("button, a").forEach(btn => {
+        const text = (btn.textContent || "").trim();
+        const dataIndex =
+          btn.dataset.index ??
+          btn.dataset.question ??
+          btn.dataset.q ??
+          btn.getAttribute("data-question-index");
+
+        let index = null;
+
+        if (dataIndex !== null && dataIndex !== undefined && dataIndex !== "") {
+          index = Number(dataIndex);
+        } else if (/^\d+$/.test(text)) {
+          index = Number(text) - 1;
+        }
+
+        if (Number.isInteger(index) && index >= 0) {
+          btn.setAttribute("type", "button");
+          btn.setAttribute("href", "javascript:void(0)");
+          btn.onclick = function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.goToQuestionDirect(index);
+            return false;
+          };
+        }
+      });
+    });
+  }
+
+  document.addEventListener("click", function (event) {
+    const btn = event.target.closest("button, a");
+    if (!btn) return;
+
+    const navArea = btn.closest(
+      "#questionNav, #questionNavigator, #navGrid, .navGrid, .question-nav, .questions-nav, .q-nav, .questionNavigator, .navQuestions"
+    );
+
+    if (!navArea) return;
+
+    const text = (btn.textContent || "").trim();
+    const dataIndex =
+      btn.dataset.index ??
+      btn.dataset.question ??
+      btn.dataset.q ??
+      btn.getAttribute("data-question-index");
+
+    let index = null;
+
+    if (dataIndex !== null && dataIndex !== undefined && dataIndex !== "") {
+      index = Number(dataIndex);
+    } else if (/^\d+$/.test(text)) {
+      index = Number(text) - 1;
+    }
+
+    if (Number.isInteger(index) && index >= 0) {
+      event.preventDefault();
+      event.stopPropagation();
+      window.goToQuestionDirect(index);
+      return false;
+    }
+  }, true);
+
+  function runFix() {
+    fixButtonsType();
+    enhanceQuestionNavButtons();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runFix);
+  } else {
+    runFix();
+  }
+
+  setTimeout(runFix, 500);
+  setTimeout(runFix, 1500);
+})();
+
+</script>
+  <script>
+/* إصلاح أزرار التالي والسابق للصف العاشر */
+(function () {
+  function getCurrentIndex() {
+    if (typeof window.currentQuestion !== "undefined") return Number(window.currentQuestion) || 0;
+    if (typeof window.currentQuestionIndex !== "undefined") return Number(window.currentQuestionIndex) || 0;
+    if (typeof window.currentIndex !== "undefined") return Number(window.currentIndex) || 0;
+    return 0;
+  }
+
+  function getQuestionsCount() {
+    const possibleArrays = ["questions", "quizQuestions", "allQuestions", "questionBank", "items"];
+    for (const name of possibleArrays) {
+      if (Array.isArray(window[name]) && window[name].length > 0) {
+        return window[name].length;
+      }
+    }
+
+    const navButtons = document.querySelectorAll(
+      "#questionNav button, #questionNavigator button, #navGrid button, .question-nav button, .questions-nav button, .q-nav button"
+    );
+
+    return navButtons.length || 0;
+  }
+
+  function moveToNextQuestion() {
+    const current = getCurrentIndex();
+    const total = getQuestionsCount();
+
+    if (total > 0 && current < total - 1) {
+      window.goToQuestionDirect(current + 1);
+    }
+  }
+
+  function moveToPreviousQuestion() {
+    const current = getCurrentIndex();
+
+    if (current > 0) {
+      window.goToQuestionDirect(current - 1);
+    }
+  }
+
+  document.addEventListener("click", function (event) {
+    const btn = event.target.closest("button, a");
+    if (!btn) return;
+
+    const text = (btn.textContent || "").trim();
+
+    if (
+      text.includes("التالي") ||
+      text.includes("السؤال التالي") ||
+      btn.id === "nextBtn" ||
+      btn.classList.contains("nextBtn")
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      moveToNextQuestion();
+      return false;
+    }
+
+    if (
+      text.includes("السابق") ||
+      text.includes("السؤال السابق") ||
+      btn.id === "prevBtn" ||
+      btn.classList.contains("prevBtn")
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      moveToPreviousQuestion();
+      return false;
+    }
+  }, true);
+})();
+</script>
 </body>
 </html>
