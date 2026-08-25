@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محاكي مراحل إدارة العمليات</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f7fb;color:#18202b;font-family:Tahoma,Arial,sans-serif}
+main{max-width:1200px;margin:auto;padding:20px}.hero{background:linear-gradient(135deg,#5b1838,#7d244f,#a4772b);color:white;padding:28px;border-radius:26px}
+.hero h1{margin:0 0 10px;font-size:clamp(28px,5vw,46px)}.hero p{margin:0;line-height:1.9}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:18px}.card{background:white;border:1px solid #e5e7eb;border-radius:22px;padding:18px}
+.states{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.state{background:#f3f4f6;border:2px solid transparent;border-radius:18px;padding:14px;text-align:center;min-height:145px;display:flex;flex-direction:column;justify-content:center;gap:7px}
+.state.active{border-color:#a4772b;box-shadow:0 10px 24px #a4772b33;transform:translateY(-2px)}.state b{font-size:17px}.ico{font-size:30px}
+.small{font-size:12px;color:#667085;line-height:1.6}.process{margin-top:16px;padding:16px;border-radius:18px;background:#faf5f8;border:1px solid #ead6e0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}.chip{background:#5b1838;color:white;border-radius:999px;padding:8px 12px;font-weight:700}
+.progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#5b1838,#a4772b);transition:.3s}
+button{border:0;border-radius:14px;padding:11px 15px;min-height:44px;font-size:15px;font-weight:700;cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:#5b1838;color:white}.gold{background:#a4772b;color:white}.soft{background:#eceef2}.facts div{background:#f7f3e9;border:1px solid #e6d7ac;border-radius:14px;padding:12px;margin:10px 0;line-height:1.8}
+.levels{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.level.active{background:#5b1838;color:white}.question{font-size:19px;font-weight:800;line-height:1.7;margin:12px 0}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{text-align:right;background:#f6f7f9;border:1px solid #dfe3ea}.opt.correct{background:#e7f7ec;color:#14532d;border-color:#86d69b}.opt.wrong{background:#fdecec;color:#7f1d1d;border-color:#eba3a3}
+.feedback{min-height:34px;margin-top:10px;font-weight:700;line-height:1.7}.footer{text-align:center;color:#667085;padding:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.states{grid-template-columns:repeat(2,1fr)}.state:last-child{grid-column:1/-1}}
+@media(max-width:520px){main{padding:10px}.states,.options{grid-template-columns:1fr}.state:last-child{grid-column:auto}}
+</style>
+</head>
+<body><main>
+<section class="hero"><h1>⚙️ محاكي مراحل إدارة العمليات</h1><p>للصف العاشر — تابع انتقال العملية بين الحالات الخمس، ثم اختبر فهمك عبر أربعة مستويات تراعي الفروق الفردية.</p></section>
+
+<div class="grid">
+<section class="card">
+<h2>🎮 المحاكاة التفاعلية</h2>
+<div class="states" id="states">
+<div class="state active"><span class="ico">🆕</span><b>عملية جديدة</b><span class="small">عملية مراد تنفيذها ويتم تحميلها إلى الذاكرة الرئيسة.</span></div>
+<div class="state"><span class="ico">⏳</span><b>الجاهزية</b><span class="small">العملية في طابور التنفيذ وتنتظر دورها.</span></div>
+<div class="state"><span class="ico">⚡</span><b>التشغيل</b><span class="small">العملية يتم تنفيذها داخل المعالج.</span></div>
+<div class="state"><span class="ico">🕒</span><b>الانتظار</b><span class="small">العملية تنتظر موردًا أو إدخال بيانات.</span></div>
+<div class="state"><span class="ico">✅</span><b>الإنهاء</b><span class="small">اكتمل التنفيذ ولم تعد العملية نشطة.</span></div>
+</div>
+<div class="process">
+<div class="row"><b>العملية P1: فتح ملف Word وطباعته</b><span class="chip" id="chip">عملية جديدة</span></div>
+<div class="progress"><span id="bar"></span></div>
+<p id="note">ابدأ من الحالة الجديدة ثم اضغط «الخطوة التالية».</p>
+<div class="row" style="justify-content:flex-start">
+<button class="primary" id="next">▶ الخطوة التالية</button>
+<button class="soft" id="back">↩ خطوة سابقة</button>
+<button class="gold" id="reset">⟳ إعادة المحاكاة</button>
+</div>
+</div>
+</section>
+
+<aside class="card facts">
+<h2>📌 ملاحظات مهمة</h2>
+<div>يمكن أن توجد <b>عدة عمليات</b> في حالة الجاهزية أو الانتظار.</div>
+<div>وفق محتوى الدرس، تكون <b>عملية واحدة فقط</b> في حالة التنفيذ داخل وحدة المعالجة المركزية في الوقت نفسه.</div>
+<div><b>مثال انتظار:</b> عملية تنتظر كتابة المستخدم عبر لوحة المفاتيح أو وصول بيانات من الذاكرة الثانوية.</div>
+</aside>
+</div>
+
+<section class="card" style="margin-top:18px">
+<h2>🏆 تحدي مستويات الطلبة</h2>
+<div class="levels">
+<button class="level active" data-level="0">🟢 أداء منخفض</button>
+<button class="level" data-level="1">🔵 أداء متوسط</button>
+<button class="level" data-level="2">🟣 متميز</button>
+<button class="level" data-level="3">🟠 مهارات عليا</button>
+</div>
+<div class="question" id="question"></div>
+<div class="options" id="options"></div>
+<div class="feedback" id="feedback"></div>
+</section>
+
+<div class="footer">تطبيق تعليمي تفاعلي — مراحل إدارة العمليات</div>
+</main>
+
+<script>
+const S=[...document.querySelectorAll('.state')], chip=document.getElementById('chip'),
+bar=document.getElementById('bar'), note=document.getElementById('note');
+const labels=['عملية جديدة','الجاهزية','التشغيل','الانتظار','الجاهزية','التشغيل','الإنهاء'];
+const map=[0,1,2,3,1,2,4];
+const notes=[
+'العملية مراد تنفيذها وسيتم تحميلها إلى الذاكرة الرئيسة.',
+'أصبحت العملية في طابور الجاهزية وتنتظر دورها.',
+'العملية الآن في حالة التشغيل داخل المعالج.',
+'تحتاج العملية إلى مورد خارجي، لذلك انتقلت إلى الانتظار.',
+'بعد توفر المورد عادت العملية إلى طابور الجاهزية.',
+'عادت إلى المعالج لاستكمال التنفيذ.',
+'اكتمل تنفيذ العملية وانتهت المهمة.'
+];
+let step=0;
+function renderStep(){
+ S.forEach((x,i)=>x.classList.toggle('active',i===map[step]));
+ chip.textContent=labels[step]; note.textContent=notes[step];
+ bar.style.width=(step/(labels.length-1)*100)+'%';
+ next.disabled=step===labels.length-1; back.disabled=step===0;
+}
+next.onclick=()=>{if(step<labels.length-1){step++;renderStep()}};
+back.onclick=()=>{if(step>0){step--;renderStep()}};
+reset.onclick=()=>{step=0;renderStep()}; renderStep();
+
+const Q=[
+{q:'أي حالة تصف العمليات الموجودة في طابور التنفيذ بذاكرة الحاسوب الرئيسة؟',o:['الجاهزية','الإنهاء','الانتظار'],a:0,ok:'صحيح: هذه حالة الجاهزية.',bad:'راجع تعريف حالة الجاهزية.'},
+{q:'عملية تنتظر من المستخدم إدخال بيانات عبر لوحة المفاتيح. ما الحالة الأنسب؟',o:['التشغيل','الانتظار','الإنهاء'],a:1,ok:'أحسنت: هذه حالة الانتظار.',bad:'فكر في العملية التي تنتظر موردًا من خارج المعالج.'},
+{q:'لدينا عدة عمليات جاهزة. أي عبارة تتفق مع الدرس؟',o:['عدة عمليات قد تكون جاهزة، وعملية واحدة فقط في التنفيذ','كل العمليات تنفذ معًا','لا يمكن وجود أكثر من عملية جاهزة'],a:0,ok:'ممتاز، فهمت دور طابور الجاهزية.',bad:'راجع الفرق بين الجاهزية والتشغيل.'},
+{q:'لماذا نحتاج إلى طابوري الجاهزية والانتظار؟',o:['لأن عدة عمليات قد تكون جاهزة أو منتظرة بينما التنفيذ الفعلي محدود','لأن كل العمليات تنتهي فورًا','لأن الذاكرة لا تحمل إلا عملية واحدة'],a:0,ok:'إجابة تحليلية صحيحة.',bad:'اربط بين كثرة العمليات وحالة التنفيذ.'}
+];
+let level=0; const q=document.getElementById('question'), opts=document.getElementById('options'), fb=document.getElementById('feedback');
+function renderQ(){
+ const item=Q[level]; q.textContent=item.q; opts.innerHTML=''; fb.textContent='';
+ item.o.forEach((t,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>{
+ [...opts.children].forEach(x=>x.disabled=true);
+ if(i===item.a){b.classList.add('correct');fb.textContent='✓ '+item.ok}
+ else{b.classList.add('wrong');opts.children[item.a].classList.add('correct');fb.textContent='✗ '+item.bad}
+ };opts.appendChild(b)});
+}
+document.querySelectorAll('.level').forEach((b,i)=>b.onclick=()=>{level=i;document.querySelectorAll('.level').forEach((x,j)=>x.classList.toggle('active',j===i));renderQ()});
+renderQ();
+</script>
+</body></html>
