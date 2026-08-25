@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>محاكي أنظمة الملفات</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f8fb;color:#18202b;font-family:Tahoma,Arial,sans-serif}
+#fsim{min-height:100vh;padding:24px}
+.hero{background:linear-gradient(135deg,#52152f,#7d244f 58%,#a77d2f);color:#fff;border-radius:28px;padding:28px;box-shadow:0 18px 48px rgba(67,24,44,.18)}
+.hero h1{font-size:clamp(28px,4vw,44px);margin:0 0 10px}.hero p{line-height:1.9;margin:0}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);padding:8px 13px;border-radius:999px;margin-bottom:13px}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}.panel{background:#fff;border:1px solid #e3e6eb;border-radius:22px;padding:18px;min-width:0}
+.tree{display:grid;gap:12px}.node{border:1px solid #dfe3e9;background:#f8f9fb;border-radius:16px;padding:12px;transition:.2s}.node.root{border:2px solid #a77d2f;background:#fbf7ee}.node.active{box-shadow:0 0 0 4px rgba(167,125,47,.16);transform:translateY(-2px)}
+.label{display:flex;gap:9px;align-items:center;font-weight:800}.children{margin-top:10px;margin-right:22px;display:grid;gap:8px}.file{background:#eef1f5;border-radius:12px;padding:9px 11px;font-size:14px}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:14px;min-height:44px;padding:10px 14px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{background:#5b1838;color:#fff}.gold{background:#a77d2f;color:#fff}.soft{background:#eceef2;color:#18202b}button:disabled{opacity:.45;cursor:not-allowed}
+.lesson{display:grid;gap:10px}.fact{padding:13px;border-radius:15px;background:#f7f3e9;border:1px solid #eadcaf;line-height:1.8;font-size:14px}
+.task{margin-top:18px}.bins{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.bin{border:2px dashed #cfd5de;border-radius:16px;padding:12px;min-height:150px;background:#fafbfc}.bin h3{font-size:16px;margin-bottom:8px}.items{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.item{background:#f1e7ed;border:1px solid #d7b8c8;color:#5b1838;border-radius:12px;padding:9px 11px;font-weight:700;cursor:pointer}.item.selected{outline:3px solid #a77d2f}
+.feedback{min-height:34px;margin-top:10px;font-weight:700;line-height:1.7}.controls-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.quiz{margin-top:18px}.question{font-size:18px;font-weight:800;line-height:1.7;margin-bottom:12px}.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{text-align:right;background:#f6f7f9;border:1px solid #dfe3ea;color:#18202b}.opt.ok{background:#e8f7ed;color:#14532d;border-color:#8dd7a1}.opt.bad{background:#fdecec;color:#7f1d1d;border-color:#e9a2a2}
+.status{margin-top:10px;font-weight:700;min-height:30px}.hint{font-size:13px;color:#667085;line-height:1.7;margin-top:8px}.footer{text-align:center;color:#667085;padding:18px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.bins{grid-template-columns:1fr}}
+@media(max-width:520px){#fsim{padding:12px}.opts{grid-template-columns:1fr}.children{margin-right:10px}}
+</style>
+</head>
+<body>
+<div id="fsim">
+<section class="hero">
+<div class="badge">🗂️ الصف العاشر • أنظمة التشغيل</div>
+<h1>محاكي أنظمة الملفات</h1>
+<p>ابنِ شجرة المجلدات، تعرّف إلى المجلد الجذري، ثم نظّم الملفات والعناصر داخل المجلد المناسب.</p>
+</section>
+
+<div class="grid">
+<section class="panel">
+<h2>🌳 شجرة نظام الملفات</h2>
+<div class="tree">
+<div class="node root active"><div class="label">🗄️ <span>المجلد الجذري</span></div><div class="children" id="rootchildren"></div></div>
+</div>
+<div class="toolbar">
+<button class="primary" id="build">▶ بناء الشجرة تدريجيًا</button>
+<button class="gold" id="next" disabled>⏭ الخطوة التالية</button>
+<button class="soft" id="reset">⟳ إعادة</button>
+</div>
+<div class="status" id="status">ابدأ ببناء شجرة المجلدات.</div>
+</section>
+
+<aside class="panel">
+<h2>📘 مفاهيم الدرس</h2>
+<div class="lesson">
+<div class="fact"><b>نظام الملفات:</b> عرض منطقي يقدمه نظام التشغيل للمستخدمين لإدارة المعلومات كمجموعة من الملفات.</div>
+<div class="fact"><b>المجلد:</b> اسم لمجموعة من الملفات.</div>
+<div class="fact"><b>الملف:</b> اسم لمجموعة من البيانات المرتبطة معًا.</div>
+<div class="fact"><b>المجلد الجذري:</b> المجلد الموجود في أعلى مستوى من هيكلية شجرة المجلدات.</div>
+</div>
+</aside>
+</div>
+
+<section class="panel task">
+<h2>🎯 نشاط: نظّم العناصر في المجلد الصحيح</h2>
+<p class="hint">اضغط على عنصر، ثم اضغط على المجلد الذي تريد نقله إليه.</p>
+<div class="items" id="pool">
+<button class="item" data-kind="primary">الخامس</button>
+<button class="item" data-kind="prep">السابع</button>
+<button class="item" data-kind="secondary">العاشر</button>
+<button class="item" data-kind="prep">سابع 1</button>
+<button class="item" data-kind="primary">خامس 2</button>
+<button class="item" data-kind="secondary">عاشر 1</button>
+<button class="item" data-kind="prep">سابع 2</button>
+</div>
+
+<div class="bins" style="margin-top:14px">
+<button class="bin" data-bin="primary"><h3>📁 المرحلة الابتدائية</h3><div class="drop"></div></button>
+<button class="bin" data-bin="prep"><h3>📁 المرحلة الإعدادية</h3><div class="drop"></div></button>
+<button class="bin" data-bin="secondary"><h3>📁 المرحلة الثانوية</h3><div class="drop"></div></button>
+</div>
+
+<div class="controls-row">
+<button class="primary" id="check">✓ تحقق من التنظيم</button>
+<button class="soft" id="resetTask">↻ إعادة النشاط</button>
+</div>
+<div class="feedback" id="taskfb"></div>
+</section>
+
+<section class="panel quiz">
+<h2>🏆 تحدي ختامي</h2>
+<div class="question">أي عبارة تصف المجلد الجذري بصورة صحيحة؟</div>
+<div class="opts" id="opts">
+<button class="opt">مجلد يمكن وضعه داخل أي مجلد آخر</button>
+<button class="opt">مجلد موجود في أعلى مستوى من شجرة المجلدات</button>
+<button class="opt">ملف يحتوي على مجموعة بيانات</button>
+<button class="opt">اسم آخر للقرص الصلب</button>
+</div>
+<div class="feedback" id="quizfb"></div>
+</section>
+
+<div class="footer">تطبيق تعليمي تفاعلي — محاكاة أنظمة الملفات</div>
+</div>
+
+<script>
+const rootchildren=document.getElementById('rootchildren'),status=document.getElementById('status'),
+next=document.getElementById('next'),build=document.getElementById('build');
+let step=0;
+const stages=[
+()=>{rootchildren.innerHTML='<div class="node active"><div class="label">🏫 المدارس الحكومية</div></div>';status.textContent='تم إنشاء المجلد الرئيس: المدارس الحكومية.'},
+()=>{rootchildren.innerHTML='<div class="node"><div class="label">🏫 المدارس الحكومية</div><div class="children"><div class="node active">📁 المرحلة الابتدائية</div><div class="node active">📁 المرحلة الإعدادية</div><div class="node active">📁 المرحلة الثانوية</div></div></div>';status.textContent='أضيفت المجلدات الفرعية للمراحل التعليمية.'},
+()=>{rootchildren.innerHTML='<div class="node"><div class="label">🏫 المدارس الحكومية</div><div class="children"><div class="node">📁 المرحلة الابتدائية<div class="children"><div class="file">📄 الخامس</div><div class="file">📄 خامس 2</div></div></div><div class="node">📁 المرحلة الإعدادية<div class="children"><div class="file">📄 السابع</div><div class="file">📄 سابع 1</div><div class="file">📄 سابع 2</div></div></div><div class="node">📁 المرحلة الثانوية<div class="children"><div class="file">📄 العاشر</div><div class="file">📄 عاشر 1</div></div></div></div></div>';status.textContent='اكتملت الشجرة: مجلد جذري ← مجلدات فرعية ← عناصر منظمة.'}
+];
+function resetTree(){step=0;rootchildren.innerHTML='';status.textContent='ابدأ ببناء شجرة المجلدات.';next.disabled=true;build.disabled=false}
+build.onclick=()=>{step=0;stages[0]();next.disabled=false;build.disabled=true};
+next.onclick=()=>{if(step<stages.length-1){step++;stages[step]();if(step===stages.length-1)next.disabled=true}};
+document.getElementById('reset').onclick=resetTree;resetTree();
+
+let selected=null;const pool=document.getElementById('pool');
+function initTask(){
+document.querySelectorAll('.item').forEach(i=>{i.classList.remove('selected');pool.appendChild(i)});
+document.querySelectorAll('.drop').forEach(d=>d.innerHTML='');selected=null;document.getElementById('taskfb').textContent=''
+}
+document.querySelectorAll('.item').forEach(item=>item.onclick=()=>{document.querySelectorAll('.item').forEach(x=>x.classList.remove('selected'));selected=item;item.classList.add('selected')});
+document.querySelectorAll('.bin').forEach(bin=>bin.onclick=()=>{if(!selected)return;bin.querySelector('.drop').appendChild(selected);selected.classList.remove('selected');selected=null});
+document.getElementById('check').onclick=()=>{let total=0,correct=0;document.querySelectorAll('.bin').forEach(bin=>{[...bin.querySelectorAll('.item')].forEach(item=>{total++;if(item.dataset.kind===bin.dataset.bin)correct++})});const fb=document.getElementById('taskfb');if(total<7)fb.textContent='رتّب جميع العناصر أولًا ثم تحقق.';else if(correct===7)fb.textContent='✓ ممتاز! نظّمت جميع العناصر في المجلدات المناسبة.';else fb.textContent='لديك '+correct+' من 7 صحيحة. راجع المراحل ثم أعد الترتيب.'};
+document.getElementById('resetTask').onclick=initTask;initTask();
+
+const opts=[...document.querySelectorAll('.opt')],qfb=document.getElementById('quizfb');
+opts.forEach((b,i)=>b.onclick=()=>{opts.forEach(x=>x.disabled=true);if(i===1){b.classList.add('ok');qfb.textContent='✓ صحيح. المجلد الجذري هو أعلى مستوى في شجرة المجلدات.'}else{b.classList.add('bad');opts[1].classList.add('ok');qfb.textContent='✗ راجع تعريف المجلد الجذري.'}});
+</script>
+</body>
+</html>
