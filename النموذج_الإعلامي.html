@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نموذج التغطية الإعلامية</title>
+<style>
+:root{--m:#8A1538;--g:#D4AF37;--n:#0F2747}
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f5f7fb;color:#1f2937}
+.wrap{max-width:920px;margin:25px auto;padding:16px}
+.head{background:linear-gradient(135deg,var(--m),#5d1029);color:white;padding:24px;border-radius:20px;text-align:center}
+.card{background:white;margin-top:16px;padding:22px;border-radius:18px;border-top:5px solid var(--g);box-shadow:0 8px 25px #0001}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+label{display:block;font-weight:bold;margin-bottom:6px;color:var(--n)}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:10px;font-size:15px}
+textarea{min-height:95px}
+button{padding:12px 18px;border:0;border-radius:10px;font-weight:bold;cursor:pointer}
+.primary{background:var(--m);color:white}
+.secondary{background:var(--n);color:white}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.msg{display:none;margin-top:14px;padding:12px;border-radius:10px}
+.ok{display:block;background:#e8f5e9;color:#1b5e20}
+.err{display:block;background:#ffebee;color:#b71c1c}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="head">
+<h1>النموذج الإلكتروني الموحّد لإرسال أخبار الفعاليات</h1>
+<div>اللجنة الإعلامية – مدرسة الشحانية الإعدادية الثانوية للبنين</div>
+</div>
+
+<form class="card" id="f">
+<div class="grid">
+<div>
+<label>القسم / الجهة *</label>
+<select name="department" required>
+<option value="">اختر القسم</option>
+<option>الإدارة المدرسية</option>
+<option>الإشراف الأكاديمي</option>
+<option>الحوسبة وتكنولوجيا المعلومات</option>
+<option>اللغة العربية</option>
+<option>اللغة الإنجليزية</option>
+<option>الرياضيات</option>
+<option>العلوم</option>
+<option>التربية الإسلامية</option>
+<option>الدراسات الاجتماعية</option>
+<option>التربية البدنية</option>
+<option>الإرشاد الأكاديمي</option>
+<option>البرامج والأنشطة</option>
+<option>الفنون البصرية</option>
+<option>الصحة والسلامة العامة</option>
+<option>الأخصائي النفسي</option>
+<option>التمريض</option>
+<option>أخرى</option>
+</select>
+</div>
+<div><label>اسم منسق الفعالية *</label><input name="coordinator" required></div>
+<div><label>اسم الفعالية *</label><input name="eventName" required></div>
+<div><label>تاريخ الفعالية *</label><input name="eventDate" type="date" required></div>
+<div><label>وقت الفعالية</label><input name="eventTime" type="time"></div>
+<div><label>مكان الفعالية</label><input name="location"></div>
+<div class="full"><label>وصف مختصر للفعالية *</label><textarea name="description" required></textarea></div>
+<div class="full"><label>الأثر التربوي / التعليمي</label><textarea name="impact"></textarea></div>
+<div><label>الفئة المستهدفة</label><input name="audience"></div>
+<div><label>عدد المشاركين</label><input name="participants" type="number" min="0"></div>
+<div class="full"><label>روابط الصور / الفيديوهات</label><textarea name="mediaLinks"></textarea></div>
+<div>
+<label>هل توجد موافقة على النشر؟ *</label>
+<select name="approval" required>
+<option value="">اختر</option><option>نعم</option><option>لا</option><option>غير مطلوب</option>
+</select>
+</div>
+<div>
+<label>أولوية النشر</label>
+<select name="priority"><option>عادية</option><option>عاجلة</option><option>مرتبطة بمناسبة أو تاريخ محدد</option></select>
+</div>
+<div class="full"><label>ملاحظات إضافية</label><textarea name="notes"></textarea></div>
+</div>
+
+<div class="actions">
+<button class="primary" type="submit">إرسال وحفظ في Google Sheets</button>
+<button class="secondary" type="reset">مسح الحقول</button>
+</div>
+<div id="msg" class="msg"></div>
+</form>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0czdDQhhZxbLEyO22bAAeqx5cyShxa1-azC96qLWU5FH_a6VGanUgrXsAZCmXWaou/exec";
+const form = document.getElementById('f');
+const msg = document.getElementById('msg');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if(!form.checkValidity()){ form.reportValidity(); return; }
+
+  const params = new URLSearchParams(new FormData(form));
+  msg.className='msg';
+  msg.style.display='block';
+  msg.textContent='جارٍ إرسال البيانات...';
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+      body:params.toString()
+    });
+
+    msg.className='msg ok';
+    msg.textContent='تم إرسال الطلب. افتح Google Sheets وحدّث الصفحة للتحقق من ظهور السجل.';
+    form.reset();
+  } catch(err) {
+    msg.className='msg err';
+    msg.textContent='تعذر الإرسال. تحقق من نشر Apps Script ومن اتصال الإنترنت.';
+  }
+});
+</script>
+</body>
+</html>
